@@ -5,7 +5,7 @@
 <br>
 
 **PromiseKeeper simplifies the process of 
-tracking of expenses!**
+tracking expenses!**
 
 ### Managing budget is more important (and of course, harder) than setting a budget!
 
@@ -58,9 +58,7 @@ is the primary aim of this application.</p>
 ## User Stories 
 - As a user, I want to be able to add items 
 to either the Need List or the Want List 
-- As a user, I want to be able to view and edit item description 
-- As a user, I want to be able to filter items based on 
-category, price range, or priority 
+- As a user, I want to be able to view and edit item description
 - As a user, I want to be able to delete items that are 
 no longer wanted/needed
 - As a user, I want to be able to see the amount 
@@ -72,11 +70,4 @@ that I overspent and by how much
 
 
 
-
-
-
-
-
-
-
-
+  
