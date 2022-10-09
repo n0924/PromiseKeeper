@@ -65,6 +65,8 @@ no longer wanted/needed
 that was spent on needed goods, wanted good, and in total 
 - As a user I want to be able to see the amount that was spent 
 above budget
+- As a user I want to be able to see if 
+I am staying on budget for a particular month
 - As a user I want to be able to see a list of  items 
 that I overspent and by how much
 
