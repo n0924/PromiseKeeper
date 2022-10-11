@@ -35,4 +35,31 @@ public class ItemTest {
         assertEquals("Food", item2.getCategory());
     }
 
+    @Test
+    void setNewBudgetTest() {
+        item1.setNewBudget(60);
+        assertEquals(60, item1.getBudget());
+    }
+
+    @Test
+    void setNewBudgetTestMultiple() {
+        item2.setNewBudget(100);
+        assertEquals(100, item2.getBudget());
+        item2.setNewBudget(600);
+        assertEquals(600, item2.getBudget());
+    }
+
+    @Test
+    void setNewBudgetTestNegative() {
+        item1.setNewBudget(-70);
+        assertEquals(1, item1.getBudget());
+
+        item2.setNewBudget(-1);
+        assertEquals(500, item2.getBudget());
+        item2.setNewBudget(0);
+        assertEquals(500, item2.getBudget());
+        item2.setNewBudget(1);
+        assertEquals(1, item2.getBudget());
+    }
+
 }

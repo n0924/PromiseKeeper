@@ -6,12 +6,12 @@ public class Item {
     private boolean needOrWant;  //true if needed item, false if wanted item
     private String priority;     //how much they want/need
     private String category;     //category of the item
-    private int budget;          //budget of the product
+    private int budget;          //budget of the product (in dollars)
 
     //REQUIRES: budget > 0
-    //EFFECTS: creates an item with the given name and budget,
-    // with default priority "No Priority", default category "Food".
-    // by default it is a needed item
+    //EFFECTS: creates an item with the given name and budget
+    // Has default priority set to "No Priority", default category set to "Food".
+    // and by default this item is a needed item.
     public Item(String name, int budget) {
         this.name = name;
         needOrWant = true;
@@ -20,6 +20,20 @@ public class Item {
         category = "Food";
     }
 
+    //REQUIRES: newBudget > 0
+    //MODIFIES: this
+    //EFFECTS: set budget to new budget if newBudget > 0, no changes otherwise
+    public void setNewBudget(int newBudget) {
+        if (newBudget > 0) {
+            this.budget = newBudget;
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: set name to be the given (new) name
+    public void setName(String name) {
+        this.name = name;
+    }
 
     //MODIFIES: this
     //EFFECTS: set an item to be a need item or want item
@@ -33,6 +47,7 @@ public class Item {
         this.priority = priority;
     }
 
+
     //MODIFIES: this
     //EFFECTS: set category to choosen category
     public void setCategory(String category) {
@@ -43,6 +58,7 @@ public class Item {
     public boolean isNeeded() {
         return needOrWant;
     }
+
 
     public String getPriority() {
         return priority;
@@ -59,7 +75,6 @@ public class Item {
     public int getBudget() {
         return budget;
     }
-
 
 
 }
