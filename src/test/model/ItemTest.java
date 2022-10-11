@@ -19,9 +19,8 @@ public class ItemTest {
     @Test
     void constructorItem1Test() {
         assertEquals("item 1", item1.getName());
-        assertTrue(item1.isNeeded());
         assertEquals(1, item1.getBudget());
-        assertEquals("No Priority", item1.getPriority());
+        assertEquals("Low Priority", item1.getPriority());
         assertEquals("Food", item1.getCategory());
 
     }
@@ -29,7 +28,6 @@ public class ItemTest {
     @Test
     void constructorItem2Test() {
         assertEquals("item 2", item2.getName());
-        assertTrue(item2.isNeeded());
         assertEquals(500, item2.getBudget());
         assertEquals("No Priority", item2.getPriority());
         assertEquals("Food", item2.getCategory());

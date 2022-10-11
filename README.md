@@ -1,4 +1,4 @@
-# PromiseKeeper 
+# PromiseKeeper
 
 ## Better transparency, better financial management 
 #### *Personal Project: CPSC 210*
@@ -58,15 +58,17 @@ is the primary aim of this application.</p>
 ## User Stories 
 - As a user, I want to be able to add items 
 to either the Need List or the Want List 
-- As a user, I want to be able to view and edit item description
+- As a user, I want to be able to edit item description
 - As a user, I want to be able to delete items that are 
 no longer wanted/needed
+- As a user, I want to be able to find an item on the 
+need/want list by name 
+- As a user I want to be able to filter my want/need list 
+by priority
 - As a user, I want to be able to see the amount 
 that was spent on needed goods, wanted good, and in total 
 - As a user I want to be able to see the amount that was spent 
 above budget
-- As a user I want to be able to see if 
-I am staying on budget for a particular month
 - As a user I want to be able to see a list of  items 
 that I overspent and by how much
 
