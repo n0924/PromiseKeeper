@@ -57,20 +57,19 @@ is the primary aim of this application.</p>
 
 ## User Stories 
 - As a user, I want to be able to add items 
-to either the Need List or the Want List 
-- As a user, I want to be able to edit item description
+to either the need or want List
 - As a user, I want to be able to delete items that are 
 no longer wanted/needed
-- As a user, I want to be able to find an item on the 
-need/want list by name 
 - As a user I want to be able to filter my want/need list 
 by priority
-- As a user, I want to be able to see the amount 
-that was spent on needed goods, wanted good, and in total 
-- As a user I want to be able to see the amount that was spent 
-above budget
-- As a user I want to be able to see a list of  items 
-that I overspent and by how much
+- As a user I want to be able to add bought need and want items
+to need and want bought list, respectively
+- As a user I want to be able to know the total 
+amount spent, the total budget, the total amount overspent 
+for each list 
+- As a user, I want to be able to see a list of
+overspent items
+
 
 
 

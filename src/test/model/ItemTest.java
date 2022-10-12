@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ItemTest {
     private Item item1;
@@ -21,7 +20,7 @@ public class ItemTest {
         assertEquals("item 1", item1.getName());
         assertEquals(1, item1.getBudget());
         assertEquals("Low Priority", item1.getPriority());
-        assertEquals("Food", item1.getCategory());
+        assertEquals(0, item1.getPrice());
 
     }
 
@@ -29,8 +28,8 @@ public class ItemTest {
     void constructorItem2Test() {
         assertEquals("item 2", item2.getName());
         assertEquals(500, item2.getBudget());
-        assertEquals("No Priority", item2.getPriority());
-        assertEquals("Food", item2.getCategory());
+        assertEquals("Low Priority", item2.getPriority());
+        assertEquals(0, item2.getPrice());
     }
 
     @Test

@@ -37,15 +37,13 @@ public class NeedList {
     public void filterByPriorityNeed(String priority) {
         List<Item> filterOut = new ArrayList<>();
 
-        for (Item item: needList) {
+        for (Item item : needList) {
             if (!priority.equals(item.getPriority())) {
                 filterOut.add(item);
             }
         }
         needList.removeAll(filterOut);
     }
-
-
 
 
     //REQUIRES: item is needed

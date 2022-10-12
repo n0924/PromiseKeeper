@@ -186,7 +186,6 @@ public class WantListTest {
         wants.addWant(w3);
         wants.addWant(w4);
 
-
         wants.filterByPriorityWant("Medium Priority");
         assertEquals(0, wants.sizeWant());
     }
