@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Represents a list of bought wanted items
-public class BoughtWantList {
+public class BoughtWantList implements BoughtList {
     private List<Item> boughtWantList; //List of want items bought
     private int totalBudget;  //total budget of all bought wanted items (in dollars)
     private int totalPrice;  //total amount paid (in dollars)
@@ -17,30 +17,35 @@ public class BoughtWantList {
     //REQUIRES: item is not in boughtWant list already
     //MODIFIES: this
     //EFFECTS: add a bought wanted item with given price
-    public void addBoughWant(Item item, int price) {
+    @Override
+    public void addBought(Item item, int price) {
         //stub
     }
 
     //REQUIRES: boughtWant list is non-empty
     //MODIFIES: this
     //EFFECTS: filter list so that it only contains overspent items
-    public void filterOverspentWant() {
+    @Override
+    public void filterOverspent() {
         // stub
     }
 
 
     //EFFECTS: produce the total amount paid for bought wanted items
-    public int totalBudgetWant() {
+    @Override
+    public int totalBudget() {
         return 0; //stub
     }
 
     //EFFECTS: produce the total amount of budget of items in boughtWant list
-    public int totalPriceWant() {
+    @Override
+    public int totalPrice() {
         return 0; //stub
     }
 
     //EFFECTS: produce the total amount overspent on wanted items
-    public int totalOverspentWant() {
+    @Override
+    public int totalOverspent() {
         return 0; //stub
     }
 
