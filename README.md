@@ -62,11 +62,10 @@ to either the need or want List
 no longer wanted/needed
 - As a user I want to be able to filter my want/need list 
 by priority
-- As a user I want to be able to add bought need and want items
-to need and want bought list, respectively
-- As a user I want to be able to know the total 
-amount spent, the total budget, the total amount overspent 
-for each list 
+- As a user I want to be able to know how much 
+I spent on needed and wanted items, and in total
+- As a user I want to be able to know the total amount overspent 
+for wanted items
 - As a user, I want to be able to see a list of
 overspent items
 

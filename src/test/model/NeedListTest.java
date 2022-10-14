@@ -39,7 +39,7 @@ public class NeedListTest {
 
     @Test
     void constructorTest() {
-        assertEquals(0, needs.sizeItem());
+        assertEquals(0, needs.sizeList());
     }
 
     @Test
@@ -61,10 +61,10 @@ public class NeedListTest {
     void addNeedNoDuplicationTest() {
         needs.addItem(n1);
         needs.addItem(n1);
-        assertEquals(1, needs.sizeItem());
+        assertEquals(1, needs.sizeList());
 
         needs.addItem(n2);
-        assertEquals(2, needs.sizeItem());
+        assertEquals(2, needs.sizeList());
         assertEquals(n2, needs.getItem(0));
         assertEquals(n1, needs.getItem(1));
     }
@@ -75,7 +75,7 @@ public class NeedListTest {
         needs.addItem(n1);
         needs.removeItem(n1);
 
-        assertEquals(0, needs.sizeItem());
+        assertEquals(0, needs.sizeList());
     }
 
 
@@ -90,7 +90,7 @@ public class NeedListTest {
         assertFalse(needs.containsItem(n1));
 
         needs.removeItem(n2);
-        assertEquals(0, needs.sizeItem());
+        assertEquals(0, needs.sizeList());
         assertFalse(needs.containsItem(n1));
         assertFalse(needs.containsItem(n2));
     }
@@ -106,7 +106,7 @@ public class NeedListTest {
         assertTrue(needs.containsItem(n3));
         assertEquals(n3, needs.getItem(0));
         assertEquals(n1, needs.getItem(1));
-        assertEquals(2, needs.sizeItem());
+        assertEquals(2, needs.sizeList());
 
         needs.removeItem(n1);
         needs.addItem(n2);
@@ -115,7 +115,7 @@ public class NeedListTest {
         assertTrue(needs.containsItem(n3));
         assertEquals(n2, needs.getItem(0));
         assertEquals(n3, needs.getItem(1));
-        assertEquals(2, needs.sizeItem());
+        assertEquals(2, needs.sizeList());
 
     }
 
@@ -130,7 +130,7 @@ public class NeedListTest {
         needs.filterByPriorityItem("High Priority");
 
         assertEquals(n1, needs.getItem(0));
-        assertEquals(1, needs.sizeItem());
+        assertEquals(1, needs.sizeList());
     }
 
     @Test
@@ -145,7 +145,7 @@ public class NeedListTest {
 
         assertEquals(n4, needs.getItem(0));
         assertEquals(n1, needs.getItem(1));
-        assertEquals(2, needs.sizeItem());
+        assertEquals(2, needs.sizeList());
     }
 
     @Test
@@ -155,7 +155,7 @@ public class NeedListTest {
         needs.addItem(n5);
         needs.filterByPriorityItem("High Priority");
 
-        assertEquals(0, needs.sizeItem());
+        assertEquals(0, needs.sizeList());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class NeedListTest {
         needs.filterByPriorityItem("Medium Priority");
 
         assertEquals(n2, needs.getItem(0));
-        assertEquals(1, needs.sizeItem());
+        assertEquals(1, needs.sizeList());
     }
 
     @Test
@@ -183,7 +183,7 @@ public class NeedListTest {
 
         assertEquals(n5, needs.getItem(0));
         assertEquals(n2, needs.getItem(1));
-        assertEquals(2, needs.sizeItem());
+        assertEquals(2, needs.sizeList());
     }
 
     @Test
@@ -194,7 +194,7 @@ public class NeedListTest {
         needs.addItem(n6);
 
         needs.filterByPriorityItem("Medium Priority");
-        assertEquals(0, needs.sizeItem());
+        assertEquals(0, needs.sizeList());
     }
 
 
@@ -208,7 +208,7 @@ public class NeedListTest {
         needs.filterByPriorityItem("Low Priority");
 
         assertEquals(n3, needs.getItem(0));
-        assertEquals(1, needs.sizeItem());
+        assertEquals(1, needs.sizeList());
     }
 
     @Test
@@ -224,7 +224,7 @@ public class NeedListTest {
 
         assertEquals(n6, needs.getItem(0));
         assertEquals(n3, needs.getItem(1));
-        assertEquals(2, needs.sizeItem());
+        assertEquals(2, needs.sizeList());
     }
 
     @Test
@@ -237,7 +237,7 @@ public class NeedListTest {
 
         needs.filterByPriorityItem("Low Priority");
 
-        assertEquals(0, needs.sizeItem());
+        assertEquals(0, needs.sizeList());
     }
 
     @Test
@@ -260,10 +260,10 @@ public class NeedListTest {
     @Test
     void sizeNeed() {
         needs.addItem(n1);
-        assertEquals(1, needs.sizeItem());
+        assertEquals(1, needs.sizeList());
 
         needs.addItem(n2);
-        assertEquals(2, needs.sizeItem());
+        assertEquals(2, needs.sizeList());
     }
 
     @Test

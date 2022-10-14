@@ -8,6 +8,7 @@ public class BoughtWantList implements BoughtList {
     private List<Item> boughtWantList; //List of want items bought
     private int totalBudget;  //total budget of all bought wanted items (in dollars)
     private int totalPrice;  //total amount paid (in dollars)
+    private int totalOverspent; //total amount overspent (in dollars)
 
     //EFFECTS: create an empty list of boughtWant list
     public BoughtWantList() {
@@ -16,7 +17,7 @@ public class BoughtWantList implements BoughtList {
 
     //REQUIRES: item is not in boughtWant list already
     //MODIFIES: this
-    //EFFECTS: add a bought wanted item with given price
+    //EFFECTS: add a bought wanted item with given price at the top of the lsit
     @Override
     public void addBought(Item item, int price) {
         //stub
@@ -30,37 +31,39 @@ public class BoughtWantList implements BoughtList {
         // stub
     }
 
-
-    //EFFECTS: produce the total amount paid for bought wanted items
+    //EFFECTS: get the element from boughWant  list of index i
     @Override
-    public int totalBudget() {
+    public void getBought() {
+        //stub
+    }
+
+    @Override
+    public int getTotalBudget() {
         return 0; //stub
     }
 
-    //EFFECTS: produce the total amount of budget of items in boughtWant list
     @Override
-    public int totalPrice() {
+    public int getTotalPrice() {
         return 0; //stub
-    }
+
 
     //EFFECTS: produce the total amount overspent on wanted items
     @Override
-    public int totalOverspent() {
+    public int getTotalOverspent() {
         return 0; //stub
     }
 
     //EFFECTS: returns the size of boughtWant list
-    public int sizeBoughtWant() {
+    @Override
+    public int sizeBought() {
         return 0; // stub
     }
 
     //EFFECTS: returns true if item is in boughtWant list
-    public boolean containsBoughtWant() {
+    @Override
+    public boolean containsBought() {
         return false; //stube
     }
 
-    //EFFECTS: get the element from boughWant  list of index i
-    public void getBoughtWant() {
-        //stub
     }
 }

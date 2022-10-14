@@ -11,12 +11,19 @@ public interface BoughtList {
     //EFFECTS: filter list so that it only contains overspent items
     void filterOverspent();
 
-    //EFFECTS: produce the total amount paid
-    int totalBudget();
+    //EFFECTS: returns the size of bought list
+    int sizeBought();
 
-    //EFFECTS: produce the total amount of budget
-    int totalPrice();
+    //EFFECTS: returns true if item is in list
+    boolean containsBought();
 
-    //EFFECTS: produce the total amount overspent
-    int totalOverspent();
+    //EFFECTS: get the element from boughWant  list of index i
+    void getBought();
+
+    int getTotalBudget();
+
+    int getTotalPrice();
+
+    //EFFECTS: produce the total amount overspent. If bought at below-budget price, then
+    int getTotalOverspent();
 }

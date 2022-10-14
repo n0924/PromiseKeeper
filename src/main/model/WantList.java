@@ -51,25 +51,25 @@ public class WantList implements PlanList {
 
     //REQUIRES: item is wanted
     //EFFECTS: checks if an item already exists in wanted list
-    public boolean containsWant(Item item) {
+    public boolean containsItem(Item item) {
         return wantList.contains(item);
     }
 
 
     //REQUIRES: item is wanted
     //EFFECTS: checks how many elements are in the wanted list
-    public int sizeWant() {
+    public int sizeList() {
         return wantList.size();
     }
 
 
     //REQUIRES: item is wanted
     // EFFECTS: get the element of need list at index i
-    public Item getWant(int i) {
+    public Item getItem(int i) {
         return wantList.get(i);
     }
 
-    public List<Item> getWantList() {
+    public List<Item> getList() {
         return wantList;
     }
 }

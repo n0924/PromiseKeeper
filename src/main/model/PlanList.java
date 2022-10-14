@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public interface PlanList {
     //REQUIRES: item is wanted
     //MODIFIES: this
@@ -17,4 +19,16 @@ public interface PlanList {
     //EFFECTS: filter the wanted list by the given priority, preserve order of orignal list
     // if no item with the given priority exists, return an empty list
     void filterByPriorityItem(String priority);
+
+    //EFFECTS: checks if an item already exists in list
+    public boolean containsItem(Item item);
+
+
+    //EFFECTS: checks how many elements are in list
+    public int sizeList();
+
+    // EFFECTS: get the element of  list at index i
+    public Item getItem(int i);
+
+    public List<Item> getList();
 }

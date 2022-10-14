@@ -6,8 +6,9 @@ import java.util.List;
 //Represents a list of all bought needed items
 public class BoughtNeedList implements BoughtList {
     private List<Item> boughtNeedList; //List of needed items bought
-    protected int totalBudget; //total budget of all bought needed items (in dollars)
-    protected int totalPrice; //total amount paid (in dollars)
+    private int totalBudget; //total budget of all bought needed items (in dollars)
+    private int totalPrice; //total amount paid (in dollars)
+    private int totalOverspent;
 
     //EFFECTS: create an empty list of boughtNeed list
     public BoughtNeedList() {
@@ -30,21 +31,37 @@ public class BoughtNeedList implements BoughtList {
 
     }
 
-    //EFFECTS: produce the total amount of price in boughtNeed list
-    @Override
-    public int totalBudget() {
-        return 0;
-    }
-
-    //EFFECTS: produce the total amount paid for bought needed items
-    @Override
-    public int totalPrice() {
-        return 0;
-    }
-
     //EFFECTS: produce the total amount overspent on needed items
     @Override
-    public int totalOverspent() {
+    public int getTotalOverspent() {
+        return 0;
+    }
+
+    //EFFECTS: returns the size of boughtNeed list
+    @Override
+    public int sizeBought() {
+        return 0; // stub
+    }
+
+    //EFFECTS: returns true if item is in boughtNeed list
+    @Override
+    public boolean containsBought() {
+        return false; //stube
+    }
+
+    //EFFECTS: get the element from boughtNeed list of index i
+    @Override
+    public void getBought() {
+        //stub
+    }
+
+    @Override
+    public int getTotalBudget() {
+        return 0;
+    }
+
+    @Override
+    public int getTotalPrice() {
         return 0;
     }
 }
