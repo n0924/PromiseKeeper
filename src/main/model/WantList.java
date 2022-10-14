@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents Want list, with no duplicated items
-public class WantList {
+public class WantList implements PlanList {
     private List<Item> wantList;
 
     //EFFECTS: create empty need and want list
@@ -17,7 +17,8 @@ public class WantList {
     //MODIFIES: this
     //EFFECTS: adds a wanted item to the top of the want list if not already in list
     // otherwise, make no changes
-    public void addWant(Item item) {
+    @Override
+    public void addItem(Item item) {
         if (!wantList.contains(item)) {
             wantList.add(0, item);
         }
@@ -26,7 +27,8 @@ public class WantList {
     //REQUIRES: item is already in the want list, want list is non-empty
     //MODIFIES: this
     //EFFECTS: removes the given item from the want list, preserve order of original list
-    public void removeWant(Item item) {
+    @Override
+    public void removeItem(Item item) {
         wantList.remove(item);
     }
 
@@ -34,7 +36,8 @@ public class WantList {
     //MODIFIES: this
     //EFFECTS: filter the wanted list by the given priority, preserve order of orignal list
     // if no item with the given priority exists, return an empty list
-    public void filterByPriorityWant(String priority) {
+    @Override
+    public void filterByPriorityItem(String priority) {
         List<Item> filterOut = new ArrayList<>();
 
         for (Item item : wantList) {

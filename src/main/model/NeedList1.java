@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents a Need list, with no duplicated items
-public class NeedList implements PlanList {
+public class NeedList1 {
     private List<Item> needList;
 
     //EFFECTS: create empty need and want list
-    public NeedList() {
+    public NeedList1() {
         needList = new ArrayList<>();
     }
 
@@ -16,7 +16,6 @@ public class NeedList implements PlanList {
     //MODIFIES: this
     //EFFECTS: adds a needed item to the top of need list if not already in list.
     // otherwise, make no changes
-    @Override
     public void addItem(Item item) {
         if (!needList.contains(item)) {
             needList.add(0, item);
@@ -26,16 +25,15 @@ public class NeedList implements PlanList {
     //REQUIRES: item is already in the need list, need list is non-empty
     //MODIFIES: this
     //EFFECTS: removes the given item from the need list, preserve order of list
-    @Override
     public void removeItem(Item item) {
         needList.remove(item);
     }
+
 
     //REQUIRES: sizeNeed >= 1, priority is "High Priority", "Medium Priority" "Low Priority"
     //MODIFIES: this
     //EFFECTS: filter the needed list by the given priority, preserve order of original list
     // if no item with the given priority exists, return an empty list
-    @Override
     public void filterByPriorityItem(String priority) {
         List<Item> filterOut = new ArrayList<>();
 
@@ -45,8 +43,8 @@ public class NeedList implements PlanList {
             }
         }
         needList.removeAll(filterOut);
-
     }
+
 
     //REQUIRES: item is needed
     //EFFECTS: checks if an item already exists in needed list
@@ -67,7 +65,10 @@ public class NeedList implements PlanList {
         return needList.get(i);
     }
 
-    public List<Item> getNeedItem() {
+    public List<Item> getList() {
         return needList;
     }
 }
+
+
+

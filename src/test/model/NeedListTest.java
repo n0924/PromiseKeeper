@@ -39,83 +39,83 @@ public class NeedListTest {
 
     @Test
     void constructorTest() {
-        assertEquals(0, needs.sizeNeed());
+        assertEquals(0, needs.sizeItem());
     }
 
     @Test
     void addNeedTest() {
-        needs.addNeed(n1);
-        assertEquals(n1, needs.getNeed(0));
+        needs.addItem(n1);
+        assertEquals(n1, needs.getItem(0));
 
-        needs.addNeed(n2);
-        assertEquals(n2, needs.getNeed(0));
-        assertEquals(n1, needs.getNeed(1));
+        needs.addItem(n2);
+        assertEquals(n2, needs.getItem(0));
+        assertEquals(n1, needs.getItem(1));
 
-        needs.addNeed(n3);
-        assertEquals(n3, needs.getNeed(0));
-        assertEquals(n2, needs.getNeed(1));
-        assertEquals(n1, needs.getNeed(2));
+        needs.addItem(n3);
+        assertEquals(n3, needs.getItem(0));
+        assertEquals(n2, needs.getItem(1));
+        assertEquals(n1, needs.getItem(2));
     }
 
     @Test
     void addNeedNoDuplicationTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n1);
-        assertEquals(1, needs.sizeNeed());
+        needs.addItem(n1);
+        needs.addItem(n1);
+        assertEquals(1, needs.sizeItem());
 
-        needs.addNeed(n2);
-        assertEquals(2, needs.sizeNeed());
-        assertEquals(n2, needs.getNeed(0));
-        assertEquals(n1, needs.getNeed(1));
+        needs.addItem(n2);
+        assertEquals(2, needs.sizeItem());
+        assertEquals(n2, needs.getItem(0));
+        assertEquals(n1, needs.getItem(1));
     }
 
 
     @Test
     void removeNeedTest() {
-        needs.addNeed(n1);
-        needs.removeNeed(n1);
+        needs.addItem(n1);
+        needs.removeItem(n1);
 
-        assertEquals(0, needs.sizeNeed());
+        assertEquals(0, needs.sizeItem());
     }
 
 
     @Test
     void removeNeed2Test() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.removeNeed(n1);
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.removeItem(n1);
 
-        assertEquals(n2, needs.getNeed(0));
-        assertTrue(needs.containsNeed(n2));
-        assertFalse(needs.containsNeed(n1));
+        assertEquals(n2, needs.getItem(0));
+        assertTrue(needs.containsItem(n2));
+        assertFalse(needs.containsItem(n1));
 
-        needs.removeNeed(n2);
-        assertEquals(0, needs.sizeNeed());
-        assertFalse(needs.containsNeed(n1));
-        assertFalse(needs.containsNeed(n2));
+        needs.removeItem(n2);
+        assertEquals(0, needs.sizeItem());
+        assertFalse(needs.containsItem(n1));
+        assertFalse(needs.containsItem(n2));
     }
 
     @Test
     void removeNeed3Test() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
-        needs.removeNeed(n2);
-        assertTrue(needs.containsNeed(n1));
-        assertFalse(needs.containsNeed(n2));
-        assertTrue(needs.containsNeed(n3));
-        assertEquals(n3, needs.getNeed(0));
-        assertEquals(n1, needs.getNeed(1));
-        assertEquals(2, needs.sizeNeed());
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
+        needs.removeItem(n2);
+        assertTrue(needs.containsItem(n1));
+        assertFalse(needs.containsItem(n2));
+        assertTrue(needs.containsItem(n3));
+        assertEquals(n3, needs.getItem(0));
+        assertEquals(n1, needs.getItem(1));
+        assertEquals(2, needs.sizeItem());
 
-        needs.removeNeed(n1);
-        needs.addNeed(n2);
-        assertFalse(needs.containsNeed(n1));
-        assertTrue(needs.containsNeed(n2));
-        assertTrue(needs.containsNeed(n3));
-        assertEquals(n2, needs.getNeed(0));
-        assertEquals(n3, needs.getNeed(1));
-        assertEquals(2, needs.sizeNeed());
+        needs.removeItem(n1);
+        needs.addItem(n2);
+        assertFalse(needs.containsItem(n1));
+        assertTrue(needs.containsItem(n2));
+        assertTrue(needs.containsItem(n3));
+        assertEquals(n2, needs.getItem(0));
+        assertEquals(n3, needs.getItem(1));
+        assertEquals(2, needs.sizeItem());
 
     }
 
@@ -123,163 +123,163 @@ public class NeedListTest {
 
     @Test
     void filterByPriorityNeedHighPriorityTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
 
-        needs.filterByPriorityNeed("High Priority");
+        needs.filterByPriorityItem("High Priority");
 
-        assertEquals(n1, needs.getNeed(0));
-        assertEquals(1, needs.sizeNeed());
+        assertEquals(n1, needs.getItem(0));
+        assertEquals(1, needs.sizeItem());
     }
 
     @Test
     void filterByPriorityNeedHighPriorityMultipleTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
-        needs.addNeed(n4);
-        needs.addNeed(n5);
-        needs.addNeed(n6);
-        needs.filterByPriorityNeed("High Priority");
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
+        needs.addItem(n4);
+        needs.addItem(n5);
+        needs.addItem(n6);
+        needs.filterByPriorityItem("High Priority");
 
-        assertEquals(n4, needs.getNeed(0));
-        assertEquals(n1, needs.getNeed(1));
-        assertEquals(2, needs.sizeNeed());
+        assertEquals(n4, needs.getItem(0));
+        assertEquals(n1, needs.getItem(1));
+        assertEquals(2, needs.sizeItem());
     }
 
     @Test
     void filterByPriorityNeedNoHighPriorityTest() {
-        needs.addNeed(n2);
-        needs.addNeed(n3);
-        needs.addNeed(n5);
-        needs.filterByPriorityNeed("High Priority");
+        needs.addItem(n2);
+        needs.addItem(n3);
+        needs.addItem(n5);
+        needs.filterByPriorityItem("High Priority");
 
-        assertEquals(0, needs.sizeNeed());
+        assertEquals(0, needs.sizeItem());
     }
 
     @Test
     void filterByPriorityNeedMediumPriorityTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
 
-        needs.filterByPriorityNeed("Medium Priority");
+        needs.filterByPriorityItem("Medium Priority");
 
-        assertEquals(n2, needs.getNeed(0));
-        assertEquals(1, needs.sizeNeed());
+        assertEquals(n2, needs.getItem(0));
+        assertEquals(1, needs.sizeItem());
     }
 
     @Test
     void filterByPriorityNeedMediumPriorityMultipleTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
-        needs.addNeed(n4);
-        needs.addNeed(n5);
-        needs.addNeed(n6);
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
+        needs.addItem(n4);
+        needs.addItem(n5);
+        needs.addItem(n6);
 
-        needs.filterByPriorityNeed("Medium Priority");
+        needs.filterByPriorityItem("Medium Priority");
 
-        assertEquals(n5, needs.getNeed(0));
-        assertEquals(n2, needs.getNeed(1));
-        assertEquals(2, needs.sizeNeed());
+        assertEquals(n5, needs.getItem(0));
+        assertEquals(n2, needs.getItem(1));
+        assertEquals(2, needs.sizeItem());
     }
 
     @Test
     void filterByPriorityNeedMediumPriorityNoTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n3);
-        needs.addNeed(n4);
-        needs.addNeed(n6);
+        needs.addItem(n1);
+        needs.addItem(n3);
+        needs.addItem(n4);
+        needs.addItem(n6);
 
-        needs.filterByPriorityNeed("Medium Priority");
-        assertEquals(0, needs.sizeNeed());
+        needs.filterByPriorityItem("Medium Priority");
+        assertEquals(0, needs.sizeItem());
     }
 
 
     @Test
     void filterByPriorityNeedLowPriorityTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
 
 
-        needs.filterByPriorityNeed("Low Priority");
+        needs.filterByPriorityItem("Low Priority");
 
-        assertEquals(n3, needs.getNeed(0));
-        assertEquals(1, needs.sizeNeed());
+        assertEquals(n3, needs.getItem(0));
+        assertEquals(1, needs.sizeItem());
     }
 
     @Test
     void filterByPriorityNeedLowPriorityMultipleTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
-        needs.addNeed(n4);
-        needs.addNeed(n5);
-        needs.addNeed(n6);
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
+        needs.addItem(n4);
+        needs.addItem(n5);
+        needs.addItem(n6);
 
-        needs.filterByPriorityNeed("Low Priority");
+        needs.filterByPriorityItem("Low Priority");
 
-        assertEquals(n6, needs.getNeed(0));
-        assertEquals(n3, needs.getNeed(1));
-        assertEquals(2, needs.sizeNeed());
+        assertEquals(n6, needs.getItem(0));
+        assertEquals(n3, needs.getItem(1));
+        assertEquals(2, needs.sizeItem());
     }
 
     @Test
     void filterByPriorityNeedLowPriorityNoTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n4);
-        needs.addNeed(n5);
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n4);
+        needs.addItem(n5);
 
 
-        needs.filterByPriorityNeed("Low Priority");
+        needs.filterByPriorityItem("Low Priority");
 
-        assertEquals(0, needs.sizeNeed());
+        assertEquals(0, needs.sizeItem());
     }
 
     @Test
     void containsNeedTest() {
-        needs.addNeed(n1);
-        assertTrue(needs.containsNeed(n1));
-        assertFalse(needs.containsNeed(n6));
+        needs.addItem(n1);
+        assertTrue(needs.containsItem(n1));
+        assertFalse(needs.containsItem(n6));
     }
 
     @Test
     void containsNeedMultipleTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
+        needs.addItem(n1);
+        needs.addItem(n2);
 
-        assertTrue(needs.containsNeed(n1));
-        assertTrue(needs.containsNeed(n2));
-        assertFalse(needs.containsNeed(n5));
+        assertTrue(needs.containsItem(n1));
+        assertTrue(needs.containsItem(n2));
+        assertFalse(needs.containsItem(n5));
     }
 
     @Test
     void sizeNeed() {
-        needs.addNeed(n1);
-        assertEquals(1, needs.sizeNeed());
+        needs.addItem(n1);
+        assertEquals(1, needs.sizeItem());
 
-        needs.addNeed(n2);
-        assertEquals(2, needs.sizeNeed());
+        needs.addItem(n2);
+        assertEquals(2, needs.sizeItem());
     }
 
     @Test
     void getNeedTest() {
-        needs.addNeed(n1);
-        assertEquals(n1, needs.getNeed(0));
+        needs.addItem(n1);
+        assertEquals(n1, needs.getItem(0));
     }
 
     @Test
     void getNeedMultipleTest() {
-        needs.addNeed(n1);
-        needs.addNeed(n2);
-        needs.addNeed(n3);
-        assertEquals(n3, needs.getNeed(0));
-        assertEquals(n2, needs.getNeed(1));
-        assertEquals(n1, needs.getNeed(2));
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
+        assertEquals(n3, needs.getItem(0));
+        assertEquals(n2, needs.getItem(1));
+        assertEquals(n1, needs.getItem(2));
     }
 
 }
