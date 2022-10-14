@@ -37,42 +37,42 @@ public class WantListTest {
 
     @Test
     void constructorTest() {
-        assertEquals(0, wants.sizeList());
+        assertEquals(0, wants.size());
     }
 
 
     @Test
     void addWantTest() {
         wants.addItem(w3);
-        assertEquals(w3, wants.getItem(0));
+        assertEquals(w3, wants.get(0));
 
         wants.addItem(w2);
-        assertEquals(w2, wants.getItem(0));
-        assertEquals(w3, wants.getItem(1));
+        assertEquals(w2, wants.get(0));
+        assertEquals(w3, wants.get(1));
 
         wants.addItem(w1);
-        assertEquals(w1, wants.getItem(0));
-        assertEquals(w2, wants.getItem(1));
-        assertEquals(w3, wants.getItem(2));
+        assertEquals(w1, wants.get(0));
+        assertEquals(w2, wants.get(1));
+        assertEquals(w3, wants.get(2));
     }
 
     @Test
     void addWantNoDuplicationTest() {
         wants.addItem(w1);
         wants.addItem(w1);
-        assertEquals(1, wants.sizeList());
+        assertEquals(1, wants.size());
 
         wants.addItem(w2);
-        assertEquals(2, wants.sizeList());
-        assertEquals(w2, wants.getItem(0));
-        assertEquals(w1, wants.getItem(1));
+        assertEquals(2, wants.size());
+        assertEquals(w2, wants.get(0));
+        assertEquals(w1, wants.get(1));
     }
 
     @Test
     void removeWantTest() {
         wants.addItem(w1);
         wants.removeItem(w1);
-        assertEquals(0, wants.sizeList());
+        assertEquals(0, wants.size());
     }
 
     @Test
@@ -81,14 +81,14 @@ public class WantListTest {
         wants.addItem(w2);
         wants.removeItem(w2);
 
-        assertFalse(wants.containsItem(w2));
-        assertTrue(wants.containsItem(w1));
-        assertEquals(1, wants.sizeList());
+        assertFalse(wants.contains(w2));
+        assertTrue(wants.contains(w1));
+        assertEquals(1, wants.size());
 
         wants.removeItem(w1);
-        assertFalse(wants.containsItem(w1));
-        assertFalse(wants.containsItem(w2));
-        assertEquals(0, wants.sizeList());
+        assertFalse(wants.contains(w1));
+        assertFalse(wants.contains(w2));
+        assertEquals(0, wants.size());
     }
 
     @Test
@@ -98,21 +98,21 @@ public class WantListTest {
         wants.addItem(w3);
         wants.removeItem(w1);
 
-        assertFalse(wants.containsItem(w1));
-        assertTrue(wants.containsItem(w2));
-        assertTrue(wants.containsItem(w3));
-        assertEquals(w3, wants.getItem(0));
-        assertEquals(w2, wants.getItem(1));
-        assertEquals(2, wants.sizeList());
+        assertFalse(wants.contains(w1));
+        assertTrue(wants.contains(w2));
+        assertTrue(wants.contains(w3));
+        assertEquals(w3, wants.get(0));
+        assertEquals(w2, wants.get(1));
+        assertEquals(2, wants.size());
 
         wants.removeItem(w2);
         wants.addItem(w1);
-        assertTrue(wants.containsItem(w1));
-        assertFalse(wants.containsItem(w2));
-        assertTrue(wants.containsItem(w3));
-        assertEquals(w1, wants.getItem(0));
-        assertEquals(w3, wants.getItem(1));
-        assertEquals(2, wants.sizeList());
+        assertTrue(wants.contains(w1));
+        assertFalse(wants.contains(w2));
+        assertTrue(wants.contains(w3));
+        assertEquals(w1, wants.get(0));
+        assertEquals(w3, wants.get(1));
+        assertEquals(2, wants.size());
     }
 
 
@@ -124,8 +124,8 @@ public class WantListTest {
 
         wants.filterByPriorityItem("High Priority");
 
-        assertEquals(w1, wants.getItem(0));
-        assertEquals(1, wants.sizeList());
+        assertEquals(w1, wants.get(0));
+        assertEquals(1, wants.size());
     }
 
     @Test
@@ -138,9 +138,9 @@ public class WantListTest {
         wants.addItem(w6);
         wants.filterByPriorityItem("High Priority");
 
-        assertEquals(w4, wants.getItem(0));
-        assertEquals(w1, wants.getItem(1));
-        assertEquals(2, wants.sizeList());
+        assertEquals(w4, wants.get(0));
+        assertEquals(w1, wants.get(1));
+        assertEquals(2, wants.size());
     }
 
     @Test
@@ -150,7 +150,7 @@ public class WantListTest {
         wants.addItem(w5);
         wants.filterByPriorityItem("High Priority");
 
-        assertEquals(0, wants.sizeList());
+        assertEquals(0, wants.size());
     }
 
     @Test
@@ -160,8 +160,8 @@ public class WantListTest {
         wants.addItem(w3);
 
         wants.filterByPriorityItem("Medium Priority");
-        assertEquals(w2, wants.getItem(0));
-        assertEquals(1, wants.sizeList());
+        assertEquals(w2, wants.get(0));
+        assertEquals(1, wants.size());
     }
 
     @Test
@@ -175,9 +175,9 @@ public class WantListTest {
 
         wants.filterByPriorityItem("Medium Priority");
 
-        assertEquals(w5, wants.getItem(0));
-        assertEquals(w2, wants.getItem(1));
-        assertEquals(2, wants.sizeList());
+        assertEquals(w5, wants.get(0));
+        assertEquals(w2, wants.get(1));
+        assertEquals(2, wants.size());
     }
 
     @Test
@@ -187,7 +187,7 @@ public class WantListTest {
         wants.addItem(w4);
 
         wants.filterByPriorityItem("Medium Priority");
-        assertEquals(0, wants.sizeList());
+        assertEquals(0, wants.size());
     }
 
 
@@ -200,8 +200,8 @@ public class WantListTest {
 
         wants.filterByPriorityItem("Low Priority");
 
-        assertEquals(w3, wants.getItem(0));
-        assertEquals(1, wants.sizeList());
+        assertEquals(w3, wants.get(0));
+        assertEquals(1, wants.size());
     }
 
     @Test
@@ -216,9 +216,9 @@ public class WantListTest {
 
         wants.filterByPriorityItem("Low Priority");
 
-        assertEquals(w6, wants.getItem(0));
-        assertEquals(w3, wants.getItem(1));
-        assertEquals(2, wants.sizeList());
+        assertEquals(w6, wants.get(0));
+        assertEquals(w3, wants.get(1));
+        assertEquals(2, wants.size());
     }
 
     @Test
@@ -231,15 +231,15 @@ public class WantListTest {
 
         wants.filterByPriorityItem("Low Priority");
 
-        assertEquals(0, wants.sizeList());
+        assertEquals(0, wants.size());
     }
 
     @Test
     void containsWantTest() {
         wants.addItem(w4);
 
-        assertTrue(wants.containsItem(w4));
-        assertFalse(wants.containsItem(w1));
+        assertTrue(wants.contains(w4));
+        assertFalse(wants.contains(w1));
     }
 
     @Test
@@ -247,23 +247,23 @@ public class WantListTest {
         wants.addItem(w1);
         wants.addItem(w2);
 
-        assertTrue(wants.containsItem(w1));
-        assertTrue(wants.containsItem(w2));
-        assertFalse(wants.containsItem(w3));
+        assertTrue(wants.contains(w1));
+        assertTrue(wants.contains(w2));
+        assertFalse(wants.contains(w3));
     }
 
     @Test
     void sizeWantTest() {
         wants.addItem(w4);
-        assertEquals(1, wants.sizeList());
+        assertEquals(1, wants.size());
         wants.addItem(w5);
-        assertEquals(2, wants.sizeList());
+        assertEquals(2, wants.size());
     }
 
     @Test
     void getWantTest() {
         wants.addItem(w1);
-        assertEquals(w1, wants.getItem(0));
+        assertEquals(w1, wants.get(0));
     }
 
     @Test
@@ -271,8 +271,8 @@ public class WantListTest {
         wants.addItem(w5);
         wants.addItem(w6);
 
-        assertEquals(w6, wants.getItem(0));
-        assertEquals(w5, wants.getItem(1));
+        assertEquals(w6, wants.get(0));
+        assertEquals(w5, wants.get(1));
     }
 
 

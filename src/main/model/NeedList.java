@@ -51,7 +51,7 @@ public class NeedList implements PlanList {
     //REQUIRES: item is needed
     //EFFECTS: checks if an item already exists in needed list
     @Override
-    public boolean containsItem(Item item) {
+    public boolean contains(Item item) {
         return needList.contains(item);
     }
 
@@ -59,17 +59,18 @@ public class NeedList implements PlanList {
     //REQUIRES: item is needed
     //EFFECTS: checks how many elements are in the needed list
     @Override
-    public int sizeList() {
+    public int size() {
         return needList.size();
     }
 
     //REQUIRES: item is needed, i>= 0
     // EFFECTS: get the element of need list at index i
     @Override
-    public Item getItem(int i) {
+    public Item get(int i) {
         return needList.get(i);
     }
 
+    //EFFECTS: get the need list
     @Override
     public List<Item> getList() {
         return needList;

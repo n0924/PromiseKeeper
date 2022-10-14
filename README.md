@@ -63,11 +63,11 @@ no longer wanted/needed
 - As a user I want to be able to filter my want/need list 
 by priority
 - As a user I want to be able to know how much 
-I spent on needed and wanted items, and in total
+I spent on wanted items
 - As a user I want to be able to know the total amount overspent 
 for wanted items
 - As a user, I want to be able to see a list of
-overspent items
+overspent wanted items
 
 
 

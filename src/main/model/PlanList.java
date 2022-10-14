@@ -21,14 +21,14 @@ public interface PlanList {
     void filterByPriorityItem(String priority);
 
     //EFFECTS: checks if an item already exists in list
-    public boolean containsItem(Item item);
+    public boolean contains(Item item);
 
 
     //EFFECTS: checks how many elements are in list
-    public int sizeList();
+    public int size();
 
     // EFFECTS: get the element of  list at index i
-    public Item getItem(int i);
+    public Item get(int i);
 
     public List<Item> getList();
 }
