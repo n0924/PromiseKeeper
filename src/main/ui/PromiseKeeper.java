@@ -116,13 +116,49 @@ public class PromiseKeeper {
     private void edit() {
         System.out.println("Is the item needed or wanted?");
         String needOrWant = input.next();
-        findItem(needOrWant);
+        notTwoOptions(needOrWant, "need", "want");
+        getItem(needOrWant);
 
         System.out.println("Do you want to remove or change this item?");
         String removeOrChange = input.next();
         notTwoOptions(removeOrChange, "remove", "change");
         toRemoveOrChange(removeOrChange, needOrWant);
 
+    }
+
+
+    //EFFECTS: find the item that gets edited/removed
+    private void getItem(String needOrWant) {
+        System.out.println("Which item do you want to edit?");
+        String editItem = input.nextLine();
+        findItem(needOrWant, editItem);
+
+        if (needOrWant == "need") {
+            foundItem = needlist.getItem(editItem);
+        } else {
+            foundItem = wantlist.getItem(editItem);
+        }
+    }
+
+    //EFFECTS: find the item of the given name
+    private void findItem(String needOrWant, String editItem) {
+        if (needOrWant == "need") {
+            if (!needlist.inList(editItem)) {
+                System.out.println("The item does not exist");
+                System.out.println("\n Try another name or quit");
+            }
+        } else {
+            if (!wantlist.inList(editItem)) {
+                System.out.println("The item does not exist");
+                System.out.println("\n Try another name or quit");
+            }
+        }
+        String next = input.nextLine().toLowerCase();
+        if (!(next == "quit")) {
+            runApp();
+        } else {
+            getItem(next);
+        }
     }
 
 
@@ -140,31 +176,6 @@ public class PromiseKeeper {
                     change("want");
                 }
             }
-        }
-    }
-
-    //EFFECTS: find the item that gets edited/removed
-    private void findItem(String selection) {
-        System.out.println("Which item do you want to edit?");
-        String editItem = input.nextLine();
-
-        if (!needlist.inList(editItem)) {
-            System.out.println("The item does not exist");
-            System.out.println("\n Try another name or quit");
-            String next = input.nextLine();
-            next = next.toLowerCase();
-
-            if (!(next == "quit")) {
-                runApp();
-            } else {
-                findItem(next);
-            }
-        }
-
-        if (selection == "need") {
-            foundItem = needlist.getItem(editItem);
-        } else {
-            foundItem = wantlist.getItem(editItem);
         }
     }
 
