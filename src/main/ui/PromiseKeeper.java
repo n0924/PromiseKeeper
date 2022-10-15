@@ -21,29 +21,27 @@ public class PromiseKeeper {
     }
 
 
-    //CITE:CPSC210/TellerApp()
+    //CITE:Inspired by CPSC210/TellerApp()
     //MODIFES: this
     //EFFECTS: process user input
 
     private void runApp() {
-        String input = null;
         boolean keepGoing = true;
 
         init();
 
         while (keepGoing) {
             menu();
-            input = this.input.next();
-            input = input.toLowerCase();
+            String command = input.next().toLowerCase();
 
             if (input.equals("quit")) {
                 keepGoing = false;
             } else {
-                processInput(input);
+                processInput(command);
             }
 
         }
-        System.out.println("Don't overspend!");
+        System.out.println("Let's use money wisely!");
     }
 
 
@@ -101,7 +99,7 @@ public class PromiseKeeper {
         System.out.println("\t High Priority");
         System.out.println("\t Medium Priority");
         System.out.println("\t Low Priority");
-        String priority = input.next();
+        String priority = input.next().toLowerCase();
         selectPriority(priority);
 
         System.out.println("Do you need the item or want the item?");
@@ -133,7 +131,7 @@ public class PromiseKeeper {
         String editItem = input.nextLine();
         findItem(needOrWant, editItem);
 
-        if (needOrWant == "need") {
+        if (needOrWant.equals("need")) {
             foundItem = needlist.getItem(editItem);
         } else {
             foundItem = wantlist.getItem(editItem);
@@ -142,7 +140,7 @@ public class PromiseKeeper {
 
     //EFFECTS: find the item of the given name
     private void findItem(String needOrWant, String editItem) {
-        if (needOrWant == "need") {
+        if (needOrWant.equals("need")) {
             if (!needlist.inList(editItem)) {
                 System.out.println("The item does not exist");
                 System.out.println("\n Try another name or quit");
@@ -150,11 +148,11 @@ public class PromiseKeeper {
         } else {
             if (!wantlist.inList(editItem)) {
                 System.out.println("The item does not exist");
-                System.out.println("\n Try another name or quit");
+                System.out.println("\n Try another item or quit");
             }
         }
         String next = input.nextLine().toLowerCase();
-        if (!(next == "quit")) {
+        if (!(next.equals("quit"))) {
             runApp();
         } else {
             getItem(next);
@@ -164,25 +162,21 @@ public class PromiseKeeper {
 
     //EFFECTS: process whether to remove or change from need or want list
     private void toRemoveOrChange(String removeOrChange, String needOrWant) {
-        if ((removeOrChange == "remove") && (needOrWant == "need")) {
-            remove("need");
-        } else {
-            if ((removeOrChange == "remove") && (needOrWant == "want")) {
-                remove("want");
+        if (removeOrChange.equals("remove")) {
+            if (needOrWant.equals("need")) {
+                remove("need");
             } else {
-                if ((removeOrChange == "change") && (needOrWant == "need")) {
-                    change("need");
-                } else {
-                    change("want");
-                }
+                remove("want");
             }
+        } else {
+            changeOptions();
         }
     }
 
     //MODIFIES: this
     //EFFECTS: remove an item from a list
     private void remove(String selection) {
-        if (selection == "need") {
+        if (selection.equals("need")) {
             needlist.removeItem(foundItem);
         } else {
             wantlist.removeItem(foundItem);
@@ -190,15 +184,6 @@ public class PromiseKeeper {
         System.out.println("Removed item:" + foundItem.getName());
     }
 
-    //MODIFIES: this
-    //EFFECTS: edit the description of an item from a list
-    private void change(String selection) {
-        if (selection == "need") {
-
-        } else {
-
-        }
-    }
 
     //EFFECTS: process changing an item
     private void changeOptions() {
@@ -207,13 +192,13 @@ public class PromiseKeeper {
         String changeWhat = input.nextLine().toLowerCase();
         notThreeOptions(changeWhat, "name", "budget", "priority");
 
-        if (changeWhat == "name") {
+        if (changeWhat.equals("name")) {
             System.out.println("Enter new name for item");
             String name = input.nextLine();
             addName(name);
             System.out.println("Name changed to:" + name);
         } else {
-            if (changeWhat == "budget") {
+            if (changeWhat.equals("budget")) {
                 System.out.println("Enter new budget");
                 int budget = input.nextInt();
                 addBudget(budget);
@@ -251,6 +236,8 @@ public class PromiseKeeper {
     private void addBudget(int budget) {
         while (budget <= 0) {
             System.out.println("Budget must be a positive number");
+            budget = input.nextInt();
+            addBudget(budget);
         }
         item.setBudget(budget);
     }
@@ -258,7 +245,6 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: set a priority for the item
     private void selectPriority(String priority) {
-        priority.toLowerCase();
         notThreeOptions(priority, "high priority", "medium priority", "low priority");
         item.setPriority(priority);
     }
@@ -281,10 +267,10 @@ public class PromiseKeeper {
         String priority = item.getPriority();
         int budget = item.getBudget();
 
-        if (priority == "high priority") {
+        if (priority.equals("high priority")) {
             System.out.println("High Priority:" + name + "," + budget);
         } else {
-            if (priority == "medium priority") {
+            if (priority.equals("medium priority")) {
                 item.setPriority("Medium Priority:" + name + "," + budget);
             } else {
                 item.setPriority("Low Priority:" + name + "," + budget);
