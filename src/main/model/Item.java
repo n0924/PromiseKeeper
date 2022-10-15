@@ -8,21 +8,20 @@ public class Item {
     private int price;           // price paid for this item when bought
 
     //REQUIRES: budget > 0
-    //EFFECTS: creates an item with the given name and budget
-    // Has default priority "Low Priority", and the price paid by default is 0.
+    //EFFECTS: creates an item
     public Item(String name, int budget) {
         this.name = name;
         this.budget = budget;
-        priority = "Low Priority";
+        priority = "low priority";
         price = 0;
     }
 
     //REQUIRES: newBudget > 0
     //MODIFIES: this
-    //EFFECTS: set budget to new budget if newBudget > 0, no changes otherwise
-    public void setNewBudget(int newBudget) {
-        if (newBudget > 0) {
-            this.budget = newBudget;
+    //EFFECTS: set budget if Budget > 0, no changes otherwise
+    public void setBudget(int budget) {
+        if (budget > 0) {
+            this.budget = budget;
         }
     }
 

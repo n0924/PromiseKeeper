@@ -7,18 +7,25 @@ import java.util.List;
 public class NeedList implements PlanList {
     private List<Item> needList;
 
-    //EFFECTS: create empty need and want list
+    //EFFECTS: create empty need list
     public NeedList() {
         needList = new ArrayList<>();
     }
 
-    //REQUIRES: item is needed
+
     //MODIFIES: this
-    //EFFECTS: adds a needed item to the top of need list if not already in list.
+    //EFFECTS: adds a needed item to the top of need list if not item, if the name is not taken
     // otherwise, make no changes
     @Override
     public void addItem(Item item) {
-        if (!needList.contains(item)) {
+        List<String> names = new ArrayList<>();
+
+        for (Item itemInList : needList) {
+            String name = itemInList.getName();
+            names.add(name);
+        }
+
+        if (!names.contains(item.getName())) {
             needList.add(0, item);
         }
     }
@@ -36,39 +43,65 @@ public class NeedList implements PlanList {
     //EFFECTS: filter the needed list by the given priority, preserve order of original list
     // if no item with the given priority exists, return an empty list
     @Override
-    public void filterByPriorityItem(String priority) {
-        List<Item> filterOut = new ArrayList<>();
+    public List<Item> filterByPriorityItem(String priority) {
+        List<Item> matchPriority = new ArrayList<>();
 
         for (Item item : needList) {
-            if (!priority.equals(item.getPriority())) {
-                filterOut.add(item);
+            if (priority.equals(item.getPriority())) {
+                matchPriority.add(item);
             }
         }
-        needList.removeAll(filterOut);
-
+        return matchPriority;
     }
 
-    //REQUIRES: item is needed
+    //EFFECTS: produce true if there is an item in list with given name
+    @Override
+    public boolean inList(String name) {
+        List<String> names = new ArrayList<>();
+
+        for (Item itemInList : needList) {
+            String nameItem = itemInList.getName();
+            names.add(nameItem);
+        }
+        return (names.contains(name));
+    }
+
+    //REQUIRES: the name exists in the list
+    //EFFECTS: get the item with that name
+    @Override
+    public Item getItem(String name) {
+        List<Item> matchName = new ArrayList<>();
+
+        if (inList(name)) {
+            for (Item itemInList : needList) {
+                if (itemInList.getName() == name) {
+                    matchName.add(itemInList);
+                }
+            }
+        }
+        return matchName.get(0);
+    }
+
     //EFFECTS: checks if an item already exists in needed list
     @Override
-    public boolean contains(Item item) {
+    public boolean containsItem(Item item) {
         return needList.contains(item);
     }
 
-
-    //REQUIRES: item is needed
     //EFFECTS: checks how many elements are in the needed list
     @Override
-    public int size() {
+    public int sizeItem() {
         return needList.size();
     }
 
-    //REQUIRES: item is needed, i>= 0
+
+    //REQUIRES: i>= 0
     // EFFECTS: get the element of need list at index i
     @Override
-    public Item get(int i) {
+    public Item getItemIndex(int i) {
         return needList.get(i);
     }
+
 
     //EFFECTS: get the need list
     @Override

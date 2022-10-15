@@ -26,7 +26,7 @@ public class BoughtWantListTest {
 
     @Test
     void constructorTest() {
-        assertEquals(0, bwants.sizeBought());
+        assertEquals(0, bwants.getBoughtList().size());
     }
 
     @Test
@@ -38,7 +38,6 @@ public class BoughtWantListTest {
         assertTrue(bwants1.contains(bw1));
 
         assertEquals(800, bwants.getTotalPrice());
-        assertEquals(900, bwants.getTotalBudget());
         assertEquals(0, bwants.getTotalOverspent());
     }
 
@@ -52,8 +51,7 @@ public class BoughtWantListTest {
         assertEquals(bw1, bwants2.get(1));
         assertEquals(bw2, bwants2.get(0));
 
-        assertEquals(1086, bwants.getTotalPrice());
-        assertEquals(910, bwants.getTotalBudget());
+        assertEquals(1080, bwants.getTotalPrice());
         assertEquals(170, bwants.getTotalOverspent());
     }
 
@@ -127,65 +125,4 @@ public class BoughtWantListTest {
         assertEquals(bw3, filterBwants.get(0));
         assertEquals(bw1, filterBwants.get(1));
     }
-
-    @Test
-    void getTotalPriceTest() {
-        bwants.addBought(bw1, 900);
-
-        assertEquals(900, bwants.getTotalPrice());
-    }
-
-    @Test
-    void getTotalPrice2Test() {
-        bwants.addBought(bw1, 9);
-        bwants.addBought(bw2,30);
-
-        assertEquals(39, bwants.getTotalPrice());
-    }
-
-    @Test
-    void getTotalPrice3Test() {
-        bwants.addBought(bw1, 9);
-        bwants.addBought(bw2,30);
-        bwants.addBought(bw3, 104);
-
-        assertEquals(143, bwants.getTotalPrice());
-    }
-
-    @Test
-    void getTotalOverspentTest1() {
-        bwants.addBought(bw2, 9);
-
-        assertEquals(0, bwants.getTotalOverspent());
-    }
-
-    @Test
-    void getTotalOverspentTest2() {
-        bwants.addBought(bw2, 10);
-
-        assertEquals(0, bwants.getTotalOverspent());
-    }
-
-    @Test
-    void getTotalOverspentTest3() {
-        bwants.addBought(bw2, 11);
-
-        assertEquals(1, bwants.getTotalOverspent());
-    }
-
-    @Test
-    void getTotalOverspentMultiple1() {
-        bwants.addBought(bw1, 1000);
-        bwants.addBought(bw1, 90);
-
-        assertEquals(180, bwants.getTotalOverspent());
-    }
-
-
-
-
-
-
-
-
 }

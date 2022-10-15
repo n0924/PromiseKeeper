@@ -18,17 +18,23 @@ public interface PlanList {
     //MODIFIES: this
     //EFFECTS: filter the wanted list by the given priority, preserve order of orignal list
     // if no item with the given priority exists, return an empty list
-    void filterByPriorityItem(String priority);
+    List<Item> filterByPriorityItem(String priority);
 
     //EFFECTS: checks if an item already exists in list
-    public boolean contains(Item item);
+    boolean containsItem(Item item);
 
 
     //EFFECTS: checks how many elements are in list
-    public int size();
+    int sizeItem();
 
     // EFFECTS: get the element of  list at index i
-    public Item get(int i);
+    Item getItemIndex(int i);
 
-    public List<Item> getList();
+    // EFFECTS: get the item with a given string
+    Item getItem(String name);
+
+    //EFFECTS: get the list
+    List<Item> getList();
+
+    boolean inList(String name);
 }

@@ -37,7 +37,7 @@ public class WantList implements PlanList {
     //EFFECTS: filter the wanted list by the given priority, preserve order of orignal list
     // if no item with the given priority exists, return an empty list
     @Override
-    public void filterByPriorityItem(String priority) {
+    public List<Item> filterByPriorityItem(String priority) {
         List<Item> filterOut = new ArrayList<>();
 
         for (Item item : wantList) {
@@ -46,13 +46,47 @@ public class WantList implements PlanList {
             }
         }
         wantList.removeAll(filterOut);
+        List<Item> wantListFiltered = wantList;
+        return wantListFiltered;
     }
 
+    //EFFECTS: get the item with that name
+    @Override
+    public boolean inList(String name) {
+        List<String> names = new ArrayList<>();
+
+        for (Item itemInList : wantList) {
+            String nameItem = itemInList.getName();
+            names.add(nameItem);
+        }
+        return (names.contains(name));
+    }
+
+    //EFFECTS: produce true if there is an item in list with given name
+    @Override
+    public Item getItem(String name) {
+        List<Item> matchName = new ArrayList<>();
+
+        if (inList(name)) {
+            for (Item itemInList : wantList) {
+                if (itemInList.getName() == name) {
+                    matchName.add(itemInList);
+                }
+            }
+        }
+        return matchName.get(0);
+    }
+
+
+    @Override
+    public List<Item> getList() {
+        return wantList;
+    }
 
     //REQUIRES: item is wanted
     //EFFECTS: checks if an item already exists in wanted list
     @Override
-    public boolean contains(Item item) {
+    public boolean containsItem(Item item) {
         return wantList.contains(item);
     }
 
@@ -60,7 +94,7 @@ public class WantList implements PlanList {
     //REQUIRES: item is wanted
     //EFFECTS: checks how many elements are in the wanted list
     @Override
-    public int size() {
+    public int sizeItem() {
         return wantList.size();
     }
 
@@ -68,14 +102,8 @@ public class WantList implements PlanList {
     //REQUIRES: item is wanted
     // EFFECTS: get the element of need list at index i
     @Override
-    public Item get(int i) {
+    public Item getItemIndex(int i) {
         return wantList.get(i);
-    }
-
-    //EFFECTS: get the need list
-    @Override
-    public List<Item> getList() {
-        return wantList;
     }
 }
 
