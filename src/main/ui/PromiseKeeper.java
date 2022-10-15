@@ -22,7 +22,7 @@ public class PromiseKeeper {
 
 
     //CITE:Inspired by CPSC210/TellerApp()
-    //MODIFES: this
+    //MODIFIES: this
     //EFFECTS: process user input
 
     private void runApp() {
@@ -34,7 +34,7 @@ public class PromiseKeeper {
             menu();
             String command = input.next().toLowerCase();
 
-            if (input.equals("quit")) {
+            if (command.equals("quit")) {
                 keepGoing = false;
             } else {
                 processInput(command);
@@ -47,11 +47,11 @@ public class PromiseKeeper {
 
     //CITE: CPSC210/TellerApp()
     //MODIFIES: process user input
-    private void processInput(String input) {
-        if (input.equals("Add")) {
+    private void processInput(String command) {
+        if (command.equals("add")) {
             addItem();
         }
-        if (input.equals("Edit")) {
+        if (command.equals("edit")) {
             edit();
         }
 
@@ -72,6 +72,7 @@ public class PromiseKeeper {
         wantlist = new WantList();
         needlist = new NeedList();
         item = new Item();
+        input = new Scanner(System.in);
     }
 
     //EFFECTS: displays a starting menu
@@ -85,25 +86,25 @@ public class PromiseKeeper {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds an item to appriopriate list
+    //EFFECTS: adds an item to appropriate list
     private void addItem() {
         System.out.println("Enter the name of the item");
-        String name = input.nextLine();
+        String name = input.next();
         addName(name);
 
         System.out.println("Enter the budget ($)");
         int budget = input.nextInt();
         addBudget(budget);
 
-        System.out.println("\n Select Priority from");
+        System.out.println("Select Priority from");
         System.out.println("\t High Priority");
         System.out.println("\t Medium Priority");
         System.out.println("\t Low Priority");
-        String priority = input.next().toLowerCase();
+        String priority = input.nextLine();
         selectPriority(priority);
 
         System.out.println("Do you need the item or want the item?");
-        String needOrWant = input.next();
+        String needOrWant = input.nextLine();
         addToList(needOrWant);
 
         showAddedItem();
@@ -190,7 +191,7 @@ public class PromiseKeeper {
         changeMenu();
 
         String changeWhat = input.nextLine().toLowerCase();
-        notThreeOptions(changeWhat, "name", "budget", "priority");
+        isThreeOption(changeWhat, "name", "budget", "priority");
 
         if (changeWhat.equals("name")) {
             System.out.println("Enter new name for item");
@@ -205,9 +206,7 @@ public class PromiseKeeper {
                 System.out.println("Budget changed to:" + budget);
             } else {
                 System.out.println("Select new priority");
-                String priority = input.nextLine();
-                notThreeOptions(priority, "high priority",
-                        "medium priority", "low priority");
+                String priority = input.nextLine().toLowerCase();
                 selectPriority(priority);
                 System.out.println("Priority changed to:" + priority);
             }
@@ -234,7 +233,7 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: set a budget to an item
     private void addBudget(int budget) {
-        while (budget <= 0) {
+        if (budget <= 0) {
             System.out.println("Budget must be a positive number");
             budget = input.nextInt();
             addBudget(budget);
@@ -245,7 +244,13 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: set a priority for the item
     private void selectPriority(String priority) {
-        notThreeOptions(priority, "high priority", "medium priority", "low priority");
+        if (!isThreeOption(priority, "high priority",
+                "medium priority", "low priority")) {
+            notThreeOptionDisplay("high priority",
+                    "medium priority", "low priority");
+            String priority = input.nextLine();
+            selectPriority(priority);
+        }
         item.setPriority(priority);
     }
 
@@ -268,12 +273,13 @@ public class PromiseKeeper {
         int budget = item.getBudget();
 
         if (priority.equals("high priority")) {
-            System.out.println("High Priority:" + name + "," + budget);
+            System.out.println("High Priority:" + " " + name + "," + " " + budget);
         } else {
             if (priority.equals("medium priority")) {
-                item.setPriority("Medium Priority:" + name + "," + budget);
+                System.out.println(
+                        "Medium Priority:" + " " + name + "," + " " + budget);
             } else {
-                item.setPriority("Low Priority:" + name + "," + budget);
+                System.out.println("Low Priority:" + " " + name + "," + " " + budget);
             }
         }
     }
@@ -282,19 +288,35 @@ public class PromiseKeeper {
     //EFFECTS: process invalid user input when two options were given
     private void notTwoOptions(String selection, String option1, String option2) {
         while (!(selection.equals(option1) || selection.equals(option2))) {
-            System.out.println("Enter" + option1 + "or" + option2);
+            String capitalOption1 = capitalizeFirstLetter(option1);
+            String capitalOption2 = capitalizeFirstLetter(option2);
+
+            System.out.println("Enter" + capitalOption1 + "or" + capitalOption2);
             selection = input.next();
             selection = selection.toLowerCase();
         }
     }
 
-    //EFFECTS: process invalid user input when two options were given
-    private void notThreeOptions(String selection, String option1, String option2, String option3) {
-        while (!(selection.equals(option1) || selection.equals(option2) || selection.equals(option3))) {
-            System.out.println("Enter" + option1 + "or" + option2 + "or" + option3);
-            selection = input.next();
-            selection = selection.toLowerCase();
-        }
+    //EFFECTS: process invalid user input when three options were given
+    private boolean isThreeOption(String selected, String option1, String option2, String option3) {
+        return (selected.equals(option1) || selected.equals(option2))
+                || selected.equals(option3);
+    }
+
+    //EFFECTS: prompt user to enter valid option
+    private void notThreeOptionDisplay(String option1, String option2, String option3) {
+        String capitalOption1 = capitalizeFirstLetter(option1);
+        String capitalOption2 = capitalizeFirstLetter(option2);
+        String capitalOption3 = capitalizeFirstLetter(option3);
+        System.out.println("Enter " + capitalOption1 + " or " + capitalOption2 + " or " + capitalOption3);
+    }
+
+
+    //EFFECT: Capitalize the first letter
+    private String capitalizeFirstLetter(String string) {
+        String firstLetter = string.substring(0, 1).toUpperCase();
+        String rest = string.substring(1);
+        return firstLetter + rest;
     }
 
 }
