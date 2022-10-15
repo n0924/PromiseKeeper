@@ -50,9 +50,10 @@ public class PromiseKeeper {
     private void processInput(String command) {
         if (command.equals("add")) {
             addItem();
-        }
-        if (command.equals("edit")) {
-            edit();
+        } else {
+            if (command.equals("edit")) {
+                edit();
+            }
         }
 
         //if (input.equals("Bought")) {
@@ -100,7 +101,7 @@ public class PromiseKeeper {
         System.out.println("\t High Priority");
         System.out.println("\t Medium Priority");
         System.out.println("\t Low Priority");
-        String priority = input.nextLine();
+        String priority = input.next().toLowerCase();
         selectPriority(priority);
 
         System.out.println("Do you need the item or want the item?");
@@ -244,12 +245,10 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: set a priority for the item
     private void selectPriority(String priority) {
-        if (!isThreeOption(priority, "high priority",
+        while (!isThreeOption(priority, "high priority",
                 "medium priority", "low priority")) {
-            notThreeOptionDisplay("high priority",
-                    "medium priority", "low priority");
-            String priority = input.nextLine();
-            selectPriority(priority);
+            System.out.println("Enter valid priority");
+            String priority = input.next().toLowerCase();
         }
         item.setPriority(priority);
     }
@@ -299,16 +298,8 @@ public class PromiseKeeper {
 
     //EFFECTS: process invalid user input when three options were given
     private boolean isThreeOption(String selected, String option1, String option2, String option3) {
-        return (selected.equals(option1) || selected.equals(option2))
-                || selected.equals(option3);
-    }
-
-    //EFFECTS: prompt user to enter valid option
-    private void notThreeOptionDisplay(String option1, String option2, String option3) {
-        String capitalOption1 = capitalizeFirstLetter(option1);
-        String capitalOption2 = capitalizeFirstLetter(option2);
-        String capitalOption3 = capitalizeFirstLetter(option3);
-        System.out.println("Enter " + capitalOption1 + " or " + capitalOption2 + " or " + capitalOption3);
+        return (!option1.equals(selected) && option2.equals(selected))
+                && (!option1.equals(selected) && option3.equals(selected));
     }
 
 
