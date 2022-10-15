@@ -20,12 +20,24 @@ public class WantListTest {
     void setup() {
         wants = new WantList();
 
-        w1 = new Item("wanted item 1", 90);
-        w2 = new Item("wanted item 2", 150);
-        w3 = new Item("wanted item 3", 1);
-        w4 = new Item("wanted item 1", 102);
-        w5 = new Item("wanted item 2", 342);
-        w6 = new Item("wanted item 3", 76);
+        w1 = new Item();
+        w1.setName("wanted item 1");
+        w1.setBudget(90);
+
+        w2 = new Item();
+        w2.setName("wanted item 2");
+        w2.setBudget(150);
+
+        w3 = new Item();
+        w3.setName("wanted item 3");
+        w3.setBudget(1);
+
+        w4 = new Item();
+        w4.setName("wanted item 4");
+        w5 = new Item();
+        w5.setName("wanted item 5");
+        w6 = new Item();
+        w6.setName("wanted item 6");
 
         w1.setPriority("High Priority");
         w2.setPriority("Medium Priority");
@@ -122,7 +134,7 @@ public class WantListTest {
         wants.addItem(w2);
         wants.addItem(w3);
 
-        wants.filterByPriorityItem("High Priority");
+        wants.filterByPriority("High Priority");
 
         assertEquals(w1, wants.getItemIndex(0));
         assertEquals(1, wants.sizeItem());
@@ -136,7 +148,7 @@ public class WantListTest {
         wants.addItem(w4);
         wants.addItem(w5);
         wants.addItem(w6);
-        wants.filterByPriorityItem("High Priority");
+        wants.filterByPriority("High Priority");
 
         assertEquals(w4, wants.getItemIndex(0));
         assertEquals(w1, wants.getItemIndex(1));
@@ -148,7 +160,7 @@ public class WantListTest {
         wants.addItem(w6);
         wants.addItem(w3);
         wants.addItem(w5);
-        wants.filterByPriorityItem("High Priority");
+        wants.filterByPriority("High Priority");
 
         assertEquals(0, wants.sizeItem());
     }
@@ -159,7 +171,7 @@ public class WantListTest {
         wants.addItem(w2);
         wants.addItem(w3);
 
-        wants.filterByPriorityItem("Medium Priority");
+        wants.filterByPriority("Medium Priority");
         assertEquals(w2, wants.getItemIndex(0));
         assertEquals(1, wants.sizeItem());
     }
@@ -173,7 +185,7 @@ public class WantListTest {
         wants.addItem(w5);
         wants.addItem(w6);
 
-        wants.filterByPriorityItem("Medium Priority");
+        wants.filterByPriority("Medium Priority");
 
         assertEquals(w5, wants.getItemIndex(0));
         assertEquals(w2, wants.getItemIndex(1));
@@ -186,7 +198,7 @@ public class WantListTest {
         wants.addItem(w3);
         wants.addItem(w4);
 
-        wants.filterByPriorityItem("Medium Priority");
+        wants.filterByPriority("Medium Priority");
         assertEquals(0, wants.sizeItem());
     }
 
@@ -198,7 +210,7 @@ public class WantListTest {
         wants.addItem(w3);
 
 
-        wants.filterByPriorityItem("Low Priority");
+        wants.filterByPriority("Low Priority");
 
         assertEquals(w3, wants.getItemIndex(0));
         assertEquals(1, wants.sizeItem());
@@ -214,7 +226,7 @@ public class WantListTest {
         wants.addItem(w6);
 
 
-        wants.filterByPriorityItem("Low Priority");
+        wants.filterByPriority("Low Priority");
 
         assertEquals(w6, wants.getItemIndex(0));
         assertEquals(w3, wants.getItemIndex(1));
@@ -229,7 +241,7 @@ public class WantListTest {
         wants.addItem(w5);
 
 
-        wants.filterByPriorityItem("Low Priority");
+        wants.filterByPriority("Low Priority");
 
         assertEquals(0, wants.sizeItem());
     }

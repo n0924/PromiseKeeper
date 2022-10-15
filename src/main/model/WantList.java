@@ -13,7 +13,7 @@ public class WantList implements PlanList {
     }
 
 
-    //REQUIRES: item is wanted
+    //REQUIRES: item has a name
     //MODIFIES: this
     //EFFECTS: adds a wanted item to the top of the want list if not already in list
     // otherwise, make no changes
@@ -37,7 +37,7 @@ public class WantList implements PlanList {
     //EFFECTS: filter the wanted list by the given priority, preserve order of orignal list
     // if no item with the given priority exists, return an empty list
     @Override
-    public List<Item> filterByPriorityItem(String priority) {
+    public List<Item> filterByPriority(String priority) {
         List<Item> filterOut = new ArrayList<>();
 
         for (Item item : wantList) {

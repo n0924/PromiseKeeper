@@ -25,22 +25,36 @@ public class NeedListTest {
     void setup() {
         needs = new NeedList();
 
-        n1 = new Item("needed item 1", 400);
-        n12 = new Item("needed item 1", 800);
-        n13 = new Item("needed item 1", 900);
+        n1 = new Item();
+        n1.setName("needed item 1");
+        n1.setBudget(400);
+        n12 = new Item();
+        n12.setName("needed item 1");
+        n12.setBudget(800);
+        n13 = new Item();
+        n13.setName("needed item 1");
+        n13.setBudget(900);
 
-        n2 = new Item("needed item 2", 1);
-        n3 = new Item("needed item 3", 5000);
-        n4 = new Item("needed item 4", 66);
-        n5 = new Item("needed item 5", 781);
-        n6 = new Item("needed item 6", 9);
+        n2 = new Item();
+        n2.setName("needed item 2");
+        n2.setBudget(1);
+        n3 = new Item();
+        n3.setName("needed item 3");
+        n3.setBudget(5000);
 
-        n1.setPriority("High Priority");
-        n2.setPriority("Medium Priority");
-        n3.setPriority("Low Priority");
-        n4.setPriority("High Priority");
-        n5.setPriority("Medium Priority");
-        n6.setPriority("Low Priority");
+        n4 = new Item();
+        n4.setName("needed item 4");
+        n5 = new Item();
+        n5.setName("needed item 5");
+        n6 = new Item();
+        n6.setName("needed item 6");
+
+        n1.setPriority("high priority");
+        n2.setPriority("medium priority");
+        n3.setPriority("low priority");
+        n4.setPriority("high priority");
+        n5.setPriority("medium priority");
+        n6.setPriority("low priority");
     }
 
     @Test
@@ -145,7 +159,7 @@ public class NeedListTest {
         needs.addItem(n2);
         needs.addItem(n3);
 
-        List<Item> filteredNeeds = needs.filterByPriorityItem("High Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("high priority");
 
         assertEquals(n1, filteredNeeds.get(0));
         assertEquals(1, filteredNeeds.size());
@@ -159,7 +173,7 @@ public class NeedListTest {
         needs.addItem(n4);
         needs.addItem(n5);
         needs.addItem(n6);
-        List<Item> filteredNeeds = needs.filterByPriorityItem("High Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("high priority");
 
         assertEquals(n4, filteredNeeds.get(0));
         assertEquals(n1, filteredNeeds.get(1));
@@ -171,7 +185,7 @@ public class NeedListTest {
         needs.addItem(n2);
         needs.addItem(n3);
         needs.addItem(n5);
-        List<Item> filteredNeeds = needs.filterByPriorityItem("High Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("high priority");
 
         assertEquals(0, filteredNeeds.size());
     }
@@ -182,7 +196,7 @@ public class NeedListTest {
         needs.addItem(n2);
         needs.addItem(n3);
 
-        List<Item> filteredNeeds = needs.filterByPriorityItem("Medium Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("medium priority");
 
         assertEquals(n2, filteredNeeds.get(0));
         assertEquals(1, filteredNeeds.size());
@@ -197,7 +211,7 @@ public class NeedListTest {
         needs.addItem(n5);
         needs.addItem(n6);
 
-        List<Item> filteredNeeds = needs.filterByPriorityItem("Medium Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("medium priority");
 
         assertEquals(n5, filteredNeeds.get(0));
         assertEquals(n2, filteredNeeds.get(1));
@@ -211,7 +225,7 @@ public class NeedListTest {
         needs.addItem(n4);
         needs.addItem(n6);
 
-        List<Item> filteredNeeds = needs.filterByPriorityItem("Medium Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("medium priority");
         assertEquals(0, filteredNeeds.size());
     }
 
@@ -223,7 +237,7 @@ public class NeedListTest {
         needs.addItem(n3);
 
 
-        List<Item> filteredNeeds = needs.filterByPriorityItem("Low Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("low priority");
 
         assertEquals(n3, filteredNeeds.get(0));
         assertEquals(1, filteredNeeds.size());
@@ -238,7 +252,7 @@ public class NeedListTest {
         needs.addItem(n5);
         needs.addItem(n6);
 
-        List<Item> filteredNeeds = needs.filterByPriorityItem("Low Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("low priority");
 
         assertEquals(n6, filteredNeeds.get(0));
         assertEquals(n3, filteredNeeds.get(1));
@@ -253,7 +267,7 @@ public class NeedListTest {
         needs.addItem(n5);
 
 
-        List<Item> filteredNeeds = needs.filterByPriorityItem("Low Priority");
+        List<Item> filteredNeeds = needs.filterByPriority("low priority");
 
         assertEquals(0, filteredNeeds.size());
     }

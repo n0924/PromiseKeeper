@@ -19,9 +19,17 @@ public class BoughtWantListTest {
     @BeforeEach
     void setup() {
         bwants = new BoughtWant();
-        bw1 = new Item("item 1", 900);
-        bw2 = new Item("item 2", 10);
-        bw3 = new Item("item 3", 1);
+        bw1 = new Item();
+        bw1.setName("item 1");
+        bw1.setBudget(900);
+
+        bw2 = new Item();
+        bw2.setName("item 2");
+        bw2.setBudget(10);
+
+        bw3 = new Item();
+        bw3.setName("item 3");
+        bw3.setBudget(1);
     }
 
     @Test

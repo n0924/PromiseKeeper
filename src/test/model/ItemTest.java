@@ -11,35 +11,42 @@ public class ItemTest {
 
     @BeforeEach
     void setup() {
-        item1 = new Item("item 1", 1);
-        item2 = new Item("item 2", 500);
+        item1 = new Item();
+        item1.setName("item 1");
+        item1.setBudget(1);
+        item1.setPriority("low priority");
+
+        item2 = new Item();
+        item2.setName("item 2");
+        item2.setBudget(500);
+        item2.setPriority("high priority");
     }
 
     @Test
-    void constructorItem1Test() {
+    void gettersItem1Test() {
         assertEquals("item 1", item1.getName());
         assertEquals(1, item1.getBudget());
-        assertEquals("Low Priority", item1.getPriority());
+        assertEquals("low priority", item1.getPriority());
         assertEquals(0, item1.getPrice());
 
     }
 
     @Test
-    void constructorItem2Test() {
+    void gettersItem2Test() {
         assertEquals("item 2", item2.getName());
         assertEquals(500, item2.getBudget());
-        assertEquals("Low Priority", item2.getPriority());
+        assertEquals("high priority", item2.getPriority());
         assertEquals(0, item2.getPrice());
     }
 
     @Test
-    void setNewBudgetTest() {
+    void setBudgetTest() {
         item1.setBudget(60);
         assertEquals(60, item1.getBudget());
     }
 
     @Test
-    void setNewBudgetTestMultiple() {
+    void setBudgetTestMultiple() {
         item2.setBudget(100);
         assertEquals(100, item2.getBudget());
         item2.setBudget(600);
@@ -47,7 +54,7 @@ public class ItemTest {
     }
 
     @Test
-    void setNewBudgetTestNegative() {
+    void setBudgetTestNegative() {
         item1.setBudget(-70);
         assertEquals(1, item1.getBudget());
 

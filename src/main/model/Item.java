@@ -9,11 +9,7 @@ public class Item {
 
     //REQUIRES: budget > 0
     //EFFECTS: creates an item
-    public Item(String name, int budget) {
-        this.name = name;
-        this.budget = budget;
-        priority = "low priority";
-        price = 0;
+    public Item() {
     }
 
     //REQUIRES: newBudget > 0

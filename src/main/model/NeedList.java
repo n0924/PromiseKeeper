@@ -13,6 +13,7 @@ public class NeedList implements PlanList {
     }
 
 
+    //REQUIRES: item has a name
     //MODIFIES: this
     //EFFECTS: adds a needed item to the top of need list if not item, if the name is not taken
     // otherwise, make no changes
@@ -43,7 +44,7 @@ public class NeedList implements PlanList {
     //EFFECTS: filter the needed list by the given priority, preserve order of original list
     // if no item with the given priority exists, return an empty list
     @Override
-    public List<Item> filterByPriorityItem(String priority) {
+    public List<Item> filterByPriority(String priority) {
         List<Item> matchPriority = new ArrayList<>();
 
         for (Item item : needList) {

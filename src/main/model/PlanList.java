@@ -18,7 +18,7 @@ public interface PlanList {
     //MODIFIES: this
     //EFFECTS: filter the wanted list by the given priority, preserve order of orignal list
     // if no item with the given priority exists, return an empty list
-    List<Item> filterByPriorityItem(String priority);
+    List<Item> filterByPriority(String priority);
 
     //EFFECTS: checks if an item already exists in list
     boolean containsItem(Item item);
