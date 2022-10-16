@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class PromiseKeeper {
     private WantList wantlist;
     private NeedList needlist;
+    private WantList wantlistSaved;
+    private NeedList needlistSaved;
     private Item item;
     private Scanner input;
     private Item foundItem;
@@ -28,7 +30,10 @@ public class PromiseKeeper {
     private void runApp() {
         boolean keepGoing = true;
 
-        init();
+        item = new Item();
+        input = new Scanner(System.in);
+        wantlist = new WantList();
+        needlist = new NeedList();
 
         while (keepGoing) {
             menu();
@@ -66,15 +71,6 @@ public class PromiseKeeper {
         //}
     }
 
-    //CITE: CPSC210/TellerApp()
-    //MODIFIES: this
-    //EFFECTS: creates a want and a need list
-    private void init() {
-        wantlist = new WantList();
-        needlist = new NeedList();
-        item = new Item();
-        input = new Scanner(System.in);
-    }
 
     //EFFECTS: displays a starting menu
     private void menu() {
@@ -115,52 +111,55 @@ public class PromiseKeeper {
     //EFFECTS: edits an item
     private void edit() {
         System.out.println("Is the item needed or wanted?");
-        String needOrWant = input.next();
-        notNeedorWant(needOrWant, "need", "want");
-        getItem(needOrWant);
+        String needOrWant = input.next().toLowerCase();
+        System.out.println("Hello");
+        notTwoOption(needOrWant, "need", "want");
+        getItemFromList(needOrWant);
 
         System.out.println("Do you want to remove or change this item?");
-        String removeOrChange = input.next();
-        notNeedorWant(removeOrChange, "remove", "change");
+        String removeOrChange = input.next().toLowerCase();
+        notTwoOption(removeOrChange, "remove", "change");
         toRemoveOrChange(removeOrChange, needOrWant);
 
     }
 
 
     //EFFECTS: find the item that gets edited/removed
-    private void getItem(String needOrWant) {
+    private void getItemFromList(String needOrWant) {
         System.out.println("Which item do you want to edit?");
-        String editItem = input.nextLine();
+        String editItem = input.next().toLowerCase();
         findItem(needOrWant, editItem);
-
-        if (needOrWant.equals("need")) {
-            foundItem = needlist.getItem(editItem);
-        } else {
-            foundItem = wantlist.getItem(editItem);
-        }
     }
 
     //EFFECTS: find the item of the given name
     private void findItem(String needOrWant, String editItem) {
         if (needOrWant.equals("need")) {
-            if (!needlist.inList(editItem)) {
-                System.out.println("The item does not exist");
-                System.out.println("\n Try another name or quit");
+            if (needlist.inList(editItem)) {
+                foundItem = needlist.getItem(editItem);
+            } else {
+                notInList();
             }
         } else {
-            if (!wantlist.inList(editItem)) {
-                System.out.println("The item does not exist");
-                System.out.println("\n Try another item or quit");
+            if (wantlist.inList(editItem)) {
+                foundItem = wantlist.getItem(editItem);
+            } else {
+                notInList();
             }
-        }
-        String next = input.nextLine().toLowerCase();
-        if (!(next.equals("quit"))) {
-            runApp();
-        } else {
-            getItem(next);
         }
     }
 
+
+    //EFFECTS: process when item is not in the list
+    private void notInList() {
+        System.out.println("The item does not exist");
+        System.out.println("\n Try another name or quit");
+        String nextStep = input.next().toLowerCase();
+        if (nextStep.equals("quit")) {
+            runApp();
+        } else {
+            getItemFromList(nextStep);
+        }
+    }
 
     //EFFECTS: process whether to remove or change from need or want list
     private void toRemoveOrChange(String removeOrChange, String needOrWant) {
@@ -245,24 +244,17 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: set a priority
     private void selectPriority(String highMediumLow) {
-        while (!isValidPriority(highMediumLow)) {
+        while (!isThreeOption(highMediumLow, "high", "medium", "low")) {
             System.out.println("Enter Valid Priority");
             highMediumLow = input.next().toLowerCase();
         }
-        item.setPriority(highMediumLow  + "priority");
-    }
-
-    //MODIFIES: this
-    //EFFECTS: check if priority is valid
-    private boolean isValidPriority(String priority) {
-        return (priority.equals("high") || priority.equals("medium")
-                || priority.equals("low"));
+        item.setPriority(highMediumLow + " " + "priority");
     }
 
     //MODIFIES: this
     //EFFECTS: add to the need or want list given the input
     private void addToList(String needOrWant) {
-        notNeedorWant(needOrWant, "need", "want");
+        notTwoOption(needOrWant, "need", "want");
 
         if (needOrWant.equals("need")) {
             needlist.addItem(item);
@@ -278,20 +270,20 @@ public class PromiseKeeper {
         int budget = item.getBudget();
 
         if (priority.equals("high priority")) {
-            System.out.println("High Priority:" + " " + name + "," + " " + budget);
+            System.out.println("High Priority:" + " " + name + "," + " $" + budget);
         } else {
             if (priority.equals("medium priority")) {
                 System.out.println(
-                        "Medium Priority:" + " " + name + "," + " " + budget);
+                        "Medium Priority:" + " " + name + "," + " $" + budget);
             } else {
-                System.out.println("Low Priority:" + " " + name + "," + " " + budget);
+                System.out.println("Low Priority:" + " " + name + "," + " $" + budget);
             }
         }
     }
 
 
     //EFFECTS: process invalid user input when two options were given
-    private void notNeedorWant(String selection, String option1, String option2) {
+    private void notTwoOption(String selection, String option1, String option2) {
         while (!(selection.equals(option1) || selection.equals(option2))) {
             String capitalOption1 = capitalizeFirstLetter(option1);
             String capitalOption2 = capitalizeFirstLetter(option2);
