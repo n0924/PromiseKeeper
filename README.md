@@ -19,7 +19,7 @@ of setting budgets;
 however, not everyone is capable of staying on budget. 
 This application is for people, such as students, 
 who want to optimize their limited funds by improving their 
-money management. </p>
+financial management. </p>
 
 
 <br>
@@ -27,14 +27,15 @@ money management. </p>
 ### Utilize Need/Want list to make wise choices
 
 <p> This application aims to improve the transparency 
-of how much and what the user spent the money. 
+of how much and how the user spent their money. 
 The Want or Need list feature helps them decide 
 whether the purchase is necessary, 
 which prevents impulsive buying. 
-Furthermore, the Above-Budget feature reveals the items bought
-at prices above budget, 
-and how much they have overspent. 
-Knowing their money usage is the 
+Furthermore, the bought-want list feature helps the user know 
+how they are spending money on wanted items. 
+Although it is generally harder to cut budgets on needed items,
+managing expenses on wanted goods can be achieved by better
+decision making. Knowing their money usage is the 
 first step in managing their finance well.</p>
 
 ### Aim of this project 

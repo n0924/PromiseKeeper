@@ -1,18 +1,13 @@
 package model;
 
-//Represents a needed/wanted item with a name, priority, category, and budget (in dollars)
+//Represents an item with a name, priority, category, and budget (in dollars)
 public class Item {
     private String name;         //name of product
     private String priority;     //how much they want/need
     private int budget;          //budget of the product (in dollars)
-    private int price;           // price paid for this item when bought
+    private int price;           //price paid for this item when bought
 
     //REQUIRES: budget > 0
-    //EFFECTS: creates an item
-    public Item() {
-    }
-
-    //REQUIRES: newBudget > 0
     //MODIFIES: this
     //EFFECTS: set budget if Budget > 0, no changes otherwise
     public void setBudget(int budget) {
@@ -57,6 +52,4 @@ public class Item {
     public int getBudget() {
         return budget;
     }
-
-
 }

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a Need list, with no duplicated items
+// Represents a Need list, with no items with duplicated names
 public class NeedList implements PlanList {
     private List<Item> needList;
 
@@ -15,7 +15,7 @@ public class NeedList implements PlanList {
 
     //REQUIRES: item has a name
     //MODIFIES: this
-    //EFFECTS: adds a needed item to the top of need list if not item, if the name is not taken
+    //EFFECTS: adds a needed item to the top of list if the name is not taken
     // otherwise, make no changes
     @Override
     public void addItem(Item item) {
@@ -39,8 +39,7 @@ public class NeedList implements PlanList {
         needList.remove(item);
     }
 
-    //REQUIRES: sizeNeed >= 1, priority is "High Priority", "Medium Priority" "Low Priority"
-    //MODIFIES: this
+    //REQUIRES: sizeList >= 0
     //EFFECTS: filter the needed list by the given priority, preserve order of original list
     // if no item with the given priority exists, return an empty list
     @Override
@@ -56,6 +55,17 @@ public class NeedList implements PlanList {
 
     }
 
+    //Produce a list of names of all needed items
+    @Override
+    public List<String> toName() {
+        List<String> names = new ArrayList<>();
+
+        for (Item item : needList) {
+            names.add(item.getName());
+        }
+        return names;
+    }
+
     //EFFECTS: produce true if there is an item in list with given name
     @Override
     public boolean inList(String name) {
@@ -68,19 +78,9 @@ public class NeedList implements PlanList {
         return (names.contains(name));
     }
 
-    //Produce a list of names of all needed items
-    @Override
-    public List<String> toName() {
-        List<String> names = new ArrayList<>();
 
-        for (Item item : needList) {
-            names.add(item.getName());
-        }
-        return names;
-    }
-
-    //REQUIRES: the name exists in the list
-    //EFFECTS: get the item with that name
+    //REQUIRES: the list has an item with the given name
+    //EFFECTS: get the item with that name from the list
     @Override
     public Item getItem(String name) {
         Item foundItem = new Item();
@@ -104,7 +104,7 @@ public class NeedList implements PlanList {
 
     //EFFECTS: checks how many elements are in the needed list
     @Override
-    public int sizeItem() {
+    public int sizeList() {
         return needList.size();
     }
 

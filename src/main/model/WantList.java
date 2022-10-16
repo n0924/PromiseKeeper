@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents Want list, with no duplicated items
+// Represents Want list, with no item with the same name
 public class WantList implements PlanList {
     private List<Item> wantList;
 
@@ -13,7 +13,6 @@ public class WantList implements PlanList {
     }
 
 
-    //REQUIRES: item has a name
     //MODIFIES: this
     //EFFECTS: adds a wanted item to the top of the want list if not already in list
     // otherwise, make no changes
@@ -40,7 +39,6 @@ public class WantList implements PlanList {
     }
 
     //REQUIRES: sizeWant >= 1
-    //MODIFIES: this
     //EFFECTS: filter the wanted list by the given priority, preserve order of orignal list
     // if no item with the given priority exists, return an empty list
     @Override
@@ -56,7 +54,18 @@ public class WantList implements PlanList {
 
     }
 
-    //EFFECTS: get the item with that name
+    //Produce a list of names of all wanted items
+    @Override
+    public List<String> toName() {
+        List<String> names = new ArrayList<>();
+
+        for (Item item : wantList) {
+            names.add(item.getName());
+        }
+        return names;
+    }
+
+    //EFFECTS: produce true if there is an item in list with the given name
     @Override
     public boolean inList(String name) {
         List<String> names = new ArrayList<>();
@@ -68,17 +77,8 @@ public class WantList implements PlanList {
         return (names.contains(name));
     }
 
-    //Produce a list of names of all needed items
-    @Override
-    public List<String> toName() {
-        List<String> names = new ArrayList<>();
 
-        for (Item item : wantList) {
-            names.add(item.getName());
-        }
-        return names;
-    }
-
+    //REQUIRES: the list has an item with the given name
     //EFFECTS: produce true if there is an item in list with given name
     @Override
     public Item getItem(String name) {
@@ -94,33 +94,29 @@ public class WantList implements PlanList {
         return foundItem;
     }
 
-
-    @Override
-    public List<Item> getList() {
-        return wantList;
-    }
-
-    //REQUIRES: item is wanted
     //EFFECTS: checks if an item already exists in wanted list
     @Override
     public boolean containsItem(Item item) {
         return wantList.contains(item);
     }
 
-
-    //REQUIRES: item is wanted
     //EFFECTS: checks how many elements are in the wanted list
     @Override
-    public int sizeItem() {
+    public int sizeList() {
         return wantList.size();
     }
-
 
     //REQUIRES: item is wanted
     // EFFECTS: get the element of need list at index i
     @Override
     public Item getItemIndex(int i) {
         return wantList.get(i);
+    }
+
+    //EFFECTS: get the want list
+    @Override
+    public List<Item> getList() {
+        return wantList;
     }
 }
 
