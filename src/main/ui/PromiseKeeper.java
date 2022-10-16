@@ -113,7 +113,30 @@ public class PromiseKeeper {
 
 
     //MODIFIES: this
-    //EFFECTS: edits an item
+    //EFFECTS: add a bought wanted item to boughWant list, and remove bought need and want item
+    // from need and want lists, respectively
+    private void bought() {
+        System.out.println("Which item did you buy?");
+        String inputName = input.next();
+        System.out.println("Was the item needed or wanted?");
+        String inputNeedOrWant = input.next().toLowerCase();
+        String validNeedorWant = notTwoOption(inputNeedOrWant, "need", "want");
+        String validName = nameExistInList(validNeedorWant, inputName);
+
+        System.out.println("How much did you pay?");
+        int inputPrice = input.nextInt();
+        int validPrice = validPrice(inputPrice);
+
+        if (validNeedorWant.equals("want")) {
+            boughtWantList.addBought(wantList.getItem(validName), validPrice);
+        }
+
+        remove(validNeedorWant, validName);
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: edits an item description or remove from lists
     private void edit() {
         System.out.println("Is the item needed or wanted?");
         String needOrWant = input.next().toLowerCase();
@@ -129,7 +152,7 @@ public class PromiseKeeper {
         toRemoveOrChange(validRemoveOrChange, validNeedOrWant, validName);
     }
 
-    //EFFECTS: display lists
+    //EFFECTS: display lists or amounts spent on wanted items
     private void display() {
         displayMenu();
         String selection = input.next().toLowerCase();
@@ -146,6 +169,7 @@ public class PromiseKeeper {
             }
         }
     }
+
 
     //EFFECTS: show the need list
     private void displayNeed() {
@@ -237,26 +261,6 @@ public class PromiseKeeper {
         System.out.println("\t Bought Wanted Items");
     }
 
-    //EFFECTS: add a bought wanted item to boughWant list, and remove bought need and want list
-    // from need and want lists, respectively
-    private void bought() {
-        System.out.println("Which item did you buy?");
-        String inputName = input.next();
-        System.out.println("Was the item needed or wanted?");
-        String inputNeedOrWant = input.next().toLowerCase();
-        String validNeedorWant = notTwoOption(inputNeedOrWant, "need", "want");
-        String validName = nameExistInList(validNeedorWant, inputName);
-
-        System.out.println("How much did you pay?");
-        int inputPrice = input.nextInt();
-        int validPrice = validPrice(inputPrice);
-
-        if (validNeedorWant.equals("want")) {
-            boughtWantList.addBought(wantList.getItem(validName), validPrice);
-        }
-
-        remove(validNeedorWant, validName);
-    }
 
     //EFFECTS: process invalid price input
     private int validPrice(int price) {
