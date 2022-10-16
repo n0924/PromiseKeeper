@@ -378,6 +378,23 @@ public class NeedListTest {
         assertEquals(n2, needs.getItemIndex(1));
         assertEquals(n1, needs.getItemIndex(2));
     }
+
+    @Test
+    void getList(){
+        needs.addItem(n1);
+        needs.addItem(n2);
+
+        List<Item> needItems = needs.getList();
+        assertEquals(2, needItems.size());
+        assertEquals(n2, needItems.get(0));
+        assertEquals(n1, needItems.get(1));
+
+        needs.addItem(n3);
+        assertEquals(3, needItems.size());
+        assertEquals(n3, needItems.get(0));
+        assertEquals(n2, needItems.get(1));
+        assertEquals(n1, needItems.get(2));
+    }
 }
 
 

@@ -7,7 +7,7 @@
 **PromiseKeeper simplifies the process of 
 tracking expenses!**
 
-### Managing budget is more important (and of course, harder) than setting a budget!
+### Managing budget is more important than setting a budget!
 
 
 <p>For most people, staying on budget is essential for 
@@ -17,9 +17,8 @@ but also, it helps alleviate the stress we receive from
 financial burdens. Most of us are aware of the importance 
 of setting budgets; 
 however, not everyone is capable of staying on budget. 
-This application is for people, such as students, 
-who want to optimize their limited funds by improving their 
-financial management. </p>
+This application is for people
+who want to optimize their funds by managing their finance well. </p>
 
 
 <br>
@@ -41,17 +40,13 @@ first step in managing their finance well.</p>
 ### Aim of this project 
 <p>As a student, it has always been a struggle to manage my finance. 
 Staying on budget was challenging, as I was not fully aware of 
-how I was spending my money. 
-To keep track of my expenses, I started to check the transaction
-record on my bank account everyday, 
-which I found troublesome. 
-Therefore, making financial management more accessible 
-is the primary aim of this application.</p>
+how I was spending my money. Making financial management 
+more accessible is the primary aim of this application.</p>
 
 
 <br>
 
-**Let's have a healthier financial life with PromiseKeeper!**
+**Let's manage our expenses with PromiseKeeper!**
 
 <br>
 <br>

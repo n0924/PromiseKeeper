@@ -356,5 +356,22 @@ public class WantListTest {
     }
 
 
+    @Test
+    void getList(){
+        wants.addItem(w1);
+        wants.addItem(w2);
+
+        List<Item> wantItems = wants.getList();
+        assertEquals(2, wantItems.size());
+        assertEquals(w2, wantItems.get(0));
+        assertEquals(w1, wantItems.get(1));
+
+        wants.addItem(w3);
+        assertEquals(3, wantItems.size());
+        assertEquals(w3, wantItems.get(0));
+        assertEquals(w2, wantItems.get(1));
+        assertEquals(w1, wantItems.get(2));
+    }
+
 }
 

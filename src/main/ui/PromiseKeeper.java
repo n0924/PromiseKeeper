@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 // User Interaction of Promise Keepr
+//Some parts of this code was inspired by the TellerApp()
+
 public class PromiseKeeper {
     private WantList wantList;
     private NeedList needList;
@@ -17,8 +19,6 @@ public class PromiseKeeper {
     private Item item;
     private Scanner input;
 
-
-    //Some parts of this code was inspired by the TellerApp()
     //EFFECTS: run the PromiseKeeper app
     public PromiseKeeper() {
         runApp();
@@ -27,8 +27,7 @@ public class PromiseKeeper {
 
     //CITE:Inspired by CPSC210/TellerApp()
     //MODIFIES: this
-    //EFFECTS: process user input
-
+    //EFFECTS: process user inputs
     private void runApp() {
         boolean keepGoing = true;
 
