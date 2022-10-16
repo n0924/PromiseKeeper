@@ -45,14 +45,16 @@ public class NeedList implements PlanList {
     // if no item with the given priority exists, return an empty list
     @Override
     public List<Item> filterByPriority(String priority) {
-        List<Item> matchPriority = new ArrayList<>();
+        List<Item> filterOut = new ArrayList<>();
 
         for (Item item : needList) {
             if (priority.equals(item.getPriority())) {
-                matchPriority.add(item);
+                filterOut.add(item);
             }
         }
-        return matchPriority;
+        needList.removeAll(filterOut);
+        List<Item> needListFiltered = needList;
+        return needListFiltered;
     }
 
     //EFFECTS: produce true if there is an item in list with given name
@@ -71,16 +73,16 @@ public class NeedList implements PlanList {
     //EFFECTS: get the item with that name
     @Override
     public Item getItem(String name) {
-        List<Item> matchName = new ArrayList<>();
+        Item foundItem = new Item();
 
         if (inList(name)) {
             for (Item itemInList : needList) {
                 if (itemInList.getName() == name) {
-                    matchName.add(itemInList);
+                    foundItem = itemInList;
                 }
             }
         }
-        return matchName.get(0);
+        return foundItem;
     }
 
     //EFFECTS: checks if an item already exists in needed list

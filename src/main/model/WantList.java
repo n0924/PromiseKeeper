@@ -65,16 +65,16 @@ public class WantList implements PlanList {
     //EFFECTS: produce true if there is an item in list with given name
     @Override
     public Item getItem(String name) {
-        List<Item> matchName = new ArrayList<>();
+        Item foundItem = new Item();
 
         if (inList(name)) {
             for (Item itemInList : wantList) {
                 if (itemInList.getName() == name) {
-                    matchName.add(itemInList);
+                    foundItem = itemInList;
                 }
             }
         }
-        return matchName.get(0);
+        return foundItem;
     }
 
 
