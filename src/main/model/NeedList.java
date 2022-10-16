@@ -46,14 +46,16 @@ public class NeedList implements PlanList {
     @Override
     public List<Item> filterByPriority(String priority) {
         List<Item> filterOut = new ArrayList<>();
+        List<Item> needList1 = new ArrayList<>();
+        needList1.addAll(needList);
 
-        for (Item item : needList) {
+        for (Item item : needList1) {
             if (priority.equals(item.getPriority())) {
                 filterOut.add(item);
             }
         }
-        needList.removeAll(filterOut);
-        List<Item> needListFiltered = needList;
+        needList1.removeAll(filterOut);
+        List<Item> needListFiltered = needList1;
         return needListFiltered;
     }
 

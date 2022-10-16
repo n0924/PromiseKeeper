@@ -39,14 +39,16 @@ public class WantList implements PlanList {
     @Override
     public List<Item> filterByPriority(String priority) {
         List<Item> filterOut = new ArrayList<>();
+        List<Item> wantList1 = new ArrayList<>();
+        wantList1.addAll(wantList);
 
-        for (Item item : wantList) {
+        for (Item item : wantList1) {
             if (!priority.equals(item.getPriority())) {
                 filterOut.add(item);
             }
         }
-        wantList.removeAll(filterOut);
-        List<Item> wantListFiltered = wantList;
+        wantList1.removeAll(filterOut);
+        List<Item> wantListFiltered = wantList1;
         return wantListFiltered;
     }
 

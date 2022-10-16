@@ -19,7 +19,7 @@ public class PromiseKeeper {
     //Some parts of this code was inspired by the TellerApp()
     //EFFECTS: run the PromiseKeeper app
     public PromiseKeeper() {
-        runApp(true);
+        runApp();
     }
 
 
@@ -27,12 +27,12 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: process user input
 
-    private void runApp(boolean keepGoing) {
+    private void runApp() {
+        boolean keepGoing = true;
 
-        item = new Item();
-        input = new Scanner(System.in);
         wantList = new WantList();
         needList = new NeedList();
+        input = new Scanner(System.in);
 
         while (keepGoing) {
             menu();
@@ -86,6 +86,8 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: adds an item to appropriate list
     private void addItem() {
+        item = new Item();
+
         System.out.println("Enter the name of the item");
         String name = input.next();
         addName(name);
@@ -150,6 +152,7 @@ public class PromiseKeeper {
         if (yesOrNo.equals("yes")) {
             System.out.println("Select priority");
             String priority = input.next().toLowerCase();
+            selectPriority(priority);
             List<Item> filteredList = needList.filterByPriority(priority);
             List<String> itemsString = convertToString(filteredList);
             System.out.println(itemsString);
@@ -167,6 +170,7 @@ public class PromiseKeeper {
         if (yesOrNo.equals("yes")) {
             System.out.println("Select priority");
             String priority = input.next().toLowerCase();
+            selectPriority(priority);
             List<Item> filteredWantList = wantList.filterByPriority(priority);
             List<String> itemsString = convertToString(filteredWantList);
             System.out.println(itemsString);
@@ -362,14 +366,20 @@ public class PromiseKeeper {
     //EFFECTS: add to the need or want list given the input
     private void addToList(String needOrWant) {
         notTwoOption(needOrWant, "need", "want");
-
-        if (needOrWant.equals("need")) {
-            needList.addItem(item);
-        } else {
-            wantList.addItem(item);
-        }
+        validName();
     }
 
+    //EFFECTS: propmt user to enter another name if it is taken
+    private void validName() {
+        needList.addItem(item);
+
+        if (!needList.containsItem(item)) {
+            System.out.println("Sorry this name is already taken. Enter another name");
+            String newName = input.next();
+            item.setName(newName);
+            validName();
+        }
+    }
 
     //EFFECT: show the added item
     private void showAddedItem() {
