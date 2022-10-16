@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -134,10 +136,10 @@ public class WantListTest {
         wants.addItem(w2);
         wants.addItem(w3);
 
-        wants.filterByPriority("High Priority");
+        List<Item> filtered = wants.filterByPriority("High Priority");
 
-        assertEquals(w1, wants.getItemIndex(0));
-        assertEquals(1, wants.sizeItem());
+        assertEquals(w1, filtered.get(0));
+        assertEquals(1, filtered.size());
     }
 
     @Test
@@ -148,11 +150,11 @@ public class WantListTest {
         wants.addItem(w4);
         wants.addItem(w5);
         wants.addItem(w6);
-        wants.filterByPriority("High Priority");
+        List<Item> filtered = wants.filterByPriority("High Priority");
 
-        assertEquals(w4, wants.getItemIndex(0));
-        assertEquals(w1, wants.getItemIndex(1));
-        assertEquals(2, wants.sizeItem());
+        assertEquals(w4, filtered.get(0));
+        assertEquals(w1, filtered.get(1));
+        assertEquals(2, filtered.size());
     }
 
     @Test
@@ -160,9 +162,9 @@ public class WantListTest {
         wants.addItem(w6);
         wants.addItem(w3);
         wants.addItem(w5);
-        wants.filterByPriority("High Priority");
+        List<Item> filtered = wants.filterByPriority("High Priority");
 
-        assertEquals(0, wants.sizeItem());
+        assertEquals(0, filtered.size());
     }
 
     @Test
@@ -171,9 +173,9 @@ public class WantListTest {
         wants.addItem(w2);
         wants.addItem(w3);
 
-        wants.filterByPriority("Medium Priority");
-        assertEquals(w2, wants.getItemIndex(0));
-        assertEquals(1, wants.sizeItem());
+        List<Item> filtered = wants.filterByPriority("Medium Priority");
+        assertEquals(w2, filtered.get(0));
+        assertEquals(1, filtered.size());
     }
 
     @Test
@@ -185,11 +187,11 @@ public class WantListTest {
         wants.addItem(w5);
         wants.addItem(w6);
 
-        wants.filterByPriority("Medium Priority");
+        List<Item> filtered = wants.filterByPriority("Medium Priority");
 
-        assertEquals(w5, wants.getItemIndex(0));
-        assertEquals(w2, wants.getItemIndex(1));
-        assertEquals(2, wants.sizeItem());
+        assertEquals(w5, filtered.get(0));
+        assertEquals(w2, filtered.get(1));
+        assertEquals(2, filtered.size());
     }
 
     @Test
@@ -198,8 +200,8 @@ public class WantListTest {
         wants.addItem(w3);
         wants.addItem(w4);
 
-        wants.filterByPriority("Medium Priority");
-        assertEquals(0, wants.sizeItem());
+        List<Item> filtered = wants.filterByPriority("Medium Priority");
+        assertEquals(0, filtered.size());
     }
 
 
@@ -210,10 +212,10 @@ public class WantListTest {
         wants.addItem(w3);
 
 
-        wants.filterByPriority("Low Priority");
+        List<Item> filtered = wants.filterByPriority("Low Priority");
 
-        assertEquals(w3, wants.getItemIndex(0));
-        assertEquals(1, wants.sizeItem());
+        assertEquals(w3, filtered.get(0));
+        assertEquals(1, filtered.size());
     }
 
     @Test
@@ -226,11 +228,11 @@ public class WantListTest {
         wants.addItem(w6);
 
 
-        wants.filterByPriority("Low Priority");
+        List<Item> filtered = wants.filterByPriority("Low Priority");
 
-        assertEquals(w6, wants.getItemIndex(0));
-        assertEquals(w3, wants.getItemIndex(1));
-        assertEquals(2, wants.sizeItem());
+        assertEquals(w6, filtered.get(0));
+        assertEquals(w3, filtered.get(1));
+        assertEquals(2, filtered.size());
     }
 
     @Test
@@ -241,9 +243,9 @@ public class WantListTest {
         wants.addItem(w5);
 
 
-        wants.filterByPriority("Low Priority");
+        List<Item> filtered = wants.filterByPriority("Low Priority");
 
-        assertEquals(0, wants.sizeItem());
+        assertEquals(0, filtered.size());
     }
 
     @Test

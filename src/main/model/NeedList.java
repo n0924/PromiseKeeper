@@ -45,18 +45,15 @@ public class NeedList implements PlanList {
     // if no item with the given priority exists, return an empty list
     @Override
     public List<Item> filterByPriority(String priority) {
-        List<Item> filterOut = new ArrayList<>();
-        List<Item> needList1 = new ArrayList<>();
-        needList1.addAll(needList);
+        List<Item> filtered = new ArrayList<>();
 
-        for (Item item : needList1) {
+        for (Item item : needList) {
             if (priority.equals(item.getPriority())) {
-                filterOut.add(item);
+                filtered.add(item);
             }
         }
-        needList1.removeAll(filterOut);
-        List<Item> needListFiltered = needList1;
-        return needListFiltered;
+        return filtered;
+
     }
 
     //EFFECTS: produce true if there is an item in list with given name

@@ -148,13 +148,13 @@ public class PromiseKeeper {
     private void displayNeed() {
         System.out.println("Do you want to filter by priority?");
         String yesOrNo = input.next().toLowerCase();
-        notTwoOption(yesOrNo, "yes", "no");
-        if (yesOrNo.equals("yes")) {
+        String validYesOrNo = notTwoOption(yesOrNo, "yes", "no");
+        if (validYesOrNo.equals("yes")) {
             System.out.println("Select priority");
             String priority = input.next().toLowerCase();
-            selectPriority(priority);
-            List<Item> filteredList = needList.filterByPriority(priority);
-            List<String> itemsString = convertToString(filteredList);
+            String validPriority = validPriority(priority);
+            List<Item> filterList = needList.filterByPriority(validPriority);
+            List<String> itemsString = convertToString(filterList);
             System.out.println(itemsString);
         } else {
             List<String> itemsString = convertToString(needList.getList());
@@ -162,16 +162,17 @@ public class PromiseKeeper {
         }
     }
 
+
     //EFFECTS: show the want list
     private void displayWant() {
         System.out.println("Do you want to filter by priority?");
         String yesOrNo = input.next().toLowerCase();
-        notTwoOption(yesOrNo, "yes", "no");
-        if (yesOrNo.equals("yes")) {
+        String validYesOrNo = notTwoOption(yesOrNo, "yes", "no");
+        if (validYesOrNo.equals("yes")) {
             System.out.println("Select priority");
             String priority = input.next().toLowerCase();
-            selectPriority(priority);
-            List<Item> filteredWantList = wantList.filterByPriority(priority);
+            String validPriority = validPriority(priority);
+            List<Item> filteredWantList = wantList.filterByPriority(validPriority);
             List<String> itemsString = convertToString(filteredWantList);
             System.out.println(itemsString);
         } else {
@@ -188,7 +189,7 @@ public class PromiseKeeper {
             String name = item.getName();
             int budget = item.getBudget();
             String itemDescription =
-                    "[" + priority + ": " + name + ", " + "$" + budget + "]";
+                    "[" + priority + " priority: " + name + ", " + "$" + budget + "]";
             itemDescriptions.add(itemDescription);
         }
         return itemDescriptions;
@@ -316,7 +317,7 @@ public class PromiseKeeper {
         String priority = input.nextLine().toLowerCase();
         String validPriority = validPriority(priority);
         foundItem.setPriority(validPriority);
-        System.out.println("Priority changed to: " + priority);
+        System.out.println("Priority changed to: " + priority + " priority");
     }
 
 
@@ -349,8 +350,8 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: set a priority
     private void selectPriority(String highMediumLow) {
-        validPriority(highMediumLow);
-        item.setPriority(highMediumLow + " " + "priority");
+        String validPriority = validPriority(highMediumLow);
+        item.setPriority(validPriority);
     }
 
     //EFFECTS: return valid priority
@@ -366,20 +367,32 @@ public class PromiseKeeper {
     //EFFECTS: add to the need or want list given the input
     private void addToList(String needOrWant) {
         notTwoOption(needOrWant, "need", "want");
-        validName();
+        validName(needOrWant);
     }
 
     //EFFECTS: propmt user to enter another name if it is taken
-    private void validName() {
-        needList.addItem(item);
+    private void validName(String needOrWant) {
+        if (needOrWant.equals("need")) {
+            needList.addItem(item);
 
-        if (!needList.containsItem(item)) {
-            System.out.println("Sorry this name is already taken. Enter another name");
-            String newName = input.next();
-            item.setName(newName);
-            validName();
+            if (!needList.containsItem(item)) {
+                System.out.println("Sorry this name is already taken. Enter another name");
+                String newName = input.next();
+                item.setName(newName);
+                validName(needOrWant);
+            }
+        } else {
+            wantList.addItem(item);
+
+            if (!wantList.containsItem(item)) {
+                System.out.println("Sorry this name is already taken. Enter another name");
+                String newName = input.next();
+                item.setName(newName);
+                validName(needOrWant);
+            }
         }
     }
+
 
     //EFFECT: show the added item
     private void showAddedItem() {
@@ -387,10 +400,10 @@ public class PromiseKeeper {
         String priority = item.getPriority();
         int budget = item.getBudget();
 
-        if (priority.equals("high priority")) {
+        if (priority.equals("high")) {
             System.out.println("High Priority:" + " " + name + "," + " $" + budget);
         } else {
-            if (priority.equals("medium priority")) {
+            if (priority.equals("medium")) {
                 System.out.println(
                         "Medium Priority:" + " " + name + "," + " $" + budget);
             } else {
@@ -401,7 +414,7 @@ public class PromiseKeeper {
 
 
     //EFFECTS: process invalid user input when two options were given
-    private void notTwoOption(String selection, String option1, String option2) {
+    private String notTwoOption(String selection, String option1, String option2) {
         while (!(selection.equals(option1) || selection.equals(option2))) {
             String capitalOption1 = capitalizeFirstLetter(option1);
             String capitalOption2 = capitalizeFirstLetter(option2);
@@ -409,6 +422,7 @@ public class PromiseKeeper {
             System.out.println("Enter " + capitalOption1 + " or " + capitalOption2);
             selection = input.next().toLowerCase();
         }
+        return selection;
     }
 
     //EFFECTS: process invalid user input when three options were given

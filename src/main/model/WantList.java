@@ -38,18 +38,15 @@ public class WantList implements PlanList {
     // if no item with the given priority exists, return an empty list
     @Override
     public List<Item> filterByPriority(String priority) {
-        List<Item> filterOut = new ArrayList<>();
-        List<Item> wantList1 = new ArrayList<>();
-        wantList1.addAll(wantList);
+        List<Item> filter = new ArrayList<>();
 
-        for (Item item : wantList1) {
-            if (!priority.equals(item.getPriority())) {
-                filterOut.add(item);
+        for (Item item : wantList) {
+            if (priority.equals(item.getPriority())) {
+                filter.add(item);
             }
         }
-        wantList1.removeAll(filterOut);
-        List<Item> wantListFiltered = wantList1;
-        return wantListFiltered;
+        return filter;
+
     }
 
     //EFFECTS: get the item with that name
