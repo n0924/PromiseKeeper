@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//Tests for the Item class
 public class ItemTest {
     private Item item1;
     private Item item2;

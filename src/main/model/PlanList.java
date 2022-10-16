@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+//Methods for both need and want list
 public interface PlanList {
     //MODIFIES: this
     //EFFECTS: adds an item to the top of list if not already in list

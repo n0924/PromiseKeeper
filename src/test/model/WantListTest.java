@@ -8,6 +8,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+//Tests for the WantList test
 public class WantListTest {
     private WantList wants;
 

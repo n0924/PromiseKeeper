@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//Tests for the BoughtWantList class
 public class BoughtWantListTest {
     private BoughtWantList bwants;
     private Item bw1;
