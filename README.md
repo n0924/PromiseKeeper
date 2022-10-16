@@ -66,10 +66,10 @@ in my need or want list
 by priority
 - As a user I want to be able to know how much 
 I spent on wanted items
-- As a user I want to be able to know the total amount overspent 
-on wanted items
+- As a user I want to be able to know the total amount spent 
+above budgets on wanted items
 - As a user, I want to be able to see a list of bought wanted 
-items and overspent wanted items
+items 
 
 
 

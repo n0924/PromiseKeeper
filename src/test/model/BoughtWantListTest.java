@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoughtWantListTest {
-    private BoughtWant bwants;
+    private BoughtWantList bwants;
     private Item bw1;
     private Item bw2;
     private Item bw3;
@@ -18,7 +18,7 @@ public class BoughtWantListTest {
 
     @BeforeEach
     void setup() {
-        bwants = new BoughtWant();
+        bwants = new BoughtWantList();
         bw1 = new Item();
         bw1.setName("item 1");
         bw1.setBudget(900);

@@ -21,6 +21,7 @@ public class Item {
         }
     }
 
+    //REQUIRES: price > 0
     //MODIFIES: this
     //EFFECTS: set price to be the paid price
     public void setPrice(int price) {

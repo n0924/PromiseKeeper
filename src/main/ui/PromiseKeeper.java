@@ -1,5 +1,6 @@
 package ui;
 
+import model.BoughtWantList;
 import model.Item;
 import model.NeedList;
 import model.WantList;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class PromiseKeeper {
     private WantList wantList;
     private NeedList needList;
+    private BoughtWantList boughtWantList;
     private Item item;
     private Scanner input;
 
@@ -32,6 +34,7 @@ public class PromiseKeeper {
 
         wantList = new WantList();
         needList = new NeedList();
+        boughtWantList = new BoughtWantList();
         input = new Scanner(System.in);
 
         while (keepGoing) {
@@ -118,19 +121,21 @@ public class PromiseKeeper {
         String validNeedOrWant = notTwoOption(needOrWant, "need", "want");
 
         System.out.println("Which item do you want to edit?");
-        String editItemName = input.next();
-        getItemFromList(validNeedOrWant, editItemName);
+        String inputName = input.next();
+        String validName = nameExistInList(validNeedOrWant, inputName);
 
         System.out.println("Do you want to remove or change this item?");
         String removeOrChange = input.next().toLowerCase();
         String validRemoveOrChange = notTwoOption(removeOrChange, "remove", "change");
-        toRemoveOrChange(validRemoveOrChange, validNeedOrWant, editItemName);
+        toRemoveOrChange(validRemoveOrChange, validNeedOrWant, validName);
     }
 
     //EFFECTS: display lists
     private void display() {
         displayMenu();
         String selection = input.next().toLowerCase();
+        validSelection(selection, "need", "want", "bought");
+
 
         if (selection.equals("need")) {
             displayNeed();
@@ -181,7 +186,7 @@ public class PromiseKeeper {
     }
 
     //EFFECTS: convert all elements in given list to strings
-    public List<String> convertToString(List<Item> list) {
+    private List<String> convertToString(List<Item> list) {
         List<String> itemDescriptions = new ArrayList<>();
         for (Item item : list) {
             String priority = item.getPriority();
@@ -196,50 +201,109 @@ public class PromiseKeeper {
 
     //EFFECTS: show the Bought list
     private void displayBought() {
-        System.out.println("do you want to ");
-    }
-
-
-    //EFFECTS: show the display menu
-    private void displayMenu() {
-        System.out.println("Select from:");
-        System.out.println("\t need");
-        System.out.println("\t want");
-        System.out.println("\t bought");
-    }
-
-    //EFFECTS: add a bought item
-    private void bought() {
-        System.out.println("Which item did you buy?");
-
-    }
-
-
-    //EFFECTS: find the item that gets edited/removed
-    private void getItemFromList(String needOrWant, String editItemName) {
-        if (needOrWant.equals("need")) {
-            if (!needList.inList(editItemName)) {
-                notInList(needOrWant);
-            }
+        System.out.println("I want to see..  ");
+        System.out.println("\t List of all bought items");
+        System.out.println("\t Total amount spent on wanted items");
+        System.out.println("\t Amount spent above budget on wanted items");
+        String selection = input.next().toLowerCase();
+        String validSelection = validSelection(selection, "list", "total", "amount");
+        if (validSelection.equals("list")) {
+            List<Item> boughtWants = boughtWantList.getBoughtList();
+            List<String> boughtStrings = convertToString(boughtWants);
+            System.out.println(boughtStrings);
         } else {
-            if (!wantList.inList(editItemName)) {
-                notInList(needOrWant);
+            if (validSelection.equals("total")) {
+                System.out.println(boughtWantList.getTotalPrice());
+            } else {
+                System.out.println(boughtWantList.getTotalOverspent());
             }
         }
     }
 
 
-    //EFFECTS: process when item is not in the list
-    private void notInList(String needOrWant) {
-        System.out.println("The item does not exist. Try another name");
-        String nextName = input.next().toLowerCase();
-        getItemFromList(needOrWant, nextName);
+    //EFFECTS: process invalid input not shown by displayBought
+    private String validSelection(String selection, String option1, String option2, String option3) {
+        while (!isThreeOption(selection, option1, option2, option3)) {
+            System.out.println("Please enter a valid option");
+            selection = input.next().toLowerCase();
+        }
+        return selection;
+    }
+
+    //EFFECTS: show the display menu
+    private void displayMenu() {
+        System.out.println("Select from:");
+        System.out.println("\t Need");
+        System.out.println("\t Want");
+        System.out.println("\t Bought Wanted Items");
+    }
+
+    //EFFECTS: add a bought wanted item to boughWant list, and remove bought need and want list
+    // from need and want lists, respectively
+    private void bought() {
+        System.out.println("Which item did you buy?");
+        String inputName = input.next();
+        System.out.println("Was the item needed or wanted?");
+        String inputNeedOrWant = input.next().toLowerCase();
+        String validNeedorWant = notTwoOption(inputNeedOrWant, "need", "want");
+        String validName = nameExistInList(validNeedorWant, inputName);
+
+        System.out.println("How much did you pay?");
+        int inputPrice = input.nextInt();
+        int validPrice = validPrice(inputPrice);
+
+        if (validNeedorWant.equals("want")) {
+            boughtWantList.addBought(wantList.getItem(validName), validPrice);
+        }
+
+        remove(validNeedorWant, validName);
+    }
+
+    //EFFECTS: process invalid price input
+    private int validPrice(int price) {
+        while (price < 0) {
+            System.out.println("Price must be positive");
+            price = input.nextInt();
+        }
+        return price;
+    }
+
+    //EFFECTS: produce name that exists in list
+    private String nameExistInList(String needOrWant, String itemName) {
+        String validName;
+
+        if (needOrWant.equals("need")) {
+            validName = notInNeedList(itemName);
+        } else {
+            validName = notInWantList(itemName);
+        }
+        return validName;
+    }
+
+
+    //EFFECTS: process when item name does not exist in the need list
+    private String notInNeedList(String itemName) {
+        while (!needList.inList(itemName)) {
+            System.out.println("The item does not exist. Try another name");
+            itemName = input.next();
+        }
+        return itemName;
+    }
+
+    //EFFECTS: process when item name does not exist in the want list
+    private String notInWantList(String itemName) {
+        while (!wantList.inList(itemName)) {
+            System.out.println("The item does not exist. Try another name");
+            itemName = input.next();
+        }
+        return itemName;
     }
 
     //EFFECTS: process whether to remove or change from need or want list
     private void toRemoveOrChange(String removeOrChange, String needOrWant, String editItemName) {
         if (removeOrChange.equals("remove")) {
             remove(needOrWant, editItemName);
+            System.out.println("Item " + editItemName + " was successfully removed");
         } else {
             changeOptions(needOrWant, editItemName);
         }
@@ -252,13 +316,10 @@ public class PromiseKeeper {
         if (needOrWant.equals("need")) {
             Item itemRemoveN = needList.getItem(editItemName);
             needList.removeItem(itemRemoveN);
-            System.out.println("Item successfully removed");
         } else {
             Item itemRemoveW = wantList.getItem(editItemName);
             wantList.removeItem(itemRemoveW);
-            System.out.println("Item successfully removed");
         }
-        System.out.println("Removed item: " + editItemName);
     }
 
 
@@ -296,18 +357,10 @@ public class PromiseKeeper {
     //EFFECS: change name to inputted name
     private void changeName(Item foundItem, String needOrWant) {
         String validName;
-
-        if (needOrWant.equals("need")) {
-            System.out.println("Enter new name");
-            String newName = input.next();
-            validName = validName(needOrWant, newName);
-            foundItem.setName(validName);
-        } else {
-            System.out.println("Enter new name");
-            String newName = input.next();
-            validName = validName(needOrWant, newName);
-            foundItem.setName(validName);
-        }
+        System.out.println("Enter new name");
+        String newName = input.next();
+        validName = nonDuplicatedName(needOrWant, newName);
+        foundItem.setName(validName);
         System.out.println("Name changed to: " + validName);
     }
 
@@ -328,7 +381,7 @@ public class PromiseKeeper {
         String priority = input.next().toLowerCase();
         String validPriority = validPriority(priority);
         foundItem.setPriority(validPriority);
-        System.out.println("Priority changed to: " + priority + " priority");
+        System.out.println("Priority changed to: " + validPriority + " priority");
     }
 
 
@@ -360,24 +413,24 @@ public class PromiseKeeper {
     }
 
     //EFFECTS: return valid priority
-    private String validPriority(String highMediumLow) {
-        while (!isThreeOption(highMediumLow, "high", "medium", "low")) {
+    private String validPriority(String priority) {
+        while (!isThreeOption(priority, "high", "medium", "low")) {
             System.out.println("Enter Valid Priority");
-            highMediumLow = input.next().toLowerCase();
+            priority = input.next().toLowerCase();
         }
-        return highMediumLow;
+        return priority;
     }
 
     //MODIFIES: this
     //EFFECTS: add to the need or want list given the input
     private void addToList(String needOrWant, String name) {
         String validNeedOrWant = notTwoOption(needOrWant, "need", "want");
-        addItemWithValidName(validNeedOrWant, name);
+        addNonDuplicatedItem(validNeedOrWant, name);
     }
 
     //EFFECTS: add item with a non-duplicated name
-    private void addItemWithValidName(String needOrWant, String name) {
-        item.setName(validName(needOrWant, name));
+    private void addNonDuplicatedItem(String needOrWant, String name) {
+        item.setName(nonDuplicatedName(needOrWant, name));
         if (needOrWant.equals("need")) {
             needList.addItem(item);
         } else {
@@ -386,7 +439,7 @@ public class PromiseKeeper {
     }
 
     //EFFECTS: process name input
-    private String validName(String needOrWant, String name) {
+    private String nonDuplicatedName(String needOrWant, String name) {
         if (needOrWant.equals("need")) {
             List<String> needNames = needList.toName();
             while (needNames.contains(name)) {

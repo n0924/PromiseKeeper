@@ -19,7 +19,14 @@ public class WantList implements PlanList {
     // otherwise, make no changes
     @Override
     public void addItem(Item item) {
-        if (!wantList.contains(item)) {
+        List<String> names = new ArrayList<>();
+
+        for (Item itemInList : wantList) {
+            String name = itemInList.getName();
+            names.add(name);
+        }
+
+        if (!names.contains(item.getName())) {
             wantList.add(0, item);
         }
     }

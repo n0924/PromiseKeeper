@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Represents bought wanted items
-public class BoughtWant {
-    private List<Item> boughtWant; //List of want items bought
+public class BoughtWantList {
+    private List<Item> boughtWantList; //List of want items bought
     private int totalPrice; // total amount spent on wanted items
     private int totalOverspent; //total amount spent above budget on wanted items (in dollars)
 
     //EFFECTS: create an empty list of bought wantedlist, with initial total Price = 0,
     // and initial totalOverspent = 0
-    public BoughtWant() {
-        boughtWant = new ArrayList<>();
+    public BoughtWantList() {
+        boughtWantList = new ArrayList<>();
         totalPrice = 0;
         totalOverspent = 0;
     }
@@ -24,7 +24,7 @@ public class BoughtWant {
     public void addBought(Item item, int price) {
         item.setPrice(price);
         totalPrice += price;
-        boughtWant.add(0, item);
+        boughtWantList.add(0, item);
 
         if (item.getPrice() > item.getBudget()) {
             totalOverspent += item.getPrice() - item.getBudget();
@@ -37,7 +37,7 @@ public class BoughtWant {
     public List<Item> filterOverspent() {
         List<Item> overspent = new ArrayList<>();
 
-        for (Item item : boughtWant) {
+        for (Item item : boughtWantList) {
             if (item.getPrice() > item.getBudget()) {
                 overspent.add(item);
             }
@@ -59,7 +59,7 @@ public class BoughtWant {
 
     //EFFECTS: get the element from boughWant list
     public List<Item> getBoughtList() {
-        return boughtWant;
+        return boughtWantList;
     }
 }
 
