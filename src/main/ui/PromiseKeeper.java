@@ -225,11 +225,11 @@ public class PromiseKeeper {
     //EFFECTS: show the Bought list
     private void displayBought() {
         System.out.println("I want to see..  ");
-        System.out.println("\t List of all bought items");
-        System.out.println("\t Total amount spent on wanted items");
-        System.out.println("\t Amount spent above budget on wanted items");
+        System.out.println("\t list: List of wanted items bought");
+        System.out.println("\t total: Total amount spent on wanted items");
+        System.out.println("\t overspent: Amount spent above budget on wanted items");
         String selection = input.next().toLowerCase();
-        String validSelection = validSelection(selection, "list", "total", "amount");
+        String validSelection = validSelection(selection, "list", "total", "overspent");
         if (validSelection.equals("list")) {
             List<Item> boughtWants = boughtWantList.getBoughtList();
             List<String> boughtStrings = convertToString(boughtWants);
@@ -258,7 +258,7 @@ public class PromiseKeeper {
         System.out.println("Select from:");
         System.out.println("\t Need");
         System.out.println("\t Want");
-        System.out.println("\t Bought Wanted Items");
+        System.out.println("\t Bought (wanted items)");
     }
 
 
