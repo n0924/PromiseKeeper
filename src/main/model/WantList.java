@@ -79,7 +79,7 @@ public class WantList implements PlanList {
 
         if (inList(name)) {
             for (Item itemInList : wantList) {
-                if (itemInList.getName() == name) {
+                if (name.equals(itemInList.getName())) {
                     foundItem = itemInList;
                 }
             }

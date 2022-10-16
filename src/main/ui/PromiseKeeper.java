@@ -115,16 +115,16 @@ public class PromiseKeeper {
     private void edit() {
         System.out.println("Is the item needed or wanted?");
         String needOrWant = input.next().toLowerCase();
-        notTwoOption(needOrWant, "need", "want");
+        String validNeedOrWant = notTwoOption(needOrWant, "need", "want");
 
         System.out.println("Which item do you want to edit?");
         String editItemName = input.next();
-        getItemFromList(needOrWant, editItemName);
+        getItemFromList(validNeedOrWant, editItemName);
 
         System.out.println("Do you want to remove or change this item?");
         String removeOrChange = input.next().toLowerCase();
-        notTwoOption(removeOrChange, "remove", "change");
-        toRemoveOrChange(removeOrChange, needOrWant, editItemName);
+        String validRemoveOrChange = notTwoOption(removeOrChange, "remove", "change");
+        toRemoveOrChange(validRemoveOrChange, validNeedOrWant, editItemName);
     }
 
     //EFFECTS: display lists
@@ -232,10 +232,8 @@ public class PromiseKeeper {
     //EFFECTS: process when item is not in the list
     private void notInList(String needOrWant) {
         System.out.println("The item does not exist. Try another name");
-        String nextStep = input.next().toLowerCase();
-        if (!nextStep.equals("cancel")) {
-            getItemFromList(needOrWant, nextStep);
-        }
+        String nextName = input.next().toLowerCase();
+        getItemFromList(needOrWant, nextName);
     }
 
     //EFFECTS: process whether to remove or change from need or want list
@@ -250,8 +248,8 @@ public class PromiseKeeper {
 
     //MODIFIES: this
     //EFFECTS: remove an item from a list
-    private void remove(String selection, String editItemName) {
-        if (selection.equals("need")) {
+    private void remove(String needOrWant, String editItemName) {
+        if (needOrWant.equals("need")) {
             Item itemRemoveN = needList.getItem(editItemName);
             needList.removeItem(itemRemoveN);
             System.out.println("Item successfully removed");
@@ -277,7 +275,10 @@ public class PromiseKeeper {
         changeMenu();
 
         String changeWhat = input.next().toLowerCase();
-        isThreeOption(changeWhat, "name", "budget", "priority");
+        while (!isThreeOption(changeWhat, "name", "budget", "priority")) {
+            System.out.println("Enter valid option");
+            changeWhat = input.next().toLowerCase();
+        }
 
         if (changeWhat.equals("name")) {
             changeName(foundItem, needOrWant);
@@ -294,13 +295,20 @@ public class PromiseKeeper {
     //MODIFIES: foundItem
     //EFFECS: change name to inputted name
     private void changeName(Item foundItem, String needOrWant) {
-        if (needOrWant.equals("need")) {
-            System.out.println("Enter the new name");
-            String newName = input.next();
+        String validName;
 
+        if (needOrWant.equals("need")) {
+            System.out.println("Enter new name");
+            String newName = input.next();
+            validName = validName(needOrWant, newName);
+            foundItem.setName(validName);
         } else {
-            wantList.removeItem(foundItem);
+            System.out.println("Enter new name");
+            String newName = input.next();
+            validName = validName(needOrWant, newName);
+            foundItem.setName(validName);
         }
+        System.out.println("Name changed to: " + validName);
     }
 
 
@@ -317,7 +325,7 @@ public class PromiseKeeper {
     //EFFECTS: change priority to inputted priority
     private void changePriority(Item foundItem) {
         System.out.println("Select new priority");
-        String priority = input.nextLine().toLowerCase();
+        String priority = input.next().toLowerCase();
         String validPriority = validPriority(priority);
         foundItem.setPriority(validPriority);
         System.out.println("Priority changed to: " + priority + " priority");
@@ -330,12 +338,6 @@ public class PromiseKeeper {
         System.out.println("\t Name");
         System.out.println("\t Budget");
         System.out.println("\t Priority");
-    }
-
-    //MODIFIES: this
-    //EFFECTS: set a name to be the given name
-    protected void addName(String name) {
-        item.setName(name);
     }
 
 
@@ -369,29 +371,37 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: add to the need or want list given the input
     private void addToList(String needOrWant, String name) {
-        notTwoOption(needOrWant, "need", "want");
-        addItemWithValidName(needOrWant, name);
+        String validNeedOrWant = notTwoOption(needOrWant, "need", "want");
+        addItemWithValidName(validNeedOrWant, name);
     }
 
-    //EFFECTS: propmt user to enter another name if it is taken
+    //EFFECTS: add item with a non-duplicated name
     private void addItemWithValidName(String needOrWant, String name) {
+        item.setName(validName(needOrWant, name));
+        if (needOrWant.equals("need")) {
+            needList.addItem(item);
+        } else {
+            wantList.addItem(item);
+        }
+    }
+
+    //EFFECTS: process name input
+    private String validName(String needOrWant, String name) {
         if (needOrWant.equals("need")) {
             List<String> needNames = needList.toName();
             while (needNames.contains(name)) {
                 System.out.println("Sorry this name is already taken. Enter another name");
                 name = input.next();
             }
-            item.setName(name);
-            needList.addItem(item);
         } else {
             List<String> wantNames = wantList.toName();
             while (wantNames.contains(name)) {
                 System.out.println("Sorry this name is already taken. Enter another name");
                 name = input.next();
             }
-            item.setName(name);
-            wantList.addItem(item);
         }
+
+        return name;
     }
 
 

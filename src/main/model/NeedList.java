@@ -87,7 +87,7 @@ public class NeedList implements PlanList {
 
         if (inList(name)) {
             for (Item itemInList : needList) {
-                if (itemInList.getName() == name) {
+                if (name.equals(itemInList.getName())) {
                     foundItem = itemInList;
                 }
             }
