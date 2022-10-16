@@ -60,16 +60,16 @@ is the primary aim of this application.</p>
 to either the need or want List
 - As a user, I want to be able to delete items that are 
 no longer wanted/needed
-- As a user I want to be able to edit the items in my need 
-or want list 
+- As a user I want to be able to edit the item description 
+in my need or want list 
 - As a user I want to be able to filter my want/need list 
 by priority
 - As a user I want to be able to know how much 
 I spent on wanted items
 - As a user I want to be able to know the total amount overspent 
 on wanted items
-- As a user, I want to be able to see a list of
-overspent wanted items
+- As a user, I want to be able to see a list of bought wanted 
+items and overspent wanted items
 
 
 

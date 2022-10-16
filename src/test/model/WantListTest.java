@@ -276,6 +276,17 @@ public class WantListTest {
         assertFalse(fail3);
     }
 
+    @Test
+    void toName() {
+        wants.addItem(w1);
+        List<String> names = wants.toName();
+        assertTrue(names.contains("wanted item 1"));
+
+        wants.addItem(w2);
+        List<String> names2 = wants.toName();
+        assertTrue(names2.contains("wanted item 2"));
+    }
+
 
     @Test
     void getItemTest() {

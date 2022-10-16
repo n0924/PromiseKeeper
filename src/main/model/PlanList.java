@@ -38,4 +38,5 @@ public interface PlanList {
 
     boolean inList(String name);
 
+    List<String> toName();
 }

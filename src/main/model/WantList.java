@@ -61,6 +61,17 @@ public class WantList implements PlanList {
         return (names.contains(name));
     }
 
+    //Produce a list of names of all needed items
+    @Override
+    public List<String> toName() {
+        List<String> names = new ArrayList<>();
+
+        for (Item item : wantList) {
+            names.add(item.getName());
+        }
+        return names;
+    }
+
     //EFFECTS: produce true if there is an item in list with given name
     @Override
     public Item getItem(String name) {

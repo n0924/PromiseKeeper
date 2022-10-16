@@ -273,6 +273,17 @@ public class NeedListTest {
     }
 
     @Test
+    void toName() {
+        needs.addItem(n1);
+        List<String> names = needs.toName();
+        assertTrue(names.contains("needed item 1"));
+
+        needs.addItem(n2);
+        List<String> names2 = needs.toName();
+        assertTrue(names2.contains("needed item 2"));
+    }
+
+    @Test
     void inListTest() {
         needs.addItem(n1);
         boolean success = needs.inList("needed item 1");

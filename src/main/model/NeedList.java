@@ -68,6 +68,17 @@ public class NeedList implements PlanList {
         return (names.contains(name));
     }
 
+    //Produce a list of names of all needed items
+    @Override
+    public List<String> toName() {
+        List<String> names = new ArrayList<>();
+
+        for (Item item : needList) {
+            names.add(item.getName());
+        }
+        return names;
+    }
+
     //REQUIRES: the name exists in the list
     //EFFECTS: get the item with that name
     @Override
@@ -83,6 +94,7 @@ public class NeedList implements PlanList {
         }
         return foundItem;
     }
+
 
     //EFFECTS: checks if an item already exists in needed list
     @Override
