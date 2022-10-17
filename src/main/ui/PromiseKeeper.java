@@ -376,7 +376,7 @@ public class PromiseKeeper {
         System.out.println("Budget changed to: " + budget);
     }
 
-    //REQUIRES: foundItem
+    //MODIFIES: foundItem
     //EFFECTS: change priority to inputted priority
     private void changePriority(Item foundItem) {
         System.out.println("Select new priority");
