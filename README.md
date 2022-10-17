@@ -58,9 +58,6 @@ more accessible is the primary aim of this application.</p>
     items that were bought
 - As a user I want to be able to filter my want and need list
   by priority
-
-<br>
-
 - As a user, I want to be able to delete items that are
     no longer wanted/needed
 - As a user I want to be able to know how much
@@ -72,6 +69,12 @@ want and need list.
 - As a user I want to be able to edit the item description 
 of items in my need or want list
 
+<br>
+
+- As a user I want to be able to save 
+my need, want, and bought-wanted list
+- As a user I want to be able to load these
+lists from file
 
 
 
