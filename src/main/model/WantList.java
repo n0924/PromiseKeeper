@@ -78,17 +78,14 @@ public class WantList implements PlanList {
     }
 
 
-    //REQUIRES: the list has an item with the given name
+    //REQUIRES: the list contains an item with the given name (inList(name) is true)
     //EFFECTS: produce true if there is an item in list with given name
     @Override
     public Item getItem(String name) {
         Item foundItem = new Item();
-
-        if (inList(name)) {
-            for (Item itemInList : wantList) {
-                if (name.equals(itemInList.getName())) {
-                    foundItem = itemInList;
-                }
+        for (Item itemInList : wantList) {
+            if (name.equals(itemInList.getName())) {
+                foundItem = itemInList;
             }
         }
         return foundItem;
