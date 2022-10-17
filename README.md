@@ -53,21 +53,24 @@ more accessible is the primary aim of this application.</p>
 
 ## User Stories 
 - As a user, I want to be able to add a need or want item
-- As a user, I want to be able to remove bought items from the 
-want and need list.
+- As a user I want to be able to see my want and need list
+- As a user, I want to be able to see a list of wanted
+    items that were bought
+- As a user I want to be able to filter my want and need list
+  by priority
+
+<br>
+
 - As a user, I want to be able to delete items that are
     no longer wanted/needed
+- As a user I want to be able to know how much
+  I spent on wanted items
+- As a user I want to be able to know the total amount spent
+  above budgets on wanted items
+- As a user, I want to be able to remove bought items from the 
+want and need list.
 - As a user I want to be able to edit the item description 
-of items in my need or want list 
-- As a user I want to be able to see my want and need list
-- As a user I want to be able to filter my want and need list 
-by priority
-- As a user, I want to be able to see a list of all bought
-    items that was wanted
-- As a user I want to be able to know how much 
-I spent on wanted items
-- As a user I want to be able to know the total amount spent 
-above budgets on wanted items
+of items in my need or want list
 
 
 
