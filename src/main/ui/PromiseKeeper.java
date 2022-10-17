@@ -244,7 +244,7 @@ public class PromiseKeeper {
     }
 
 
-    //EFFECTS: process invalid input not shown by displayBought
+    //EFFECTS: process invalid input not shown on menu
     private String validSelection(String selection, String option1, String option2, String option3) {
         while (!isThreeOption(selection, option1, option2, option3)) {
             System.out.println("Please enter a valid option");
@@ -325,7 +325,6 @@ public class PromiseKeeper {
         }
     }
 
-
     //EFFECTS: process changing an item
     private void changeOptions(String needOrWant, String editItemName) {
         Item foundItem;
@@ -377,7 +376,7 @@ public class PromiseKeeper {
         System.out.println("Budget changed to: " + budget);
     }
 
-    //REQUIRES:
+    //REQUIRES: foundItem
     //EFFECTS: change priority to inputted priority
     private void changePriority(Item foundItem) {
         System.out.println("Select new priority");
