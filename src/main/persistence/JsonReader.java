@@ -17,30 +17,35 @@ import java.util.stream.Stream;
 //Represent a reader that reads need, want, or bought-want list from
 //JSON data stored in file
 public class JsonReader {
+    private NeedList needList;
+    private WantList wantList;
+    private BoughtWantList boughtWantList;
+
     private String file;  // either need, want, or bought-want list
-    private String listType; //either need, want, or bought-want
 
     //CITE: CPSC210 JsonSerializationDemo
+    //EFFECTS: constructs a reader to read from file
     public JsonReader(String file) {
         this.file = file;
+        needList = new NeedList();
+        wantList = new WantList();
+        boughtWantList = new BoughtWantList();
     }
 
     //CITE: CPSC210 JsonSerializationDemo
     //EFFECTS: reads a need list as string and return it
     //throw IOException if an error occurs reading data from file
     public NeedList readNeed() throws IOException {
-        listType = "need";
 
-        String jsonList = readFile(file);
-        JSONObject jsonNeeds = new JSONObject(jsonList);
-        return parseNeedList(jsonNeeds);
+        String jsonData = readFile(file);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseNeedList(jsonObject);
     }
 
     //CITE: CPSC210 JsonSerializationDemo
     //EFFECTS: reads wantlist from file and returns it
     //throw IOException if an error occurs reading data from file
     public WantList readWant() throws IOException {
-        listType = "want";
         String jsonData = readFile(file);
         JSONObject jsonWants = new JSONObject(jsonData);
         return parseWantList(jsonWants);
@@ -50,7 +55,6 @@ public class JsonReader {
     //EFFECTS: reads boughtWantlist from file and returns it
     //throw IOException if an error occurs reading data from file
     public BoughtWantList readBoughtWant() throws IOException {
-        listType = "bought want";
         String jsonData = readFile(file);
         JSONObject jsonBoughtWants = new JSONObject(jsonData);
         return parseBoughtWantList(jsonBoughtWants);
@@ -70,34 +74,36 @@ public class JsonReader {
 
     //EFFECTS: parses a need list from JSON object and returns it
     private NeedList parseNeedList(JSONObject jsonObject) {
-        NeedList savedNeeds = parseItems(jsonObject);
-        return ;
+        parseItems(jsonObject);
+        return needList;
     }
 
     //EFFECTS: parses a want list from JSON object and returns it
     private WantList parseWantList(JSONObject jsonObject) {
-        parseItems(wr, jsonObject);
-        return wr;
+        parseItems(jsonObject);
+        return wantList;
     }
 
     //EFFECTS: parses a boughtWant list from JSON object and returns it
     private BoughtWantList parseBoughtWantList(JSONObject jsonObject) {
         parseItems(jsonObject);
-        return wr;
+        return boughtWantList;
     }
 
     //CITE: CPSC210 JsonSerializationDemo
     //EFFECTS: parses items from JSON object and adds them to the given list
     private void parseItems(JSONObject jsonObject) {
         JSONArray jsonList = jsonObject.getJSONArray("item");
+        String listType = jsonObject.getString("name");
+
         for (Object item : jsonList) {
-            JSONObject jsonItem = (JSONObject)  item;
-            parseItem(jsonItem);
+            JSONObject jsonItem = (JSONObject) item;
+            parseItem(jsonItem, listType);
         }
     }
 
-    //EFFECTS: parses item from JSON object and add it to the given list
-    private void parseItem(JSONObject jsonItem) {
+    //EFFECTS: parses an item from JSON object and add it to the given list
+    private void parseItem(JSONObject jsonItem, String listType) {
         Item savedItem = new Item();
 
         String name = jsonItem.getString("name");
@@ -108,8 +114,15 @@ public class JsonReader {
         savedItem.setBudget(budget);
         savedItem.setPriority(priority);
 
-        if (listType.equals("need")) {
-
+        if (listType.equals("Need List")) {
+            needList.addItem(savedItem);
+        } else {
+            if (listType.equals("Want List")) {
+                wantList.addItem(savedItem);
+            } else {
+                int price = jsonItem.getInt("Price List");
+                boughtWantList.addBought(savedItem, price);
+            }
         }
     }
 
