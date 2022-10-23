@@ -20,10 +20,9 @@ public class JsonReader {
     private NeedList needList;
     private WantList wantList;
     private BoughtWantList boughtWantList;
+    private String file;
 
-    private String file;  // either need, want, or bought-want list
 
-    //CITE: CPSC210 JsonSerializationDemo
     //EFFECTS: constructs a reader to read from file
     public JsonReader(String file) {
         this.file = file;
