@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 //Represents bought wanted items
-public class BoughtWantList {
+public class BoughtWantList implements SaveList {
     private List<Item> boughtWantList; //List of want items bought
     private int totalPrice; // total amount spent on wanted items
     private int totalOverspent; //total amount spent above budget on wanted items (in dollars)
@@ -60,6 +63,20 @@ public class BoughtWantList {
     //EFFECTS: get the element from boughWant list
     public List<Item> getBoughtList() {
         return boughtWantList;
+    }
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //EFFECTS: returns the bought-want list as a JsonArray
+    @Override
+    public JSONObject itemToJSON() {
+        return null;
+    }
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //EFFECTS: returns an item as a JsonArray
+    @Override
+    public JSONArray listToJSON() {
+        return null;
     }
 }
 

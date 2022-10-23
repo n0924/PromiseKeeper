@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a Need list, with no items with duplicated names
-public class NeedList implements PlanList {
+public class NeedList implements PlanList, SaveList {
     private List<Item> needList;
 
     //EFFECTS: create empty need list
@@ -118,5 +121,19 @@ public class NeedList implements PlanList {
     @Override
     public List<Item> getList() {
         return needList;
+    }
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //EFFECTS: returns the need list as a JsonArray
+    @Override
+    public JSONArray listToJSON() {
+        return null;
+    }
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //EFFECTS: returns an item as a JsonArray
+    @Override
+    public JSONObject itemToJSON() {
+        return null;
     }
 }
