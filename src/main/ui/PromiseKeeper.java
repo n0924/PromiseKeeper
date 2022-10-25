@@ -205,9 +205,9 @@ public class PromiseKeeper {
             needList = jsonReaderNeed.readNeed();
             wantList = jsonReaderWant.readWant();
             boughtWantList = jsonReaderBoughtWant.readBoughtWant();
-            System.out.println("Loaded" + "\t need list from " + needListFile + ","
-                    + "\t  want list from " + wantListFile + ","
-                    + "\t list of bought wanted items from " + boughtWantListFile);
+            System.out.println("Loaded" + "\n Need list from " + needListFile + ","
+                    + "\n Want list from " + wantListFile + ","
+                    + "\n Bought want list from " + boughtWantListFile);
         } catch (IOException e) {
             System.out.println("Unable to load data");
         }
@@ -230,9 +230,9 @@ public class PromiseKeeper {
             jsonWriterBoughtWant.writeBoughtWant(boughtWantList);
             jsonWriterBoughtWant.close();
 
-            System.out.println("Saved" + "\n need list to " + needListFile + ","
-                    + "\n want list to " + wantListFile + ","
-                    + "\n bought wanted list to " + boughtWantListFile);
+            System.out.println("Saved" + "\n Need list to " + needListFile + ","
+                    + "\n Want list to " + wantListFile + ","
+                    + "\n Bought wanted list to " + boughtWantListFile);
         } catch (IOException e) {
             System.out.println("Unable to save data");
         }

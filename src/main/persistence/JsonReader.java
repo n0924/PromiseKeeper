@@ -128,6 +128,7 @@ public class JsonReader {
 
 
     //EFFECTS: parses an item from JSON need list and add it to the need list
+    // preserve the original order of the list
     private void parseNeed(JSONObject jsonItem, NeedList needs) {
         Item savedItem = new Item();
 
@@ -144,6 +145,7 @@ public class JsonReader {
 
 
     //EFFECTS: parses an item from JSON object and add it to the want list
+    // preserve the original order of the list
     private void parseWant(JSONObject jsonItem, WantList wants) {
         Item savedItem = new Item();
 
@@ -160,6 +162,7 @@ public class JsonReader {
 
 
     //EFFECTS: parses an item from JSON object and add it to the boughWant list
+    // preserve the original order of the list
     private void parseBoughtWant(JSONObject jsonItem, BoughtWantList boughtWants) {
         Item savedItem = new Item();
 
