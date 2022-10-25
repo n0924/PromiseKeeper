@@ -116,7 +116,7 @@ public class JsonReader {
     }
 
     //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: parses items from JSON object and adds them to bought-want list
+    //EFFECTS: parses items from JSON bought-want list and adds them to bought-want list
     private void parseBoughtWantItems(JSONObject jsonObject, BoughtWantList boughtWants) {
         JSONArray jsonArray = jsonObject.getJSONArray("item");
 
@@ -127,7 +127,7 @@ public class JsonReader {
     }
 
 
-    //EFFECTS: parses an item from JSON object and add it to the need list
+    //EFFECTS: parses an item from JSON need list and add it to the need list
     private void parseNeed(JSONObject jsonItem, NeedList needs) {
         Item savedItem = new Item();
 
@@ -139,7 +139,7 @@ public class JsonReader {
         savedItem.setBudget(budget);
         savedItem.setPriority(priority);
 
-        needs.addItem(savedItem);
+        needs.addLast(savedItem);
     }
 
 
@@ -155,7 +155,7 @@ public class JsonReader {
         savedItem.setBudget(budget);
         savedItem.setPriority(priority);
 
-        wants.addItem(savedItem);
+        wants.addLast(savedItem);
     }
 
 
@@ -171,8 +171,9 @@ public class JsonReader {
         savedItem.setName(name);
         savedItem.setBudget(budget);
         savedItem.setPriority(priority);
+        savedItem.setPrice(price);
 
-        boughtWants.addBought(savedItem, price);
+        boughtWants.addLast(savedItem);
     }
 
 

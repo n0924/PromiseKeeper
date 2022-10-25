@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents Want list, with no item with the same name
-public class WantList implements PlanList, ToJson {
+public class WantList implements PlanList, ToJson, FromJson {
     private static final String name = "Want List";
 
     private List<Item> wantList;
@@ -141,5 +141,12 @@ public class WantList implements PlanList, ToJson {
         json.put("name", name);
         json.put("item", wantList);
         return json;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds item at the end of list
+    @Override
+    public void addLast(Item item) {
+        wantList.add(item);
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Represents bought wanted items
-public class BoughtWantList implements ToJson {
+public class BoughtWantList implements ToJson, FromJson {
     private static final String name = "Bought Wanted List";
 
     private List<Item> boughtWantList; //List of want items bought
@@ -87,6 +87,22 @@ public class BoughtWantList implements ToJson {
         json.put("name", name);
         json.put("item", boughtWantList);
         return json;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds item at the end of list, and add the total amount spent and total amount overspent on wanted items
+    @Override
+    public void addLast(Item item) {
+        boughtWantList.add(item);
+        int price = item.getPrice();
+        int budget = item.getBudget();
+
+        totalPrice += price;
+
+        if (price > budget) {
+            totalOverspent += item.getPrice() - item.getBudget();
+        }
+
     }
 }
 

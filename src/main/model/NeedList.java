@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents a Need list, with no items with duplicated names
-public class NeedList implements PlanList, ToJson {
+public class NeedList implements PlanList, ToJson, FromJson {
     private static final String name = "Need List";
 
     private List<Item> needList;
@@ -145,5 +145,12 @@ public class NeedList implements PlanList, ToJson {
         json.put("name", name);
         json.put("item", needList);
         return json;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds item at the end of list
+    @Override
+    public void addLast(Item item) {
+        needList.add(item);
     }
 }

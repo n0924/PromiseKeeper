@@ -47,7 +47,7 @@ public class JsonReaderTest {
             assertEquals(3, needs.sizeList());
 
             assertEquals("need 3", needs.getItemIndex(0).getName());
-            assertEquals(800, needs.getItemIndex(0).getBudget());
+            assertEquals(1, needs.getItemIndex(0).getBudget());
             assertEquals("high", needs.getItemIndex(0).getPriority());
 
             assertEquals("need 2", needs.getItemIndex(1).getName());
@@ -55,7 +55,7 @@ public class JsonReaderTest {
             assertEquals("low", needs.getItemIndex(1).getPriority());
 
             assertEquals("need 1", needs.getItemIndex(2).getName());
-            assertEquals(1, needs.getItemIndex(2).getBudget());
+            assertEquals(800, needs.getItemIndex(2).getBudget());
             assertEquals("medium", needs.getItemIndex(2).getPriority());
         } catch (IOException e) {
             System.out.println("Unexpected IOException caught");
@@ -81,17 +81,17 @@ public class JsonReaderTest {
             WantList wants = reader.readWant();
             assertEquals(3, wants.sizeList());
 
-            assertEquals("want 3", wants.getItemIndex(2).getName());
-            assertEquals(600, wants.getItemIndex(2).getBudget());
-            assertEquals("medium", wants.getItemIndex(2).getPriority());
+            assertEquals("want 3", wants.getItemIndex(0).getName());
+            assertEquals(600, wants.getItemIndex(0).getBudget());
+            assertEquals("medium", wants.getItemIndex(0).getPriority());
 
             assertEquals("want 2", wants.getItemIndex(1).getName());
             assertEquals(47000, wants.getItemIndex(1).getBudget());
             assertEquals("low", wants.getItemIndex(1).getPriority());
 
-            assertEquals("want 1", wants.getItemIndex(0).getName());
-            assertEquals(1, wants.getItemIndex(0).getBudget());
-            assertEquals("high", wants.getItemIndex(0).getPriority());
+            assertEquals("want 1", wants.getItemIndex(2).getName());
+            assertEquals(1, wants.getItemIndex(2).getBudget());
+            assertEquals("high", wants.getItemIndex(2).getPriority());
         } catch (IOException e) {
             System.out.println("Unexpected IOException caught");
         }
@@ -118,9 +118,9 @@ public class JsonReaderTest {
             assertEquals(3, boughtWantItems.size());
 
             assertEquals("want 3", boughtWantItems.get(0).getName());
-            assertEquals(90100, boughtWantItems.get(0).getBudget());
-            assertEquals("medium", boughtWantItems.get(0).getPriority());
-            assertEquals(0, boughtWantItems.get(0).getPrice());
+            assertEquals(820, boughtWantItems.get(0).getBudget());
+            assertEquals("low", boughtWantItems.get(0).getPriority());
+            assertEquals(750, boughtWantItems.get(0).getPrice());
 
             assertEquals("want 2", boughtWantItems.get(1).getName());
             assertEquals(1, boughtWantItems.get(1).getBudget());
@@ -128,9 +128,9 @@ public class JsonReaderTest {
             assertEquals(10, boughtWantItems.get(1).getPrice());
 
             assertEquals("want 1", boughtWantItems.get(2).getName());
-            assertEquals(820, boughtWantItems.get(2).getBudget());
-            assertEquals("low", boughtWantItems.get(2).getPriority());
-            assertEquals(750, boughtWantItems.get(2).getPrice());
+            assertEquals(90100, boughtWantItems.get(2).getBudget());
+            assertEquals("medium", boughtWantItems.get(2).getPriority());
+            assertEquals(0, boughtWantItems.get(2).getPrice());
 
             assertEquals(760, boughtWants.getTotalPrice());
             assertEquals(9, boughtWants.getTotalOverspent());

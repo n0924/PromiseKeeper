@@ -1,1 +1,23 @@
-{"item":[{"price":29090,"name":"wanted","priority":"medium","budget":29090}],"name":"Bought Wanted List"}
+{
+  "item": [
+    {
+      "price": 1000,
+      "name": "bought3",
+      "priority": "medium",
+      "budget": 600
+    },
+    {
+      "price": 50,
+      "name": "bought2",
+      "priority": "medium",
+      "budget": 500
+    },
+    {
+      "price": 800,
+      "name": "bought1",
+      "priority": "low",
+      "budget": 400
+    }
+  ],
+  "name": "Bought Wanted List"
+}

@@ -1,16 +1,19 @@
 {
   "item": [
-    {"name": "want 1",
+    {
+      "name": "want 3",
       "budget": 820,
       "priority": "low",
       "price": 750
-    }, {
+    },
+    {
       "name": "want 2",
-      "budget" : 1,
+      "budget": 1,
       "priority": "high",
       "price": 10
-    }, {
-      "name": "want 3",
+    },
+    {
+      "name": "want 1",
       "budget": 90100,
       "priority": "medium",
       "price": 0
