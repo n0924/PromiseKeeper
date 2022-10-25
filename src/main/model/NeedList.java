@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents a Need list, with no items with duplicated names
-public class NeedList implements PlanList, SaveList {
+public class NeedList implements PlanList, ToJson {
+    private static final String name = "Need List";
+
     private List<Item> needList;
 
     //EFFECTS: create empty need list
@@ -126,14 +128,22 @@ public class NeedList implements PlanList, SaveList {
     //CITE: CPSC210 JsonSerializationDemo
     //EFFECTS: returns the need list as a JsonArray
     @Override
-    public JSONArray listToJSON() {
-        return null;
+    public JSONArray listToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item item : needList) {
+            jsonArray.put(item.toJson());
+        }
+        return jsonArray;
     }
 
     //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns an item as a JsonArray
+    //EFFECTS: returns the need list as a JsonObject
     @Override
-    public JSONObject itemToJSON() {
-        return null;
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("item", needList);
+        return json;
     }
 }

@@ -4,7 +4,10 @@ import model.BoughtWantList;
 import model.Item;
 import model.NeedList;
 import model.WantList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,14 +16,30 @@ import java.util.Scanner;
 //Some parts of this code was inspired by the TellerApp()
 
 public class PromiseKeeper {
+    private static final String needListFile = "./data/needList.json";
+    private static final String wantListFile = "./data/wantList.json";
+    private static final String boughtWantListFile = "./data/boughtWantList.json";
+
     private WantList wantList;
     private NeedList needList;
     private BoughtWantList boughtWantList;
     private Item item;
     private Scanner input;
+    private JsonReader jsonReaderNeed;
+    private JsonReader jsonReaderWant;
+    private JsonReader jsonReaderBoughtWant;
+    private JsonWriter jsonWriterNeed;
+    private JsonWriter jsonWriterWant;
+    private JsonWriter jsonWriterBoughtWant;
 
     //EFFECTS: run the PromiseKeeper app
     public PromiseKeeper() {
+        jsonReaderNeed = new JsonReader(needListFile);
+        jsonReaderWant = new JsonReader(wantListFile);
+        jsonReaderBoughtWant = new JsonReader(boughtWantListFile);
+        jsonWriterNeed = new JsonWriter(needListFile);
+        jsonWriterWant = new JsonWriter(wantListFile);
+        jsonWriterBoughtWant = new JsonWriter(boughtWantListFile);
         runApp();
     }
 
@@ -30,11 +49,11 @@ public class PromiseKeeper {
     //EFFECTS: process user inputs
     private void runApp() {
         boolean keepGoing = true;
+        input = new Scanner(System.in);
 
         wantList = new WantList();
         needList = new NeedList();
         boughtWantList = new BoughtWantList();
-        input = new Scanner(System.in);
 
         while (keepGoing) {
             menu();
@@ -66,7 +85,14 @@ public class PromiseKeeper {
                     if (command.equals("bought")) {
                         bought();
                     } else {
-                        System.out.println("Please Enter a valid option");
+                        if (command.equals("load")) {
+                            load();
+                        } else {
+                            if (command.equals("save")) {
+                                save();
+                            }
+
+                        }
                     }
                 }
 
@@ -82,6 +108,8 @@ public class PromiseKeeper {
         System.out.println("\tBought");
         System.out.println("\tEdit");
         System.out.println("\tDisplay");
+        System.out.println("\tLoad");
+        System.out.println("\tSave");
         System.out.println("\tQuit");
     }
 
@@ -170,6 +198,45 @@ public class PromiseKeeper {
         }
     }
 
+    //MODFIES: this
+    //EFFECTS: load data that was previously saved
+    private void load() {
+        try {
+            needList = jsonReaderNeed.readNeed();
+            wantList = jsonReaderWant.readWant();
+            boughtWantList = jsonReaderBoughtWant.readBoughtWant();
+            System.out.println("Loaded" + "\t need list from " + needListFile + ","
+                    + "\t  want list from " + wantListFile + ","
+                    + "\t list of bought wanted items from " + boughtWantListFile);
+        } catch (IOException e) {
+            System.out.println("Unable to load data");
+        }
+    }
+
+
+    //MODIFIES: this
+    //EFFECTS: save data as JSON2
+    private void save() {
+        try {
+            jsonWriterNeed.open();
+            jsonWriterNeed.writeNeed(needList);
+            jsonWriterNeed.close();
+
+            jsonWriterWant.open();
+            jsonWriterWant.writeWant(wantList);
+            jsonWriterWant.close();
+
+            jsonWriterBoughtWant.open();
+            jsonWriterBoughtWant.writeBoughtWant(boughtWantList);
+            jsonWriterBoughtWant.close();
+
+            System.out.println("Saved" + "\n need list to " + needListFile + ","
+                    + "\n want list to " + wantListFile + ","
+                    + "\n bought wanted list to " + boughtWantListFile);
+        } catch (IOException e) {
+            System.out.println("Unable to save data");
+        }
+    }
 
     //EFFECTS: show the need list
     private void displayNeed() {

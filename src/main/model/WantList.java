@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Represents Want list, with no item with the same name
-public class WantList implements PlanList, SaveList {
+public class WantList implements PlanList, ToJson {
+    private static final String name = "Want List";
+
     private List<Item> wantList;
 
     //EFFECTS: create empty need and want list
@@ -122,15 +124,22 @@ public class WantList implements PlanList, SaveList {
     //CITE: CPSC210 JsonSerializationDemo
     //EFFECTS: returns the want list as a JsonArray
     @Override
-    public JSONArray listToJSON() {
-        return null;
+    public JSONArray listToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item item : wantList) {
+            jsonArray.put(item.toJson());
+        }
+        return jsonArray;
     }
 
     //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns an item as a JsonArray
+    //EFFECTS: returns the want list as a JsonObject
     @Override
-    public JSONObject itemToJSON() {
-        return null;
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("item", wantList);
+        return json;
     }
-
 }

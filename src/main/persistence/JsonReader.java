@@ -14,26 +14,21 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 //CITE: Some parts were inspired by CPSC210 JsonSerializationDemo
-//Represent a reader that reads need, want, or bought-want list from
-//JSON data stored in file
+//Represent a reader that reads need/want/bought-want lists from JSON data stored in file
 public class JsonReader {
-    private NeedList needList;
-    private WantList wantList;
-    private BoughtWantList boughtWantList;
     private String file;
 
 
     //EFFECTS: constructs a reader to read from file
     public JsonReader(String file) {
         this.file = file;
-        needList = new NeedList();
-        wantList = new WantList();
-        boughtWantList = new BoughtWantList();
     }
 
     //CITE: CPSC210 JsonSerializationDemo
+    //REQUIRES: the file is a JSON need list
     //EFFECTS: reads a need list as string and return it
     //throw IOException if an error occurs reading data from file
+    //throw InvalidFileException if WantList or BoughtWant list file is passed on
     public NeedList readNeed() throws IOException {
 
         String jsonData = readFile(file);
@@ -42,15 +37,18 @@ public class JsonReader {
     }
 
     //CITE: CPSC210 JsonSerializationDemo
+    //REQUIRES: the file is a JSON want list
     //EFFECTS: reads wantlist from file and returns it
     //throw IOException if an error occurs reading data from file
     public WantList readWant() throws IOException {
+
         String jsonData = readFile(file);
         JSONObject jsonWants = new JSONObject(jsonData);
         return parseWantList(jsonWants);
     }
 
     //CITE: CPSC210 JsonSerializationDemo
+    //REQUIRES: the file is a JSON boughtWant list
     //EFFECTS: reads boughtWantlist from file and returns it
     //throw IOException if an error occurs reading data from file
     public BoughtWantList readBoughtWant() throws IOException {
@@ -71,38 +69,66 @@ public class JsonReader {
         return stringBuilder.toString();
     }
 
+    //REQUIRES: jsonObject is a list of need items
     //EFFECTS: parses a need list from JSON object and returns it
     private NeedList parseNeedList(JSONObject jsonObject) {
-        parseItems(jsonObject);
+        NeedList needList = new NeedList();
+        parseNeedItems(jsonObject, needList);
         return needList;
     }
 
+    //REQUIRES: jsonObject is a list of want items
     //EFFECTS: parses a want list from JSON object and returns it
     private WantList parseWantList(JSONObject jsonObject) {
-        parseItems(jsonObject);
+        WantList wantList = new WantList();
+        parseWantItems(jsonObject, wantList);
         return wantList;
     }
 
+    //REQUIRES: jsonObject is a list of bought wanted items
     //EFFECTS: parses a boughtWant list from JSON object and returns it
     private BoughtWantList parseBoughtWantList(JSONObject jsonObject) {
-        parseItems(jsonObject);
+        BoughtWantList boughtWantList = new BoughtWantList();
+        parseBoughtWantItems(jsonObject, boughtWantList);
         return boughtWantList;
     }
 
     //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: parses items from JSON object and adds them to the given list
-    private void parseItems(JSONObject jsonObject) {
-        JSONArray jsonList = jsonObject.getJSONArray("item");
-        String listType = jsonObject.getString("name");
+    //EFFECTS: parses items from JSON object and adds them to need list
+    private void parseNeedItems(JSONObject jsonObject, NeedList needs) {
+        JSONArray jsonArray = jsonObject.getJSONArray("item");
 
-        for (Object item : jsonList) {
+        for (Object item : jsonArray) {
             JSONObject jsonItem = (JSONObject) item;
-            parseItem(jsonItem, listType);
+            parseNeed(jsonItem, needs);
         }
     }
 
-    //EFFECTS: parses an item from JSON object and add it to the given list
-    private void parseItem(JSONObject jsonItem, String listType) {
+    //CITE: CPSC210 JsonSerializationDemo
+    //EFFECTS: parses items from JSON object and adds them to want list
+    private void parseWantItems(JSONObject jsonObject, WantList wants) {
+        JSONArray jsonArray = jsonObject.getJSONArray("item");
+
+        for (Object item : jsonArray) {
+            JSONObject jsonItem = (JSONObject) item;
+            parseWant(jsonItem, wants);
+        }
+    }
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //EFFECTS: parses items from JSON object and adds them to bought-want list
+    private void parseBoughtWantItems(JSONObject jsonObject, BoughtWantList boughtWants) {
+        JSONArray jsonArray = jsonObject.getJSONArray("item");
+
+        for (Object item : jsonArray) {
+            JSONObject jsonItem = (JSONObject) item;
+            parseBoughtWant(jsonItem, boughtWants);
+        }
+    }
+
+
+    //EFFECTS: parses an item from JSON object and add it to the need list
+    private void parseNeed(JSONObject jsonItem, NeedList needs) {
         Item savedItem = new Item();
 
         String name = jsonItem.getString("name");
@@ -113,16 +139,41 @@ public class JsonReader {
         savedItem.setBudget(budget);
         savedItem.setPriority(priority);
 
-        if (listType.equals("Need List")) {
-            needList.addItem(savedItem);
-        } else {
-            if (listType.equals("Want List")) {
-                wantList.addItem(savedItem);
-            } else {
-                int price = jsonItem.getInt("Price List");
-                boughtWantList.addBought(savedItem, price);
-            }
-        }
+        needs.addItem(savedItem);
     }
+
+
+    //EFFECTS: parses an item from JSON object and add it to the want list
+    private void parseWant(JSONObject jsonItem, WantList wants) {
+        Item savedItem = new Item();
+
+        String name = jsonItem.getString("name");
+        int budget = jsonItem.getInt("budget");
+        String priority = jsonItem.getString("priority");
+
+        savedItem.setName(name);
+        savedItem.setBudget(budget);
+        savedItem.setPriority(priority);
+
+        wants.addItem(savedItem);
+    }
+
+
+    //EFFECTS: parses an item from JSON object and add it to the boughWant list
+    private void parseBoughtWant(JSONObject jsonItem, BoughtWantList boughtWants) {
+        Item savedItem = new Item();
+
+        String name = jsonItem.getString("name");
+        int budget = jsonItem.getInt("budget");
+        String priority = jsonItem.getString("priority");
+        int price = jsonItem.getInt("price");
+
+        savedItem.setName(name);
+        savedItem.setBudget(budget);
+        savedItem.setPriority(priority);
+
+        boughtWants.addBought(savedItem, price);
+    }
+
 
 }

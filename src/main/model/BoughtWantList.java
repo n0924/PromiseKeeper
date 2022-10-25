@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Represents bought wanted items
-public class BoughtWantList implements SaveList {
+public class BoughtWantList implements ToJson {
+    private static final String name = "Bought Wanted List";
+
     private List<Item> boughtWantList; //List of want items bought
     private int totalPrice; // total amount spent on wanted items
     private int totalOverspent; //total amount spent above budget on wanted items (in dollars)
@@ -20,7 +22,7 @@ public class BoughtWantList implements SaveList {
         totalOverspent = 0;
     }
 
-    //REQUIRES: item is not in boughtWant list already
+    //REQUIRES: item is not in boughtWant list already, price >=0
     //MODIFIES: this
     //EFFECTS: add a bought needed item with given price at the top of the list,
     // calculate the total amount of money spent on wanted items, and total amount spent above budget
@@ -66,17 +68,25 @@ public class BoughtWantList implements SaveList {
     }
 
     //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns the bought-want list as a JsonArray
+    //EFFECTS: returns an item as a JsonArray
     @Override
-    public JSONObject itemToJSON() {
-        return null;
+    public JSONArray listToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Item item : boughtWantList) {
+            jsonArray.put(item.toJson());
+        }
+        return jsonArray;
     }
 
     //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns an item as a JsonArray
+    //EFFECTS: returns the want list as a JsonObject
     @Override
-    public JSONArray listToJSON() {
-        return null;
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("item", boughtWantList);
+        return json;
     }
 }
 

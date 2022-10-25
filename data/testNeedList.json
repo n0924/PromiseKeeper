@@ -1,20 +1,23 @@
 {
-  "item" : [
-  {
-    "name": "need1",
-    "budget": 800
-    "priority": "high"
-  }
-  {
-    "name": "need2",
-    "budget": 90
-    "priority": "low"
-  }
-  {
-    "name": "need3",
-    "budget": 1
-    "priority": "medium"
-  }
-]
-"name" : "Need List"
-}3
+  "item": [
+    {
+      "price": 0,
+      "name": "need 1",
+      "priority": "medium",
+      "budget": 1
+    },
+    {
+      "price": 0,
+      "name": "need 2",
+      "priority": "low",
+      "budget": 90
+    },
+    {
+      "price": 0,
+      "name": "need 3",
+      "priority": "high",
+      "budget": 800
+    }
+  ],
+  "name": "Need List"
+}

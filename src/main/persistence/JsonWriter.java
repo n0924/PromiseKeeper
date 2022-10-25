@@ -1,5 +1,8 @@
 package persistence;
 
+import model.BoughtWantList;
+import model.NeedList;
+import model.WantList;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -7,9 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 //CITE: CPSC210 JsonSerializationDemo
-//Represents a writer that writes JSON representation of List to file
+//Represents a writer that writes JSON representation of need/want/boughtWant lists to file
 public class JsonWriter {
-    private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
 
@@ -30,16 +32,41 @@ public class JsonWriter {
 
     //CITE: CPSC210 JsonSerializationDemo
     //MODIFIES: this
-    //EFFECTS: writes JSON representation of list to file
-    public void write(Workroom wr) {
-        JSONObject json = wr.toJson();
-        saveToFile(json.toString(TAB));
+    //EFFECTS: writes JSON representation of need list to file
+    public void writeNeed(NeedList needs) {
+        JSONObject json = needs.toJson();
+        saveToFile(json.toString());
     }
 
     //CITE: CPSC210 JsonSerializationDemo
     //MODIFIES: this
+    //EFFECTS: writes JSON representation of want list to file
+    public void writeWant(WantList wants) {
+        JSONObject json = wants.toJson();
+        saveToFile(json.toString());
+    }
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //MODIFIES: this
+    //EFFECTS: writes JSON representation of boughtWant list to file
+    public void writeBoughtWant(BoughtWantList boughtWants) {
+        JSONObject json = boughtWants.toJson();
+        saveToFile(json.toString());
+    }
+
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //MODIFIES: this
+    //EFFECTS: closes writer
+    public void close() {
+        writer.close();
+    }
+
+
+    //CITE: CPSC210 JsonSerializationDemo
+    //MODIFIES: this
     //EFFECTS: writes string to file
-    private  void saveToFile(String json) {
+    private void saveToFile(String json) {
         writer.print(json);
     }
 }
