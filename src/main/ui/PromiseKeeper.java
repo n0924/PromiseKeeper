@@ -199,7 +199,7 @@ public class PromiseKeeper {
     }
 
     //MODFIES: this
-    //EFFECTS: load data that was previously saved
+    //EFFECTS: load data of lists that was previously saved
     private void load() {
         try {
             needList = jsonReaderNeed.readNeed();
@@ -213,9 +213,7 @@ public class PromiseKeeper {
         }
     }
 
-
-    //MODIFIES: this
-    //EFFECTS: save data as JSON2
+    //EFFECTS: save data of lists as JSON Object
     private void save() {
         try {
             jsonWriterNeed.open();

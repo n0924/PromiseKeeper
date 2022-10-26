@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 //CITE: CPSC210 JsonSerializationDemo
-//Represents a writer that writes JSON representation of need/want/boughtWant lists to file
+//Represents a writer that writes JSON representation of need/want/boughtWant lists to files
 public class JsonWriter {
     private PrintWriter writer;
     private String destination;
