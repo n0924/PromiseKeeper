@@ -8,6 +8,11 @@ public class Item {
     private int budget;          //budget of the product (in dollars)
     private int price;           //price paid for this item when bought
 
+    //EFFECTS: create an item with default price 0
+    public Item() {
+        price = 0;
+    }
+
     //REQUIRES: budget > 0
     //MODIFIES: this
     //EFFECTS: set budget if Budget > 0, no changes otherwise
@@ -17,7 +22,7 @@ public class Item {
         }
     }
 
-    //REQUIRES: price > 0
+    //REQUIRES: price >= 0
     //MODIFIES: this
     //EFFECTS: set price to be the paid price
     public void setPrice(int price) {

@@ -1,1 +1,19 @@
-{"item":[{"price":190,"name":"want2","priority":"high","budget":189}],"name":"Bought Wanted List"}
+{
+  "item": [
+    {
+      "price": 89,
+      "name": "want2",
+      "priority": "medium",
+      "budget": 29010
+    },
+    {
+      "price": 19900,
+      "name": "want",
+      "priority": "high",
+      "budget": 9100
+    }
+  ],
+  "total amount spent": 19989,
+  "name": "Bought Wanted List",
+  "total amount overspent": 10800
+}

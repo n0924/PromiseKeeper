@@ -70,17 +70,20 @@ public class JsonWriterTest {
 
             assertEquals(3, needs.sizeList());
 
-            assertEquals("need 1", needs.getItemIndex(0).getName());
-            assertEquals(800, needs.getItemIndex(0).getBudget());
-            assertEquals("high", needs.getItemIndex(0).getPriority());
+            assertEquals("need 3", needs.getItemIndex(0).getName());
+            assertEquals(1, needs.getItemIndex(0).getBudget());
+            assertEquals("medium", needs.getItemIndex(0).getPriority());
+            assertEquals(0, needs.getItemIndex(0).getPrice());
 
             assertEquals("need 2", needs.getItemIndex(1).getName());
             assertEquals(90, needs.getItemIndex(1).getBudget());
             assertEquals("low", needs.getItemIndex(1).getPriority());
+            assertEquals(0, needs.getItemIndex(1).getPrice());
 
-            assertEquals("need 3", needs.getItemIndex(2).getName());
-            assertEquals(1, needs.getItemIndex(2).getBudget());
-            assertEquals("medium", needs.getItemIndex(2).getPriority());
+            assertEquals("need 1", needs.getItemIndex(2).getName());
+            assertEquals(800, needs.getItemIndex(2).getBudget());
+            assertEquals("high", needs.getItemIndex(2).getPriority());
+            assertEquals(0, needs.getItemIndex(2).getPrice());
 
 
         } catch (IOException e) {
@@ -139,35 +142,40 @@ public class JsonWriterTest {
 
             assertEquals(3, wants.sizeList());
 
-            assertEquals("want 1", wants.getItemIndex(0).getName());
-            assertEquals(1, wants.getItemIndex(0).getBudget());
-            assertEquals("high", wants.getItemIndex(0).getPriority());
+            assertEquals("want 3", wants.getItemIndex(0).getName());
+            assertEquals(600, wants.getItemIndex(0).getBudget());
+            assertEquals("medium", wants.getItemIndex(0).getPriority());
+            assertEquals(0, wants.getItemIndex(0).getPrice());
 
             assertEquals("want 2", wants.getItemIndex(1).getName());
             assertEquals(47000, wants.getItemIndex(1).getBudget());
             assertEquals("low", wants.getItemIndex(1).getPriority());
+            assertEquals(0, wants.getItemIndex(1).getPrice());
 
-            assertEquals("want 3", wants.getItemIndex(2).getName());
-            assertEquals(600, wants.getItemIndex(2).getBudget());
-            assertEquals("medium", wants.getItemIndex(2).getPriority());
+            assertEquals("want 1", wants.getItemIndex(2).getName());
+            assertEquals(1, wants.getItemIndex(2).getBudget());
+            assertEquals("high", wants.getItemIndex(2).getPriority());
+            assertEquals(0, wants.getItemIndex(2).getPrice());
         } catch (IOException e) {
             System.out.println("Unexpected IOException caught");
         }
     }
 
     @Test
-    void testWriteEmptyBoughtList() {
+    void testWriteEmptyBoughtWantList() {
         try {
             BoughtWantList boughtWantList = new BoughtWantList();
-            JsonWriter writer = new JsonWriter("./data/testEmptyBoughtList.json");
+            JsonWriter writer = new JsonWriter("./data/testEmptyBoughtWantList.json");
             writer.open();
             writer.writeBoughtWant(boughtWantList);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testEmptyBoughtList.json");
+            JsonReader reader = new JsonReader("./data/testEmptyBoughtWantList.json");
             BoughtWantList boughtWantListJson = reader.readBoughtWant();
             List<Item> boughtWantItem = boughtWantListJson.getBoughtList();
             assertEquals(0, boughtWantItem.size());
+            assertEquals(0, boughtWantListJson.getTotalOverspent());
+            assertEquals(0, boughtWantListJson.getTotalPrice());
         } catch (IOException e) {
             System.out.println("Unexpected IOException caught");
         }
@@ -198,18 +206,18 @@ public class JsonWriterTest {
             newBoughtWantList.addBought(item3, 0);
 
 
-            JsonWriter writer = new JsonWriter("./data/testWantList.json");
+            JsonWriter writer = new JsonWriter("./data/testBoughtWantList.json");
             writer.open();
             writer.writeBoughtWant(newBoughtWantList);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWantList.json");
+            JsonReader reader = new JsonReader("./data/testBoughtWantList.json");
             BoughtWantList boughtWantList = reader.readBoughtWant();
             List<Item> boughtWantItems = boughtWantList.getBoughtList();
 
             assertEquals(3, boughtWantItems.size());
 
-            assertEquals("want 1", boughtWantItems.get(0).getName());
+            assertEquals("want 3", boughtWantItems.get(0).getName());
             assertEquals(820, boughtWantItems.get(0).getBudget());
             assertEquals("low", boughtWantItems.get(0).getPriority());
             assertEquals(750, boughtWantItems.get(0).getPrice());
@@ -219,7 +227,7 @@ public class JsonWriterTest {
             assertEquals("high", boughtWantItems.get(1).getPriority());
             assertEquals(10, boughtWantItems.get(1).getPrice());
 
-            assertEquals("want 3", boughtWantItems.get(2).getName());
+            assertEquals("want 1", boughtWantItems.get(2).getName());
             assertEquals(90100, boughtWantItems.get(2).getBudget());
             assertEquals("medium", boughtWantItems.get(2).getPriority());
             assertEquals(0, boughtWantItems.get(2).getPrice());

@@ -24,6 +24,12 @@ public class ItemTest {
     }
 
     @Test
+    void constructorTest() {
+        assertEquals(0, item1.getPrice());
+        assertEquals(0, item2.getPrice());
+    }
+
+    @Test
     void gettersItem1Test() {
         assertEquals("item 1", item1.getName());
         assertEquals(1, item1.getBudget());

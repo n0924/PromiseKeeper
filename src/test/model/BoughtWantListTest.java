@@ -133,4 +133,22 @@ public class BoughtWantListTest {
         assertEquals(bw3, filterBwants.get(0));
         assertEquals(bw1, filterBwants.get(1));
     }
+
+    @Test
+    void setTotalPriceTest() {
+        bwants.setTotalPrice(0);
+        assertEquals(0, bwants.getTotalPrice());
+
+        bwants.setTotalPrice(80);
+        assertEquals(80, bwants.getTotalPrice());
+    }
+
+    @Test
+    void setTotalOverspent() {
+        bwants.setTotalOverspent(0);
+        assertEquals(0, bwants.getTotalOverspent());
+
+        bwants.setTotalOverspent(98);
+        assertEquals(98, bwants.getTotalOverspent());
+    }
 }

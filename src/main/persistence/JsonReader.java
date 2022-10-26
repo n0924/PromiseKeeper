@@ -89,6 +89,12 @@ public class JsonReader {
     private BoughtWantList parseBoughtWantList(JSONObject jsonObject) {
         BoughtWantList boughtWantList = new BoughtWantList();
         parseBoughtWantItems(jsonObject, boughtWantList);
+
+        int totalAmountSpent = jsonObject.getInt("total amount spent");
+        int totalOverspent = jsonObject.getInt("total amount overspent");
+        boughtWantList.setTotalPrice(totalAmountSpent);
+        boughtWantList.setTotalOverspent(totalOverspent);
+
         return boughtWantList;
     }
 
@@ -109,7 +115,6 @@ public class JsonReader {
     //EFFECTS: parses items from JSON object and adds them to want list
     private void parseWantItems(JSONObject jsonObject, WantList wants) {
         JSONArray jsonArray = jsonObject.getJSONArray("item");
-
 
         for (Object item : jsonArray) {
             JSONObject jsonItem = (JSONObject) item;
@@ -139,10 +144,12 @@ public class JsonReader {
         String name = jsonItem.getString("name");
         int budget = jsonItem.getInt("budget");
         String priority = jsonItem.getString("priority");
+        int price = jsonItem.getInt("price");
 
         savedItem.setName(name);
         savedItem.setBudget(budget);
         savedItem.setPriority(priority);
+        savedItem.setPrice(price);
 
         needs.addLast(savedItem);
     }
@@ -157,10 +164,12 @@ public class JsonReader {
         String name = jsonItem.getString("name");
         int budget = jsonItem.getInt("budget");
         String priority = jsonItem.getString("priority");
+        int price = jsonItem.getInt("price");
 
         savedItem.setName(name);
         savedItem.setBudget(budget);
         savedItem.setPriority(priority);
+        savedItem.setPrice(price);
 
         wants.addLast(savedItem);
     }

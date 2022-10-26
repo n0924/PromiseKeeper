@@ -72,6 +72,8 @@ public class BoughtWantList implements ToJson, FromJson {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
+        json.put("total amount spent", totalPrice);
+        json.put("total amount overspent", totalOverspent);
         json.put("item", boughtWantList);
         return json;
     }
@@ -82,15 +84,19 @@ public class BoughtWantList implements ToJson, FromJson {
     @Override
     public void addLast(Item item) {
         boughtWantList.add(item);
-        int price = item.getPrice();
-        int budget = item.getBudget();
-
-        totalPrice += price;
-
-        if (price > budget) {
-            totalOverspent += item.getPrice() - item.getBudget();
-        }
-
     }
+
+    //REQUIRES: totalPrice >= 0
+    //EFFECTS: set the total price paid for wanted items
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    //REQUIRES: overspent >= 0;
+    //EFFECTS: set the total amount overspent on wanted items
+    public void setTotalOverspent(int overspent) {
+        totalOverspent = overspent;
+    }
+
 }
 
