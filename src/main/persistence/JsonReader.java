@@ -109,6 +109,7 @@ public class JsonReader {
     private void parseWantItems(JSONObject jsonObject, WantList wants) {
         JSONArray jsonArray = jsonObject.getJSONArray("item");
 
+
         for (Object item : jsonArray) {
             JSONObject jsonItem = (JSONObject) item;
             parseWant(jsonItem, wants);

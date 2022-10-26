@@ -1,6 +1,5 @@
 package model;
 
-import org.json.JSONObject;
 
 //Represents an item with a name, priority, category, and budget (in dollars)
 public class Item {
@@ -37,18 +36,6 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
-
-    //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns items as JSONObjects
-    public JSONObject toJson() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("name", name);
-        jsonObject.put("budget", budget);
-        jsonObject.put("priority", priority);
-        jsonObject.put("price", price);
-        return jsonObject;
-    }
-
 
     public String getPriority() {
         return priority;
