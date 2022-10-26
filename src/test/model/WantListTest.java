@@ -290,7 +290,6 @@ public class WantListTest {
     }
 
 
-
     @Test
     void getItemTest() {
         wants.addItem(w1);
@@ -311,7 +310,6 @@ public class WantListTest {
         assertEquals(w3, wants.getItem("wanted item 3"));
         assertEquals(w4, wants.getItem("wanted item 4"));
     }
-
 
 
     @Test
@@ -357,7 +355,7 @@ public class WantListTest {
 
 
     @Test
-    void getList(){
+    void getList() {
         wants.addItem(w1);
         wants.addItem(w2);
 

@@ -1,6 +1,5 @@
 package model;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -65,18 +64,6 @@ public class BoughtWantList implements ToJson, FromJson {
     //EFFECTS: get the element from boughWant list
     public List<Item> getBoughtList() {
         return boughtWantList;
-    }
-
-    //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns an item as a JsonArray
-    @Override
-    public JSONArray listToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (Item item : boughtWantList) {
-            jsonArray.put(item.toJson());
-        }
-        return jsonArray;
     }
 
     //CITE: CPSC210 JsonSerializationDemo

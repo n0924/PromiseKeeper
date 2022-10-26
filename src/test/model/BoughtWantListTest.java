@@ -16,7 +16,6 @@ public class BoughtWantListTest {
     private Item bw3;
 
 
-
     @BeforeEach
     void setup() {
         bwants = new BoughtWantList();

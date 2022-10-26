@@ -153,7 +153,6 @@ public class NeedListTest {
     }
 
 
-
     @Test
     void filterByPriorityHighPriorityTest() {
         needs.addItem(n1);
@@ -380,7 +379,7 @@ public class NeedListTest {
     }
 
     @Test
-    void getList(){
+    void getList() {
         needs.addItem(n1);
         needs.addItem(n2);
 
@@ -395,6 +394,7 @@ public class NeedListTest {
         assertEquals(n2, needItems.get(1));
         assertEquals(n1, needItems.get(2));
     }
+
 }
 
 

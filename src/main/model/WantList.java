@@ -1,6 +1,5 @@
 package model;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -119,18 +118,6 @@ public class WantList implements PlanList, ToJson, FromJson {
     @Override
     public List<Item> getList() {
         return wantList;
-    }
-
-    //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns the want list as a JsonArray
-    @Override
-    public JSONArray listToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (Item item : wantList) {
-            jsonArray.put(item.toJson());
-        }
-        return jsonArray;
     }
 
     //CITE: CPSC210 JsonSerializationDemo
