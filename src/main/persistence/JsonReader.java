@@ -26,9 +26,8 @@ public class JsonReader {
 
     //CITE: CPSC210 JsonSerializationDemo
     //REQUIRES: the file is a JSON need list
-    //EFFECTS: reads a need list as string and return it
+    //EFFECTS: reads a need list from file and return it
     //throw IOException if an error occurs reading data from file
-    //throw InvalidFileException if WantList or BoughtWant list file is passed on
     public NeedList readNeed() throws IOException {
 
         String jsonData = readFile(file);
@@ -94,6 +93,7 @@ public class JsonReader {
     }
 
     //CITE: CPSC210 JsonSerializationDemo
+    //REQUIRES: jsonObject is a list of need items
     //EFFECTS: parses items from JSON object and adds them to need list
     private void parseNeedItems(JSONObject jsonObject, NeedList needs) {
         JSONArray jsonArray = jsonObject.getJSONArray("item");
@@ -105,6 +105,7 @@ public class JsonReader {
     }
 
     //CITE: CPSC210 JsonSerializationDemo
+    //REQUIRES: jsonObject is a list of want items
     //EFFECTS: parses items from JSON object and adds them to want list
     private void parseWantItems(JSONObject jsonObject, WantList wants) {
         JSONArray jsonArray = jsonObject.getJSONArray("item");
@@ -117,6 +118,7 @@ public class JsonReader {
     }
 
     //CITE: CPSC210 JsonSerializationDemo
+    //REQUIRES: jsonObject is a list of bought wanted items
     //EFFECTS: parses items from JSON bought-want list and adds them to bought-want list
     private void parseBoughtWantItems(JSONObject jsonObject, BoughtWantList boughtWants) {
         JSONArray jsonArray = jsonObject.getJSONArray("item");
@@ -128,6 +130,7 @@ public class JsonReader {
     }
 
 
+    //REQUIRES: jsonItem is a need item
     //EFFECTS: parses an item from JSON need list and add it to the need list
     // preserve the original order of the list
     private void parseNeed(JSONObject jsonItem, NeedList needs) {
@@ -145,6 +148,7 @@ public class JsonReader {
     }
 
 
+    //REQUIRES: jsonItem is a want item
     //EFFECTS: parses an item from JSON object and add it to the want list
     // preserve the original order of the list
     private void parseWant(JSONObject jsonItem, WantList wants) {
@@ -162,6 +166,7 @@ public class JsonReader {
     }
 
 
+    //REQUIRES: jsonItem is a bought wanted item
     //EFFECTS: parses an item from JSON object and add it to the boughWant list
     // preserve the original order of the list
     private void parseBoughtWant(JSONObject jsonItem, BoughtWantList boughtWants) {

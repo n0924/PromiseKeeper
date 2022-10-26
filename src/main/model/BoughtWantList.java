@@ -67,7 +67,7 @@ public class BoughtWantList implements ToJson, FromJson {
     }
 
     //CITE: CPSC210 JsonSerializationDemo
-    //EFFECTS: returns the want list as a JsonObject
+    //EFFECTS: returns the bought want list as a JsonObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -77,7 +77,8 @@ public class BoughtWantList implements ToJson, FromJson {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds item at the end of list, and add the total amount spent and total amount overspent on wanted items
+    //EFFECTS: adds item at the end of list, calculate the total amount spent and
+    // total amount overspent on wanted items
     @Override
     public void addLast(Item item) {
         boughtWantList.add(item);
