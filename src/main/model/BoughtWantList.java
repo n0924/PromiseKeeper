@@ -79,21 +79,20 @@ public class BoughtWantList implements ToJson, FromJson {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds item at the end of list, calculate the total amount spent and
-    // total amount overspent on wanted items
+    //EFFECTS: adds item at the end of list
     @Override
     public void addLast(Item item) {
         boughtWantList.add(item);
     }
 
     //REQUIRES: totalPrice >= 0
-    //EFFECTS: set the total price paid for wanted items
+    //EFFECTS: set the total price be the given totalPrice
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 
     //REQUIRES: overspent >= 0;
-    //EFFECTS: set the total amount overspent on wanted items
+    //EFFECTS: set the total amount overspent be the given overspent
     public void setTotalOverspent(int overspent) {
         totalOverspent = overspent;
     }

@@ -126,9 +126,9 @@ public class JsonReaderTest {
             assertEquals(3, boughtWantItems.size());
 
             assertEquals("want 3", boughtWantItems.get(0).getName());
-            assertEquals(820, boughtWantItems.get(0).getBudget());
-            assertEquals("low", boughtWantItems.get(0).getPriority());
-            assertEquals(750, boughtWantItems.get(0).getPrice());
+            assertEquals(90100, boughtWantItems.get(0).getBudget());
+            assertEquals("medium", boughtWantItems.get(0).getPriority());
+            assertEquals(0, boughtWantItems.get(0).getPrice());
 
             assertEquals("want 2", boughtWantItems.get(1).getName());
             assertEquals(1, boughtWantItems.get(1).getBudget());
@@ -136,9 +136,9 @@ public class JsonReaderTest {
             assertEquals(10, boughtWantItems.get(1).getPrice());
 
             assertEquals("want 1", boughtWantItems.get(2).getName());
-            assertEquals(90100, boughtWantItems.get(2).getBudget());
-            assertEquals("medium", boughtWantItems.get(2).getPriority());
-            assertEquals(0, boughtWantItems.get(2).getPrice());
+            assertEquals(820, boughtWantItems.get(2).getBudget());
+            assertEquals("low", boughtWantItems.get(2).getPriority());
+            assertEquals(750, boughtWantItems.get(2).getPrice());
 
             assertEquals(760, boughtWants.getTotalPrice());
             assertEquals(9, boughtWants.getTotalOverspent());

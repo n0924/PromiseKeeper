@@ -37,6 +37,6 @@ public interface PlanList {
     //EFFECTS: produce true if there is an item in list with given name
     boolean inList(String name);
 
-    //Produce a list of names of all needed items
+    //Produce a list of names of all items in the list
     List<String> toName();
 }
