@@ -1,1 +1,19 @@
-{"item":[{"price":290901,"name":"want","priority":"high","budget":20909},{"price":89,"name":"want2","priority":"medium","budget":29010},{"price":19900,"name":"want","priority":"high","budget":9100}],"total amount spent":310890,"name":"Bought Wanted List","total amount overspent":280792}
+{
+  "item": [
+    {
+      "price": 70000,
+      "name": "bough2",
+      "priority": "medium",
+      "budget": 28080
+    },
+    {
+      "price": 82,
+      "name": "bought1",
+      "priority": "high",
+      "budget": 28
+    }
+  ],
+  "total amount spent": 70082,
+  "name": "Bought Wanted List",
+  "total amount overspent": 41974
+}

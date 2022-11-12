@@ -237,7 +237,7 @@ public class PromiseKeeper {
     }
 
     //EFFECTS: show the need list
-    private void displayNeed() {
+    protected void displayNeed() {
         System.out.println("Do you want to filter by priority?");
         String yesOrNo = input.next().toLowerCase();
         String validYesOrNo = notTwoOption(yesOrNo, "yes", "no");
