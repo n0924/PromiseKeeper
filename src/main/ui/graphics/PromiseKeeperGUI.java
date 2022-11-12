@@ -94,7 +94,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
                 .toLowerCase();
         String nameInput = JOptionPane.showInputDialog("What is the name of the item?").toLowerCase();
         String priorityInput = JOptionPane.showInputDialog("Enter Priority: high, medium, low").toLowerCase();
-        String budgetInput = JOptionPane.showInputDialog("What is your budget?");
+        String budgetInput = JOptionPane.showInputDialog("What is/was your budget?");
 
         if ((listInput != null && nameInput != null) && (priorityInput != null && budgetInput != null)) {
             int budget = Integer.parseInt(budgetInput);
@@ -102,12 +102,21 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: process user input to remove item
     public void removeProcessUserInput() {
-
+        String listInput = JOptionPane.showInputDialog("Which list does this item belong to?: need, want")
+                .toLowerCase();
+        String indexInput = JOptionPane.showInputDialog("Enter the index of the item you want to remove");
+        if (indexInput != null && listInput != null) {
+            int index = Integer.parseInt(indexInput) - 1;
+            if (index >= 0) {
+                removeItem(index, listInput);
+            }
+        }
     }
 
     //MODIFIES: this
-    //EFFECT: add an item to a list
+    //EFFECT: add an item to the given list
     public void addItem(String listInput, String name, int budget, String priority) {
         if (listInput.equals("need")) {
             needDT.add(name, budget, priority);
@@ -121,6 +130,17 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
                 int price = Integer.parseInt(priceInput);
                 boughtWantDT.add(name, budget, priority, price);
             }
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: remove an item from the given list
+    public void removeItem(int index, String list) {
+        if (list.equals("need")) {
+            needDT.removeRow(index);
+        }
+        if (list.equals("want")) {
+            wantDT.removeRow(index);
         }
     }
 
