@@ -5,11 +5,10 @@ import model.NeedList;
 import model.WantList;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 
-
+//Graphical User Interface of PromiseKeeper App
 public class PromiseKeeperGUI extends JFrame implements ActionListener {
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
@@ -32,19 +31,20 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     private TableModel wantDT;
     private TableModel boughtWantDT;
 
-
+    //EFFECTS: run the graphical promise keeper
     public PromiseKeeperGUI() {
         super("Promise Keeper");
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        starterMenu();
+        designLayout();
         displayList();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-
-    public void starterMenu() {
+    //MODIFIES: this
+    //EFFECTS: design the layout of the main panel
+    public void designLayout() {
         menu = new JPanel(new GridLayout());
 
         JButton add = new JButton("Add Item");
@@ -69,14 +69,14 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         add(menu, BorderLayout.NORTH);
     }
 
+    //EFFECTS: respond to user clicking buttons
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("add")) {
             addProcessUserInput();
         } else {
             if (e.getActionCommand().equals("remove")) {
-                JOptionPane.showInputDialog("Enter the name of item you want to remove");
-                JOptionPane.showInputDialog("From which list do you want to remove from?: need, want");
+                removeProcessUserInput();
             } else {
                 if (e.getActionCommand().equals("save")) {
                     JOptionPane.showInputDialog("save");
@@ -87,6 +87,8 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: Process user input when adding an item
     public void addProcessUserInput() {
         String listInput = JOptionPane.showInputDialog("Which list do you want to add it to? : need, want, bought")
                 .toLowerCase();
@@ -100,6 +102,12 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
+    public void removeProcessUserInput() {
+
+    }
+
+    //MODIFIES: this
+    //EFFECT: add an item to a list
     public void addItem(String listInput, String name, int budget, String priority) {
         if (listInput.equals("need")) {
             needDT.add(name, budget, priority);
@@ -116,7 +124,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-
+    //EFFECTS:display the need/want/bought want items list
     public void displayList() {
         initTables();
 
@@ -131,6 +139,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         add(panel);
     }
 
+    //EFFECTS: constructs instances of TableModel
     public void initTables() {
         needDT = new TableModel();
         wantDT = new TableModel();
