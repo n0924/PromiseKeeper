@@ -3,38 +3,47 @@ package ui.graphics;
 import model.BoughtWantList;
 import model.NeedList;
 import model.WantList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
+
 
 //Graphical User Interface of PromiseKeeper App
 public class PromiseKeeperGUI extends JFrame implements ActionListener {
-    public static final int WIDTH = 1200;
-    public static final int HEIGHT = 800;
     public static final String NEED = "Need List";
     public static final String WANT = "Want List";
     public static final String BWANT = "Bought Wanted Items";
 
-    private static final String COL1 = "Name";
-    private static final String COL2 = "Budget";
-    private static final String COL3 = "Priority";
+    private static final String needListFile = "./data/needList.json";
+    private static final String wantListFile = "./data/wantList.json";
+    private static final String boughtWantListFile = "./data/boughtWantList.json";
+
+    private JsonReader jsonReaderNeed;
+    private JsonReader jsonReaderWant;
+    private JsonReader jsonReaderBoughtWant;
+    private JsonWriter jsonWriterNeed;
+    private JsonWriter jsonWriterWant;
+    private JsonWriter jsonWriterBoughtWant;
 
     private NeedList needList;
     private WantList wantList;
     private BoughtWantList boughtWantList;
 
-    JPanel menu;
-    JPanel panel;
-
     private TableModel needDT;
     private TableModel wantDT;
     private TableModel boughtWantDT;
 
+
     //EFFECTS: run the graphical promise keeper
     public PromiseKeeperGUI() {
         super("Promise Keeper");
-        setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        setMinimumSize(new Dimension(1200, 800));
+        initJson();
         designLayout();
         displayList();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,10 +51,26 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    //EFFECTS: initialize json reader/writer for each lists and the lists
+    public void initJson() {
+        jsonReaderNeed = new JsonReader(needListFile);
+        jsonReaderWant = new JsonReader(wantListFile);
+        jsonReaderBoughtWant = new JsonReader(boughtWantListFile);
+        jsonWriterNeed = new JsonWriter(needListFile);
+        jsonWriterWant = new JsonWriter(wantListFile);
+        jsonWriterBoughtWant = new JsonWriter(boughtWantListFile);
+
+        wantList = new WantList();
+        needList = new NeedList();
+        boughtWantList = new BoughtWantList();
+    }
+
+
     //MODIFIES: this
     //EFFECTS: design the layout of the main panel
     public void designLayout() {
-        menu = new JPanel(new GridLayout());
+        JPanel menu = new JPanel(new GridLayout());
+        menu.setBackground(Color.lightGray);
 
         JButton add = new JButton("Add Item");
         JButton remove = new JButton("Remove Item");
@@ -79,9 +104,11 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
                 removeProcessUserInput();
             } else {
                 if (e.getActionCommand().equals("save")) {
-                    JOptionPane.showInputDialog("save");
+                    saveProcessUserInput();
                 } else {
-                    JOptionPane.showInputDialog("load");
+                    if (e.getActionCommand().equals("load")) {
+                        loadProcessUserInput();
+                    }
                 }
             }
         }
@@ -115,6 +142,58 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: proces user input to save item
+    public void saveProcessUserInput() {
+        try {
+            needDT.convertNeedTableToList(needList);
+            wantDT.convertWantTableToList(wantList);
+            boughtWantDT.convertBoughtWantTableToList(boughtWantList);
+
+            jsonWriterNeed.open();
+            jsonWriterNeed.writeNeed(needList);
+            jsonWriterNeed.close();
+
+            jsonWriterWant.open();
+            jsonWriterWant.writeWant(wantList);
+            jsonWriterWant.close();
+
+            jsonWriterBoughtWant.open();
+            jsonWriterBoughtWant.writeBoughtWant(boughtWantList);
+            jsonWriterBoughtWant.close();
+
+            JOptionPane.showMessageDialog(null,
+                    "Saved successfully", "Save Option", JOptionPane.PLAIN_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Failed saving data", "Save Option", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: process user input to load item
+    public void loadProcessUserInput() {
+        int yesOrNo = JOptionPane.showConfirmDialog(null,
+                "Load previous data?", "Load Option", JOptionPane.OK_CANCEL_OPTION);
+        if (yesOrNo == JOptionPane.OK_OPTION) {
+            try {
+                needList = jsonReaderNeed.readNeed();
+                wantList = jsonReaderWant.readWant();
+                boughtWantList = jsonReaderBoughtWant.readBoughtWant();
+                needDT.convertNeedListToTableModel(needList);
+                wantDT.convertWantListToTableModel(wantList);
+                boughtWantDT.convertBoughtWantListToTableModel(boughtWantList);
+                JOptionPane.showMessageDialog(null,
+                        "Loaded successfully", "Load Option", JOptionPane.PLAIN_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null,
+                        "Failed loading data", "Load Option", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+
+
+
     //MODIFIES: this
     //EFFECT: add an item to the given list
     public void addItem(String listInput, String name, int budget, String priority) {
@@ -125,7 +204,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
             wantDT.add(name, budget, priority);
         }
         if (listInput.equals("bought")) {
-            String priceInput = JOptionPane.showInputDialog("How much Did you pay?").toLowerCase();
+            String priceInput = JOptionPane.showInputDialog("How much did you pay?").toLowerCase();
             if (priceInput != null) {
                 int price = Integer.parseInt(priceInput);
                 boughtWantDT.add(name, budget, priority, price);
@@ -152,7 +231,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         JPanel wantPanel = wantDT.displayWantList(WANT);
         JPanel boughtWantPanel = boughtWantDT.displayBoughtWantList(BWANT);
 
-        panel = new JPanel(new GridLayout());
+        JPanel panel = new JPanel(new GridLayout());
         panel.add(needPanel);
         panel.add(wantPanel);
         panel.add(boughtWantPanel);

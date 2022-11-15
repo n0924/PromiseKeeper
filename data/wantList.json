@@ -1,1 +1,11 @@
-{"item":[{"price":0,"name":"want2","priority":"low","budget":90812},{"price":0,"name":"want1","priority":"medium","budget":90}],"name":"Want List"}
+{
+  "item": [
+    {
+      "price": 0,
+      "name": "want1",
+      "priority": "medium",
+      "budget": 1900
+    }
+  ],
+  "name": "Want List"
+}

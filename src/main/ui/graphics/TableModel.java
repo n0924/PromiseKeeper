@@ -1,8 +1,14 @@
 package ui.graphics;
 
+import model.BoughtWantList;
+import model.Item;
+import model.NeedList;
+import model.WantList;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 //Represents the tables for the need, want, bought want lists
 public class TableModel extends DefaultTableModel {
@@ -70,4 +76,97 @@ public class TableModel extends DefaultTableModel {
         Object[] newItem = new Object[]{name, budget, priority, price};
         addRow(newItem);
     }
+
+
+    //REQUIRES: 'this' is a need table
+    //EFFECT: convert the needlist object to TableModel object
+    public void convertNeedListToTableModel(NeedList needList) {
+        List<Item> needs = needList.getList();
+        for (Item item : needs) {
+            String name = item.getName();
+            int budget = item.getBudget();
+            String priority = item.getPriority();
+
+            add(name, budget, priority);
+        }
+    }
+
+    //REQUIRES: 'this' is a want table
+    //EFFECT: convert the needlist object to TableModel object
+    public void convertWantListToTableModel(WantList wantList) {
+        List<Item> wants = wantList.getList();
+        for (Item item : wants) {
+            String name = item.getName();
+            int budget = item.getBudget();
+            String priority = item.getPriority();
+
+            add(name, budget, priority);
+        }
+    }
+
+    //REQUIRES: 'this' is a bought-wanted table
+    //EFFECT: convert the needlist object to TableModel object
+    public void convertBoughtWantListToTableModel(BoughtWantList boughtWantList) {
+        List<Item> bwants = boughtWantList.getBoughtList();
+        for (Item item : bwants) {
+            String name = item.getName();
+            int budget = item.getBudget();
+            String priority = item.getPriority();
+            int price = item.getPrice();
+
+            add(name, budget, priority, price);
+        }
+    }
+
+    //REQUIRES: 'this' is a need table
+    //EFFECTS: convert the need table to a needList
+    public void convertNeedTableToList(NeedList needList) {
+        int numRow = getRowCount() - 1;
+
+        for (int row = 0; row <= numRow; row++) {
+            Item item = rowToItem(row);
+            needList.addItem(item);
+        }
+    }
+
+    //REQUIRES: 'this' is a want table
+    //EFFECTS: convert the want table to a wantList
+    public void convertWantTableToList(WantList wantList) {
+        int numRow = getRowCount() - 1;
+
+        for (int row = 0; row <= numRow; row++) {
+            Item item = rowToItem(row);
+            wantList.addItem(item);
+        }
+    }
+
+    //REQUIRES: 'this' is a boughtWant table
+    //EFFECTS: convert the bought Want table to a boughtWantList
+    public void convertBoughtWantTableToList(BoughtWantList boughtWantList) {
+        int numRow = getRowCount() - 1;
+
+        for (int row = 0; row <= numRow; row++) {
+            int price = (Integer) getValueAt(row, 3);
+            Item item = rowToItem(row);
+            boughtWantList.addBought(item, price);
+        }
+    }
+
+
+    //EFFECTS: converts a row of a table into a Item object
+    public Item rowToItem(int row) {
+        String name = (String) getValueAt(row, 0);
+        int budget = (Integer) getValueAt(row, 1);
+        String priority = (String) getValueAt(row, 2);
+
+        Item item = new Item();
+        item.setName(name);
+        item.setBudget(budget);
+        item.setPriority(priority);
+
+        return item;
+    }
 }
+
+
+

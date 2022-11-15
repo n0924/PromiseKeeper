@@ -1,19 +1,13 @@
 {
   "item": [
     {
-      "price": 70000,
-      "name": "bough2",
-      "priority": "medium",
-      "budget": 28080
-    },
-    {
-      "price": 82,
-      "name": "bought1",
-      "priority": "high",
-      "budget": 28
+      "price": 800000,
+      "name": "bwant1",
+      "priority": "low",
+      "budget": 18000
     }
   ],
-  "total amount spent": 70082,
+  "total amount spent": 800000,
   "name": "Bought Wanted List",
-  "total amount overspent": 41974
+  "total amount overspent": 782000
 }
