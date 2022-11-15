@@ -70,8 +70,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        setVisible(false);
-        dispose();
+        remove(splashScreen);
     }
 
 
