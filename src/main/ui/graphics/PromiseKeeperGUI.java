@@ -46,7 +46,6 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         super("Promise Keeper");
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         splashScreen();
-        initJson();
         designLayout();
         displayList();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +65,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         add(splashScreen);
         setVisible(true);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -74,7 +73,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     }
 
 
-    //EFFECTS: initialize json reader/writer for each lists and the lists
+    //EFFECTS: initialize the lists and its json reader/writer
     public void initJson() {
         jsonReaderNeed = new JsonReader(needListFile);
         jsonReaderWant = new JsonReader(wantListFile);
@@ -117,6 +116,22 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         add(menu, BorderLayout.NORTH);
     }
 
+    //MODIFIES: this
+    //EFFECTS:display the need/want/bought want items list
+    public void displayList() {
+        initTables();
+
+        JPanel needPanel = needDT.displayNeedList(NEED);
+        JPanel wantPanel = wantDT.displayWantList(WANT);
+        JPanel boughtWantPanel = boughtWantDT.displayBoughtWantList(BWANT);
+
+        JPanel panel = new JPanel(new GridLayout());
+        panel.add(needPanel);
+        panel.add(wantPanel);
+        panel.add(boughtWantPanel);
+        add(panel);
+    }
+
     //EFFECTS: respond to user clicking buttons
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -140,18 +155,19 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     //MODIFIES: this
     //EFFECTS: Process user input when adding an item
     public void addProcessUserInput() {
-        String listInput = JOptionPane.showInputDialog("Which list do you want to add it to? : need, want, bought")
+        String tableInput = JOptionPane.showInputDialog("Which table do you want to add it to? : need, want, bought")
                 .toLowerCase();
         String nameInput = JOptionPane.showInputDialog("What is the name of the item?").toLowerCase();
         String priorityInput = JOptionPane.showInputDialog("Enter Priority: high, medium, low").toLowerCase();
         String budgetInput = JOptionPane.showInputDialog("What is/was your budget?");
 
-        if ((listInput != null && nameInput != null) && (priorityInput != null && budgetInput != null)) {
+        if ((tableInput != null && nameInput != null) && (priorityInput != null && budgetInput != null)) {
             int budget = Integer.parseInt(budgetInput);
-            addItem(listInput, nameInput, budget, priorityInput);
+            addItem(tableInput, nameInput, budget, priorityInput);
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: process user input to remove item
     public void removeProcessUserInput() {
         String listInput = JOptionPane.showInputDialog("Which list does this item belong to?: need, want")
@@ -170,29 +186,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         int yesOrNo = JOptionPane.showConfirmDialog(null,
                 "Save data?", "Save Option", JOptionPane.OK_CANCEL_OPTION);
         if (yesOrNo == JOptionPane.OK_OPTION) {
-            try {
-                needDT.convertNeedTableToList(needList);
-                wantDT.convertWantTableToList(wantList);
-                boughtWantDT.convertBoughtWantTableToList(boughtWantList);
-
-                jsonWriterNeed.open();
-                jsonWriterNeed.writeNeed(needList);
-                jsonWriterNeed.close();
-
-                jsonWriterWant.open();
-                jsonWriterWant.writeWant(wantList);
-                jsonWriterWant.close();
-
-                jsonWriterBoughtWant.open();
-                jsonWriterBoughtWant.writeBoughtWant(boughtWantList);
-                jsonWriterBoughtWant.close();
-
-                JOptionPane.showMessageDialog(null,
-                        "Saved successfully", "Save Option", JOptionPane.PLAIN_MESSAGE);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null,
-                        "Failed saving data", "Save Option", JOptionPane.ERROR_MESSAGE);
-            }
+            activateJsonWriter();
         }
     }
 
@@ -202,33 +196,20 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         int yesOrNo = JOptionPane.showConfirmDialog(null,
                 "Load previous data?", "Load Option", JOptionPane.OK_CANCEL_OPTION);
         if (yesOrNo == JOptionPane.OK_OPTION) {
-            try {
-                needList = jsonReaderNeed.readNeed();
-                wantList = jsonReaderWant.readWant();
-                boughtWantList = jsonReaderBoughtWant.readBoughtWant();
-                needDT.convertNeedListToTableModel(needList);
-                wantDT.convertWantListToTableModel(wantList);
-                boughtWantDT.convertBoughtWantListToTableModel(boughtWantList);
-                JOptionPane.showMessageDialog(null,
-                        "Loaded successfully", "Load Option", JOptionPane.PLAIN_MESSAGE);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null,
-                        "Failed loading data", "Load Option", JOptionPane.ERROR_MESSAGE);
-            }
+            activateJsonReader();
         }
     }
 
-
-    //MODIFIES: this
-    //EFFECT: add an item to the given list
-    public void addItem(String listInput, String name, int budget, String priority) {
-        if (listInput.equals("need")) {
+    //MODIFIES: TabelModel objects
+    //EFFECT: add an item to the given table
+    public void addItem(String tableInput, String name, int budget, String priority) {
+        if (tableInput.equals("need")) {
             needDT.add(name, budget, priority);
         }
-        if (listInput.equals("want")) {
+        if (tableInput.equals("want")) {
             wantDT.add(name, budget, priority);
         }
-        if (listInput.equals("bought")) {
+        if (tableInput.equals("bought")) {
             String priceInput = JOptionPane.showInputDialog("How much did you pay?").toLowerCase();
             if (priceInput != null) {
                 int price = Integer.parseInt(priceInput);
@@ -237,7 +218,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //MODIFIES: this
+    //MODIFIES: TabelModel objects
     //EFFECTS: remove an item from the given list
     public void removeItem(int index, String list) {
         if (list.equals("need")) {
@@ -248,20 +229,52 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //EFFECTS:display the need/want/bought want items list
-    public void displayList() {
-        initTables();
+    //EFFECTS: activates the Json writers for each lists
+    public void activateJsonWriter() {
+        try {
+            initJson();
+            needDT.convertNeedTableToList(needList);
+            wantDT.convertWantTableToList(wantList);
+            boughtWantDT.convertBoughtWantTableToList(boughtWantList);
 
-        JPanel needPanel = needDT.displayNeedList(NEED);
-        JPanel wantPanel = wantDT.displayWantList(WANT);
-        JPanel boughtWantPanel = boughtWantDT.displayBoughtWantList(BWANT);
+            jsonWriterNeed.open();
+            jsonWriterNeed.writeNeed(needList);
+            jsonWriterNeed.close();
 
-        JPanel panel = new JPanel(new GridLayout());
-        panel.add(needPanel);
-        panel.add(wantPanel);
-        panel.add(boughtWantPanel);
-        add(panel);
+            jsonWriterWant.open();
+            jsonWriterWant.writeWant(wantList);
+            jsonWriterWant.close();
+
+            jsonWriterBoughtWant.open();
+            jsonWriterBoughtWant.writeBoughtWant(boughtWantList);
+            jsonWriterBoughtWant.close();
+
+            JOptionPane.showMessageDialog(null,
+                    "Saved successfully", "Save Option", JOptionPane.PLAIN_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Failed saving data", "Save Option", JOptionPane.ERROR_MESSAGE);
+        }
     }
+
+    //EFFECTS: activates the Json readers for each lists
+    public void activateJsonReader() {
+        try {
+            initJson();
+            needList = jsonReaderNeed.readNeed();
+            wantList = jsonReaderWant.readWant();
+            boughtWantList = jsonReaderBoughtWant.readBoughtWant();
+            needDT.convertNeedListToTableModel(needList);
+            wantDT.convertWantListToTableModel(wantList);
+            boughtWantDT.convertBoughtWantListToTableModel(boughtWantList);
+            JOptionPane.showMessageDialog(null,
+                    "Loaded successfully", "Load Option", JOptionPane.PLAIN_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Failed loading data", "Load Option", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     //EFFECTS: constructs instances of TableModel
     public void initTables() {

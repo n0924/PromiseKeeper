@@ -77,7 +77,18 @@ my need, want, and bought-wanted list
 lists from file
 
 ## Instructions for Grader
-
+- You can generate the first required event related to adding 
+Xs to a Y by clicking on the "Add Item" button to add items 
+to need, want, or bought-wanted lists
+- You can generate the second required event related to adding 
+Xs to a Y by clicking on the "Remove Item" button to remove items 
+from need or want lists
+- You can locate my visual component by opening the app
+(a splash screen will be shown)
+- You can save the state of my application by
+clicking on the "Save" button
+- You can reload the state of my application by
+  clicking on the "Load Previous Data" button
 
 
 

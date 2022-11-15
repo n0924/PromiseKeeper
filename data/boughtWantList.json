@@ -1,1 +1,1 @@
-{"item":[],"total amount spent":0,"name":"Bought Wanted List","total amount overspent":0}
+{"item":[{"price":10,"name":"b1","priority":"high","budget":1},{"price":9,"name":"b2","priority":"medium","budget":2},{"price":8,"name":"b3","priority":"low","budget":3},{"price":7,"name":"b4","priority":"low","budget":7}],"total amount spent":34,"name":"Bought Wanted List","total amount overspent":21}

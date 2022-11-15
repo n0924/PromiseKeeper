@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-//Represents the tables for the need, want, bought want lists
+//Represents the tables for each lists
 public class TableModel extends DefaultTableModel {
     private static final String COL1 = "Name";
     private static final String COL2 = "Budget";
@@ -64,22 +64,24 @@ public class TableModel extends DefaultTableModel {
     }
 
     //MODIFIES: this
-    //EFFECTS: add an item with name, budget, priority
+    //EFFECTS: add an item with name, budget, priority.
+    // Latest added item comes at the top of table
     public void add(String name, int budget, String priority) {
         Object[] newItem = new Object[]{name, budget, priority};
-        addRow(newItem);
+        insertRow(0, newItem);
     }
 
     //MODIFIES: this
-    //EFFECTS: add an item name, budget, priority, price
+    //EFFECTS: add an item name, budget, priority, price.
+    // Latest added item comes at the top of table
     public void add(String name, int budget, String priority, int price) {
         Object[] newItem = new Object[]{name, budget, priority, price};
-        addRow(newItem);
+        insertRow(0,newItem);
     }
 
 
     //REQUIRES: 'this' is a need table
-    //EFFECT: convert the needlist object to TableModel object
+    //EFFECT: convert the needlist object to needTable object
     public void convertNeedListToTableModel(NeedList needList) {
         List<Item> needs = needList.getList();
         for (Item item : needs) {
@@ -92,7 +94,7 @@ public class TableModel extends DefaultTableModel {
     }
 
     //REQUIRES: 'this' is a want table
-    //EFFECT: convert the needlist object to TableModel object
+    //EFFECT: convert the wantList object to wantTable object
     public void convertWantListToTableModel(WantList wantList) {
         List<Item> wants = wantList.getList();
         for (Item item : wants) {
@@ -105,7 +107,7 @@ public class TableModel extends DefaultTableModel {
     }
 
     //REQUIRES: 'this' is a bought-wanted table
-    //EFFECT: convert the needlist object to TableModel object
+    //EFFECT: convert the boughtWantlist object to boughtWantTable object
     public void convertBoughtWantListToTableModel(BoughtWantList boughtWantList) {
         List<Item> bwants = boughtWantList.getBoughtList();
         for (Item item : bwants) {
@@ -119,7 +121,7 @@ public class TableModel extends DefaultTableModel {
     }
 
     //REQUIRES: 'this' is a need table
-    //EFFECTS: convert the need table to a needList
+    //EFFECTS: convert the needTable object to a needList object
     public void convertNeedTableToList(NeedList needList) {
         int numRow = getRowCount() - 1;
 
@@ -130,7 +132,7 @@ public class TableModel extends DefaultTableModel {
     }
 
     //REQUIRES: 'this' is a want table
-    //EFFECTS: convert the want table to a wantList
+    //EFFECTS: convert the wantTable object to a wantList object
     public void convertWantTableToList(WantList wantList) {
         int numRow = getRowCount() - 1;
 
@@ -141,7 +143,7 @@ public class TableModel extends DefaultTableModel {
     }
 
     //REQUIRES: 'this' is a boughtWant table
-    //EFFECTS: convert the bought Want table to a boughtWantList
+    //EFFECTS: convert the boughtWantTable object to a boughtWantList object
     public void convertBoughtWantTableToList(BoughtWantList boughtWantList) {
         int numRow = getRowCount() - 1;
 
@@ -153,7 +155,7 @@ public class TableModel extends DefaultTableModel {
     }
 
 
-    //EFFECTS: converts a row of a table into a Item object
+    //EFFECTS: converts and returns a row of a table into a Item object
     public Item rowToItem(int row) {
         String name = (String) getValueAt(row, 0);
         int budget = (Integer) getValueAt(row, 1);
