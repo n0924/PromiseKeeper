@@ -12,9 +12,11 @@ import java.awt.event.*;
 import java.io.IOException;
 
 
-
 //Graphical User Interface of PromiseKeeper App
 public class PromiseKeeperGUI extends JFrame implements ActionListener {
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 800;
+
     public static final String NEED = "Need List";
     public static final String WANT = "Want List";
     public static final String BWANT = "Bought Wanted Items";
@@ -42,7 +44,8 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     //EFFECTS: run the graphical promise keeper
     public PromiseKeeperGUI() {
         super("Promise Keeper");
-        setMinimumSize(new Dimension(1200, 800));
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        splashScreen();
         initJson();
         designLayout();
         displayList();
@@ -50,6 +53,27 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
+    //MODIFIES: this
+    //EFFECTS: shows a splash screen
+    public void splashScreen() {
+        ImageIcon icon = new ImageIcon("data/icon.png");
+
+        JLabel splashScreen = new JLabel("Welcome to PromiseKeeper!", icon, JLabel.CENTER);
+        splashScreen.setFont(new Font(Font.MONOSPACED, Font.BOLD, WIDTH / 50));
+        splashScreen.setVerticalTextPosition(JLabel.BOTTOM);
+        splashScreen.setHorizontalTextPosition(JLabel.CENTER);
+        add(splashScreen);
+        setVisible(true);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setVisible(false);
+        dispose();
+    }
+
 
     //EFFECTS: initialize json reader/writer for each lists and the lists
     public void initJson() {
@@ -144,28 +168,32 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
 
     //EFFECTS: proces user input to save item
     public void saveProcessUserInput() {
-        try {
-            needDT.convertNeedTableToList(needList);
-            wantDT.convertWantTableToList(wantList);
-            boughtWantDT.convertBoughtWantTableToList(boughtWantList);
+        int yesOrNo = JOptionPane.showConfirmDialog(null,
+                "Save data?", "Save Option", JOptionPane.OK_CANCEL_OPTION);
+        if (yesOrNo == JOptionPane.OK_OPTION) {
+            try {
+                needDT.convertNeedTableToList(needList);
+                wantDT.convertWantTableToList(wantList);
+                boughtWantDT.convertBoughtWantTableToList(boughtWantList);
 
-            jsonWriterNeed.open();
-            jsonWriterNeed.writeNeed(needList);
-            jsonWriterNeed.close();
+                jsonWriterNeed.open();
+                jsonWriterNeed.writeNeed(needList);
+                jsonWriterNeed.close();
 
-            jsonWriterWant.open();
-            jsonWriterWant.writeWant(wantList);
-            jsonWriterWant.close();
+                jsonWriterWant.open();
+                jsonWriterWant.writeWant(wantList);
+                jsonWriterWant.close();
 
-            jsonWriterBoughtWant.open();
-            jsonWriterBoughtWant.writeBoughtWant(boughtWantList);
-            jsonWriterBoughtWant.close();
+                jsonWriterBoughtWant.open();
+                jsonWriterBoughtWant.writeBoughtWant(boughtWantList);
+                jsonWriterBoughtWant.close();
 
-            JOptionPane.showMessageDialog(null,
-                    "Saved successfully", "Save Option", JOptionPane.PLAIN_MESSAGE);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,
-                    "Failed saving data", "Save Option", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Saved successfully", "Save Option", JOptionPane.PLAIN_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null,
+                        "Failed saving data", "Save Option", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -190,8 +218,6 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
             }
         }
     }
-
-
 
 
     //MODIFIES: this

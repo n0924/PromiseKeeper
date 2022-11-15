@@ -1,13 +1,1 @@
-{
-  "item": [
-    {
-      "price": 800000,
-      "name": "bwant1",
-      "priority": "low",
-      "budget": 18000
-    }
-  ],
-  "total amount spent": 800000,
-  "name": "Bought Wanted List",
-  "total amount overspent": 782000
-}
+{"item":[],"total amount spent":0,"name":"Bought Wanted List","total amount overspent":0}
