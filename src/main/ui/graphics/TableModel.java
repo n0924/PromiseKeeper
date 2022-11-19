@@ -81,6 +81,7 @@ public class TableModel extends DefaultTableModel {
 
 
     //REQUIRES: 'this' is a need table
+    //MODIFIES: this
     //EFFECT: convert the needlist object to needTable object
     public void convertNeedListToTableModel(NeedList needList) {
         List<Item> needs = needList.getList();
@@ -94,6 +95,7 @@ public class TableModel extends DefaultTableModel {
     }
 
     //REQUIRES: 'this' is a want table
+    //MODIFIES: this
     //EFFECT: convert the wantList object to wantTable object
     public void convertWantListToTableModel(WantList wantList) {
         List<Item> wants = wantList.getList();
@@ -107,6 +109,7 @@ public class TableModel extends DefaultTableModel {
     }
 
     //REQUIRES: 'this' is a bought-wanted table
+    //MODIFIES: this
     //EFFECT: convert the boughtWantlist object to boughtWantTable object
     public void convertBoughtWantListToTableModel(BoughtWantList boughtWantList) {
         List<Item> bwants = boughtWantList.getBoughtList();

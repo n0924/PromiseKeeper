@@ -152,7 +152,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //MODIFIES: this
+    //MODIFIES: TableModel Objects, this
     //EFFECTS: Process user input when adding an item
     public void addProcessUserInput() {
         String tableInput = JOptionPane.showInputDialog("Which table do you want to add it to? : need, want, bought")
@@ -167,7 +167,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //MODIFIES: this
+    //MODIFIES: TableModel objects, this
     //EFFECTS: process user input to remove item
     public void removeProcessUserInput() {
         String listInput = JOptionPane.showInputDialog("Which list does this item belong to?: need, want")
@@ -190,7 +190,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //MODIFIES: this
+    //MODIFIES: TableModel Object, this
     //EFFECTS: process user input to load item
     public void loadProcessUserInput() {
         int yesOrNo = JOptionPane.showConfirmDialog(null,
