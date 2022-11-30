@@ -72,10 +72,12 @@ public class ItemTest {
     void hashcodeTest() {
         Item item4 = new Item("item 1", 1, "low priority");
         Item item5 = new Item("item 1", 1, "low priority");
+        Item item6 = new Item("item 1", 1, "low priority");
 
         assertEquals(item1.hashCode(), item4.hashCode());
         assertEquals(item1.hashCode(), item1.hashCode());
         assertEquals(item1.hashCode(), item5.hashCode());
+        assertEquals(item1.hashCode(), item6.hashCode());
 
     }
 
