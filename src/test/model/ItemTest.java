@@ -60,9 +60,25 @@ public class ItemTest {
     @Test
     void equalsTest() {
         Item item4 = new Item("item 1", 1, "low priority");
+        String str = "name";
+
+        assertTrue(item1.equals(item4));
+        assertTrue(item1.equals(item1));
+        assertFalse(item1.equals(item2));
+        assertFalse(str.equals(item1));
+    }
+
+    @Test
+    void hashcodeTest() {
+        Item item4 = new Item("item 1", 1, "low priority");
+        Item item5 = new Item("item 1", 1, "low priority");
+
         assertEquals(item1, item4);
         assertEquals(item1, item1);
-        assertNotEquals(item1, item2);
+        assertEquals(item1, item5);
+
     }
+
+
 
 }
