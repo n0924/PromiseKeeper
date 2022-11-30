@@ -3,7 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 //Tests for the Item class
 public class ItemTest {
@@ -55,6 +55,14 @@ public class ItemTest {
         assertEquals(500, item2.getBudget());
         item2.setBudget(1);
         assertEquals(1, item2.getBudget());
+    }
+
+    @Test
+    void equalsTest() {
+        Item item4 = new Item("item 1", 1, "low priority");
+        assertEquals(item1, item4);
+        assertEquals(item1, item1);
+        assertNotEquals(item1, item2);
     }
 
 }
