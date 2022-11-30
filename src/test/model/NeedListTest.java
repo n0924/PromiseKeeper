@@ -4,6 +4,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,41 +22,27 @@ public class NeedListTest {
     private Item n5;
     private Item n6;
 
+    private EventLog events;
+    private List<String> descriptions;
 
     @BeforeEach
     void setup() {
         needs = new NeedList();
 
-        n1 = new Item();
-        n1.setName("needed item 1");
-        n1.setBudget(400);
-        n12 = new Item();
-        n12.setName("needed item 1");
-        n12.setBudget(800);
-        n13 = new Item();
-        n13.setName("needed item 1");
-        n13.setBudget(900);
+        n1 = new Item("needed item 1", 400, "high priority");
+        n12 = new Item("needed item 1", 800, "medium priority");
+        n13 = new Item("needed item 1", 900, "low priority");
 
-        n2 = new Item();
-        n2.setName("needed item 2");
-        n2.setBudget(1);
-        n3 = new Item();
-        n3.setName("needed item 3");
-        n3.setBudget(5000);
 
-        n4 = new Item();
-        n4.setName("needed item 4");
-        n5 = new Item();
-        n5.setName("needed item 5");
-        n6 = new Item();
-        n6.setName("needed item 6");
+        n2 = new Item("needed item 2", 1, "medium priority");
+        n3 = new Item("needed item 3", 5000, "low priority");
+        n4 = new Item("needed item 4", 80, "high priority");
+        n5 = new Item("needed item 5", 4, "medium priority");
+        n6 = new Item("needed item 6", 803, "low priority");
 
-        n1.setPriority("high priority");
-        n2.setPriority("medium priority");
-        n3.setPriority("low priority");
-        n4.setPriority("high priority");
-        n5.setPriority("medium priority");
-        n6.setPriority("low priority");
+        descriptions = new ArrayList<>();
+        events = EventLog.getInstance();
+        events.clear();
     }
 
     @Test
@@ -76,6 +63,22 @@ public class NeedListTest {
         assertEquals(n3, needs.getItemIndex(0));
         assertEquals(n2, needs.getItemIndex(1));
         assertEquals(n1, needs.getItemIndex(2));
+    }
+
+    @Test
+    void addEventTest() {
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.addItem(n3);
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("needed item 1 added to need list",descriptions.get(1));
+        assertEquals("needed item 2 added to need list", descriptions.get(2));
+        assertEquals("needed item 3 added to need list", descriptions.get(3));
     }
 
     @Test
@@ -102,6 +105,25 @@ public class NeedListTest {
 
     }
 
+    @Test
+    void addNoDuplicationEventTest() {
+        needs.addItem(n1);
+        needs.addItem(n12);
+        needs.addItem(n1);
+        needs.addItem(n13);
+        needs.addItem(n12);
+        needs.addItem(n1);
+        needs.addItem(n12);
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("needed item 1 added to need list", descriptions.get(1));
+        assertEquals(2, descriptions.size());
+    }
+
 
     @Test
     void removeTest() {
@@ -109,6 +131,14 @@ public class NeedListTest {
         needs.removeItem(n1);
 
         assertEquals(0, needs.sizeList());
+
+        for (Event event :events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("needed item 1 added to need list", descriptions.get(1));
+        assertEquals("needed item 1 removed from need list", descriptions.get(2));
     }
 
 
@@ -126,6 +156,24 @@ public class NeedListTest {
         assertEquals(0, needs.sizeList());
         assertFalse(needs.containsItem(n1));
         assertFalse(needs.containsItem(n2));
+    }
+
+    @Test
+    void remove2EventTest() {
+        needs.addItem(n1);
+        needs.addItem(n2);
+        needs.removeItem(n1);
+        needs.removeItem(n2);
+
+        for (Event event :events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("needed item 1 added to need list", descriptions.get(1));
+        assertEquals("needed item 2 added to need list", descriptions.get(2));
+        assertEquals("needed item 1 removed from need list", descriptions.get(3));
+        assertEquals("needed item 2 removed from need list", descriptions.get(4));
     }
 
     @Test

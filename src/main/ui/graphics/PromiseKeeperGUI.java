@@ -1,8 +1,8 @@
 package ui.graphics;
 
-import model.BoughtWantList;
-import model.NeedList;
-import model.WantList;
+import exception.InvalidNameException;
+import model.*;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -45,10 +45,11 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     public PromiseKeeperGUI() {
         super("Promise Keeper");
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        initLists();
         splashScreen();
         designLayout();
         displayList();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -72,48 +73,25 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         remove(splashScreen);
     }
 
-
-    //EFFECTS: initialize the lists and its json reader/writer
-    public void initJson() {
-        jsonReaderNeed = new JsonReader(needListFile);
-        jsonReaderWant = new JsonReader(wantListFile);
-        jsonReaderBoughtWant = new JsonReader(boughtWantListFile);
-        jsonWriterNeed = new JsonWriter(needListFile);
-        jsonWriterWant = new JsonWriter(wantListFile);
-        jsonWriterBoughtWant = new JsonWriter(boughtWantListFile);
-
-        wantList = new WantList();
-        needList = new NeedList();
-        boughtWantList = new BoughtWantList();
-    }
-
-
     //MODIFIES: this
     //EFFECTS: design the layout of the main panel
     public void designLayout() {
         JPanel menu = new JPanel(new GridLayout());
         menu.setBackground(Color.lightGray);
 
-        JButton add = new JButton("Add Item");
-        JButton remove = new JButton("Remove Item");
-        JButton save = new JButton("Save");
-        JButton load = new JButton("Load Previous Data");
-
-        add.addActionListener(this);
-        add.setActionCommand("add");
-        remove.addActionListener(this);
-        remove.setActionCommand("remove");
-        save.addActionListener(this);
-        save.setActionCommand("save");
-        load.addActionListener(this);
-        load.setActionCommand("load");
-
-        menu.add(add);
-        menu.add(remove);
-        menu.add(save);
-        menu.add(load);
+        createButtons(menu);
 
         add(menu, BorderLayout.NORTH);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventLog events = EventLog.getInstance();
+                for (Event event : events) {
+                    System.out.println(event.getDescription() + " at " + event.getDate());
+                }
+                System.exit(0);
+            }
+        });
     }
 
     //MODIFIES: this
@@ -155,15 +133,24 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     //MODIFIES: TableModel Objects, this
     //EFFECTS: Process user input when adding an item
     public void addProcessUserInput() {
+        String nameInput;
+
         String tableInput = JOptionPane.showInputDialog("Which table do you want to add it to? : need, want, bought")
                 .toLowerCase();
-        String nameInput = JOptionPane.showInputDialog("What is the name of the item?").toLowerCase();
-        String priorityInput = JOptionPane.showInputDialog("Enter Priority: high, medium, low").toLowerCase();
-        String budgetInput = JOptionPane.showInputDialog("What is/was your budget?");
+        nameInput = JOptionPane.showInputDialog("What is the name of the item?").toLowerCase();
 
-        if ((tableInput != null && nameInput != null) && (priorityInput != null && budgetInput != null)) {
-            int budget = Integer.parseInt(budgetInput);
-            addItem(tableInput, nameInput, budget, priorityInput);
+        try {
+            verifyValidName(nameInput, tableInput);
+            String priorityInput = JOptionPane.showInputDialog("Enter Priority: high, medium, low").toLowerCase();
+            String budgetInput = JOptionPane.showInputDialog("What is/was your budget?");
+
+            if ((tableInput != null && nameInput != null) && (priorityInput != null && budgetInput != null)) {
+                int budget = Integer.parseInt(budgetInput);
+                addItem(tableInput, nameInput, budget, priorityInput);
+            }
+        } catch (InvalidNameException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Sorry, the name is already taken.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -173,13 +160,14 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         String listInput = JOptionPane.showInputDialog("Which list does this item belong to?: need, want")
                 .toLowerCase();
         String indexInput = JOptionPane.showInputDialog("Enter the index of the item you want to remove");
-        if (indexInput != null && listInput != null) {
+        if (listInput != null && indexInput != null) {
             int index = Integer.parseInt(indexInput) - 1;
             if (index >= 0) {
                 removeItem(index, listInput);
             }
         }
     }
+
 
     //EFFECTS: proces user input to save item
     public void saveProcessUserInput() {
@@ -200,20 +188,49 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //MODIFIES: TabelModel objects
+    //MODIFIES: this
+    //EFFECTS: creates the buttons on
+    public void createButtons(JPanel menu) {
+        JButton add = new JButton("Add Item");
+        JButton remove = new JButton("Remove Item");
+        JButton save = new JButton("Save");
+        JButton load = new JButton("Load Previous Data");
+
+        add.addActionListener(this);
+        add.setActionCommand("add");
+        remove.addActionListener(this);
+        remove.setActionCommand("remove");
+        save.addActionListener(this);
+        save.setActionCommand("save");
+        load.addActionListener(this);
+        load.setActionCommand("load");
+
+        menu.add(add);
+        menu.add(remove);
+        menu.add(save);
+        menu.add(load);
+    }
+
+    //MODIFIES: TabelModel objects, List<Item>
     //EFFECT: add an item to the given table
     public void addItem(String tableInput, String name, int budget, String priority) {
+        Item item = new Item(name, budget, priority);
+
         if (tableInput.equals("need")) {
             needDT.add(name, budget, priority);
+            needList.addLast(item);
         }
         if (tableInput.equals("want")) {
             wantDT.add(name, budget, priority);
+            wantList.addLast(item);
         }
         if (tableInput.equals("bought")) {
             String priceInput = JOptionPane.showInputDialog("How much did you pay?").toLowerCase();
             if (priceInput != null) {
                 int price = Integer.parseInt(priceInput);
+                item.setPrice(price);
                 boughtWantDT.add(name, budget, priority, price);
+                boughtWantList.addLast(item);
             }
         }
     }
@@ -221,11 +238,16 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     //MODIFIES: TabelModel objects
     //EFFECTS: remove an item from the given list
     public void removeItem(int index, String list) {
+
         if (list.equals("need")) {
+            Item item = needDT.rowToItem(index);
             needDT.removeRow(index);
+            needList.removeItem(item);
         }
         if (list.equals("want")) {
+            Item item = wantDT.rowToItem(index);
             wantDT.removeRow(index);
+            wantList.removeItem(item);
         }
     }
 
@@ -233,9 +255,6 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     public void activateJsonWriter() {
         try {
             initJson();
-            needDT.convertNeedTableToList(needList);
-            wantDT.convertWantTableToList(wantList);
-            boughtWantDT.convertBoughtWantTableToList(boughtWantList);
 
             jsonWriterNeed.open();
             jsonWriterNeed.writeNeed(needList);
@@ -275,6 +294,30 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
+    //EFFECTS: return true if the input name does not already exist in the list
+    // throws InvalidNameException if the input name is alreadly used.
+    public void verifyValidName(String inputName, String list) throws InvalidNameException {
+        if (list.equals("need")) {
+            if (needList.inList(inputName)) {
+                throw new InvalidNameException();
+            }
+        }
+        if (list.equals("want")) {
+            if (wantList.inList(inputName)) {
+                throw new InvalidNameException();
+            }
+        }
+    }
+
+    //EFFECTS: initialize the lists and its json reader/writer
+    public void initJson() {
+        jsonReaderNeed = new JsonReader(needListFile);
+        jsonReaderWant = new JsonReader(wantListFile);
+        jsonReaderBoughtWant = new JsonReader(boughtWantListFile);
+        jsonWriterNeed = new JsonWriter(needListFile);
+        jsonWriterWant = new JsonWriter(wantListFile);
+        jsonWriterBoughtWant = new JsonWriter(boughtWantListFile);
+    }
 
     //EFFECTS: constructs instances of TableModel
     public void initTables() {
@@ -283,4 +326,10 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         boughtWantDT = new TableModel();
     }
 
+    //EFFECTS: constructs instances of Lists
+    public void initLists() {
+        wantList = new WantList();
+        needList = new NeedList();
+        boughtWantList = new BoughtWantList();
+    }
 }

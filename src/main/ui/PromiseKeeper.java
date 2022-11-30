@@ -116,7 +116,7 @@ public class PromiseKeeper {
     //MODIFIES: this
     //EFFECTS: adds an item to appropriate list
     private void addItem() {
-        item = new Item();
+        item = new Item("", 0, "");
 
         System.out.println("Enter the name of the item");
         String name = input.next();

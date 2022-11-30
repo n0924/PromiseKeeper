@@ -40,21 +40,9 @@ public class JsonWriterTest {
     void testWriteNeedList() {
         try {
             NeedList newNeed = new NeedList();
-            Item item1 = new Item();
-            Item item2 = new Item();
-            Item item3 = new Item();
-
-            item1.setName("need 1");
-            item1.setBudget(800);
-            item1.setPriority("high");
-
-            item2.setName("need 2");
-            item2.setBudget(90);
-            item2.setPriority("low");
-
-            item3.setName("need 3");
-            item3.setBudget(1);
-            item3.setPriority("medium");
+            Item item1 = new Item("need 1", 800, "high");
+            Item item2 = new Item("need 2", 90, "low");
+            Item item3 = new Item("need 3", 1, "medium");
 
             newNeed.addItem(item1);
             newNeed.addItem(item2);
@@ -112,21 +100,9 @@ public class JsonWriterTest {
     void testWriteWantList() {
         try {
             WantList newWant = new WantList();
-            Item item1 = new Item();
-            Item item2 = new Item();
-            Item item3 = new Item();
-
-            item1.setName("want 1");
-            item1.setBudget(1);
-            item1.setPriority("high");
-
-            item2.setName("want 2");
-            item2.setBudget(47000);
-            item2.setPriority("low");
-
-            item3.setName("want 3");
-            item3.setBudget(600);
-            item3.setPriority("medium");
+            Item item1 = new Item("want 1", 1, "high");
+            Item item2 = new Item("want 2", 47000, "low");
+            Item item3 = new Item("want 3", 600, "medium");
 
             newWant.addItem(item1);
             newWant.addItem(item2);
@@ -185,21 +161,9 @@ public class JsonWriterTest {
     void testWriteBoughtWantList() {
         try {
             BoughtWantList newBoughtWantList = new BoughtWantList();
-            Item item1 = new Item();
-            Item item2 = new Item();
-            Item item3 = new Item();
-
-            item1.setName("want 1");
-            item1.setBudget(820);
-            item1.setPriority("low");
-
-            item2.setName("want 2");
-            item2.setBudget(1);
-            item2.setPriority("high");
-
-            item3.setName("want 3");
-            item3.setBudget(90100);
-            item3.setPriority("medium");
+            Item item1 = new Item("want 1", 820, "low");
+            Item item2 = new Item("want 2", 1, "high");
+            Item item3 = new Item("want 3", 90100, "medium");
 
             newBoughtWantList.addBought(item1, 750);
             newBoughtWantList.addBought(item2, 10);

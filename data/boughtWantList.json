@@ -1,1 +1,1 @@
-{"item":[{"price":10,"name":"bwant1","priority":"medium","budget":10},{"price":5,"name":"bwant2","priority":"low","budget":20},{"price":0,"name":"bwant3","priority":"high","budget":30},{"price":5,"name":"bwant4","priority":"high","budget":40}],"total amount spent":20,"name":"Bought Wanted List","total amount overspent":0}
+{"item":[{"price":20,"name":"bwant1","priority":"medium","budget":1090},{"price":900,"name":"bwant2","priority":"high","budget":1000}],"total amount spent":0,"name":"Bought Wanted List","total amount overspent":0}

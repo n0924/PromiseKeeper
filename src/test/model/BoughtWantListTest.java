@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,21 +16,20 @@ public class BoughtWantListTest {
     private Item bw2;
     private Item bw3;
 
+    private EventLog events;
+    private List<String> descriptions;
+
 
     @BeforeEach
     void setup() {
         bwants = new BoughtWantList();
-        bw1 = new Item();
-        bw1.setName("item 1");
-        bw1.setBudget(900);
+        bw1 = new Item("item 1", 900, "high");
+        bw2 = new Item("item 2", 10, "medium");
+        bw3 = new Item("item 3", 1, "low");
 
-        bw2 = new Item();
-        bw2.setName("item 2");
-        bw2.setBudget(10);
-
-        bw3 = new Item();
-        bw3.setName("item 3");
-        bw3.setBudget(1);
+        descriptions = new ArrayList<>();
+        events = EventLog.getInstance();
+        events.clear();
     }
 
     @Test
@@ -47,6 +47,13 @@ public class BoughtWantListTest {
 
         assertEquals(800, bwants.getTotalPrice());
         assertEquals(0, bwants.getTotalOverspent());
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("item 1 added to bought want list", descriptions.get(1));
     }
 
     @Test
@@ -61,6 +68,20 @@ public class BoughtWantListTest {
 
         assertEquals(1080, bwants.getTotalPrice());
         assertEquals(170, bwants.getTotalOverspent());
+    }
+
+    @Test
+    void addBoughtMultipleEventTest() {
+        bwants.addBought(bw1, 1000);
+        bwants.addBought(bw2, 80);
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("item 1 added to bought want list", descriptions.get(1));
+        assertEquals("item 2 added to bought want list", descriptions.get(2));
     }
 
     @Test

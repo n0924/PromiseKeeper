@@ -32,6 +32,7 @@ public class NeedList implements PlanList, ToJson, FromJson {
 
         if (!names.contains(item.getName())) {
             needList.add(0, item);
+            EventLog.getInstance().logEvent(new Event(item.getName() + " added to need list"));
         }
     }
 
@@ -41,6 +42,7 @@ public class NeedList implements PlanList, ToJson, FromJson {
     @Override
     public void removeItem(Item item) {
         needList.remove(item);
+        EventLog.getInstance().logEvent(new Event(item.getName() + " removed from need list"));
     }
 
     //REQUIRES: sizeList >= 0
@@ -71,7 +73,6 @@ public class NeedList implements PlanList, ToJson, FromJson {
     }
 
 
-
     //EFFECTS: produce true if there is an item in list with given name
     @Override
     public boolean inList(String name) {
@@ -89,7 +90,7 @@ public class NeedList implements PlanList, ToJson, FromJson {
     //EFFECTS: get the item with that name from the list
     @Override
     public Item getItem(String name) {
-        Item foundItem = new Item();
+        Item foundItem = new Item("", 0, "");
         for (Item itemInList : needList) {
             if (name.equals(itemInList.getName())) {
                 foundItem = itemInList;
@@ -141,5 +142,6 @@ public class NeedList implements PlanList, ToJson, FromJson {
     @Override
     public void addLast(Item item) {
         needList.add(item);
+        EventLog.getInstance().logEvent(new Event(item.getName() + " added to need list"));
     }
 }

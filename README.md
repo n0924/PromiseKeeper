@@ -91,6 +91,35 @@ clicking on the "Save" button
   clicking on the "Load Previous Data" button
 
 
+## "Phase 4: Task 2"
+#### Sample:
+need1 added to need list at Tue Nov 29 22:02:43 PST 2022
+<br>
+need2 added to need list at Tue Nov 29 22:02:43 PST 2022
+<br>
+want1 added to want list at Tue Nov 29 22:02:43 PST 2022
+<br>
+bwant1 added to bought want list at Tue Nov 29 22:02:43 PST 2022
+<br>
 
+need3 added to need list at Tue Nov 29 22:02:52 PST 2022
+<br>
+want2 added to want list at Tue Nov 29 22:03:04 PST 2022
+<br>
+need2 removed from need list at Tue Nov 29 22:03:08 PST 2022
+<br>
+want2 removed from want list at Tue Nov 29 22:03:11 PST 2022
+<br>
+bwant2 added to bought want list at Tue Nov 29 22:03:24 PST 2022
 
-  
+The first four lines correspond to the user loading the data. 
+We are essentially 'adding' items from Json files to the 
+the each list. 
+Therefore, the previous added items 
+will be logged, but the previously removed items will not 
+be logged in the subsequent run
+(since removed items do not get saved to the JSON files).
+
+<br>
+If an item is added or removed, the console will print out 
+'item name' added to/removed from 'list name' at 'time'. 

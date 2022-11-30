@@ -12,38 +12,22 @@ public class ItemTest {
 
     @BeforeEach
     void setup() {
-        item1 = new Item();
-        item1.setName("item 1");
-        item1.setBudget(1);
-        item1.setPriority("low priority");
-
-        item2 = new Item();
-        item2.setName("item 2");
-        item2.setBudget(500);
-        item2.setPriority("high priority");
+        item1 = new Item("item 1", 1, "low priority");
+        item2 = new Item("item 2", 500, "high priority");
     }
 
     @Test
     void constructorTest() {
-        assertEquals(0, item1.getPrice());
-        assertEquals(0, item2.getPrice());
-    }
-
-    @Test
-    void gettersItem1Test() {
         assertEquals("item 1", item1.getName());
         assertEquals(1, item1.getBudget());
         assertEquals("low priority", item1.getPriority());
         assertEquals(0, item1.getPrice());
 
-    }
-
-    @Test
-    void gettersItem2Test() {
         assertEquals("item 2", item2.getName());
         assertEquals(500, item2.getBudget());
         assertEquals("high priority", item2.getPriority());
         assertEquals(0, item2.getPrice());
+
     }
 
     @Test

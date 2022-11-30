@@ -123,53 +123,13 @@ public class TableModel extends DefaultTableModel {
         }
     }
 
-    //REQUIRES: 'this' is a need table
-    //EFFECTS: convert the needTable object to a needList object
-    public void convertNeedTableToList(NeedList needList) {
-        int numRow = getRowCount() - 1;
-
-        for (int row = 0; row <= numRow; row++) {
-            Item item = rowToItem(row);
-            needList.addItem(item);
-        }
-    }
-
-    //REQUIRES: 'this' is a want table
-    //EFFECTS: convert the wantTable object to a wantList object
-    public void convertWantTableToList(WantList wantList) {
-        int numRow = getRowCount() - 1;
-
-        for (int row = 0; row <= numRow; row++) {
-            Item item = rowToItem(row);
-            wantList.addItem(item);
-        }
-    }
-
-    //REQUIRES: 'this' is a boughtWant table
-    //EFFECTS: convert the boughtWantTable object to a boughtWantList object
-    public void convertBoughtWantTableToList(BoughtWantList boughtWantList) {
-        int numRow = getRowCount() - 1;
-
-        for (int row = 0; row <= numRow; row++) {
-            int price = (Integer) getValueAt(row, 3);
-            Item item = rowToItem(row);
-            boughtWantList.addBought(item, price);
-        }
-    }
-
-
     //EFFECTS: converts and returns a row of a table into a Item object
     public Item rowToItem(int row) {
         String name = (String) getValueAt(row, 0);
         int budget = (Integer) getValueAt(row, 1);
         String priority = (String) getValueAt(row, 2);
 
-        Item item = new Item();
-        item.setName(name);
-        item.setBudget(budget);
-        item.setPriority(priority);
-
-        return item;
+        return new Item(name, budget,priority);
     }
 }
 

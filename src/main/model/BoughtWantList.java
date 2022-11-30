@@ -33,6 +33,7 @@ public class BoughtWantList implements ToJson, FromJson {
         if (item.getPrice() > item.getBudget()) {
             totalOverspent += item.getPrice() - item.getBudget();
         }
+        EventLog.getInstance().logEvent(new Event(item.getName() + " added to bought want list"));
     }
 
     //REQUIRES: boughtWant list is non-empty
@@ -83,6 +84,7 @@ public class BoughtWantList implements ToJson, FromJson {
     @Override
     public void addLast(Item item) {
         boughtWantList.add(item);
+        EventLog.getInstance().logEvent(new Event(item.getName() + " added to bought want list"));
     }
 
     //REQUIRES: totalPrice >= 0

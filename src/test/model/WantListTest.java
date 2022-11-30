@@ -3,6 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,35 +21,24 @@ public class WantListTest {
     private Item w5;
     private Item w6;
 
+    private EventLog events;
+    private List<String> descriptions;
+
     @BeforeEach
     void setup() {
         wants = new WantList();
 
-        w1 = new Item();
-        w1.setName("wanted item 1");
-        w1.setBudget(90);
+        w1 = new Item("wanted item 1", 90, "High Priority");
+        w2 = new Item("wanted item 2", 150, "Medium Priority");
+        w3 = new Item("wanted item 3", 1, "Low Priority");
+        w4 = new Item("wanted item 4", 80, "High Priority");
+        w5 = new Item("wanted item 5", 1091, "Medium Priority");
+        w6 = new Item("wanted item 6", 10901, "Low Priority");
 
-        w2 = new Item();
-        w2.setName("wanted item 2");
-        w2.setBudget(150);
+        descriptions = new ArrayList<>();
 
-        w3 = new Item();
-        w3.setName("wanted item 3");
-        w3.setBudget(1);
-
-        w4 = new Item();
-        w4.setName("wanted item 4");
-        w5 = new Item();
-        w5.setName("wanted item 5");
-        w6 = new Item();
-        w6.setName("wanted item 6");
-
-        w1.setPriority("High Priority");
-        w2.setPriority("Medium Priority");
-        w3.setPriority("Low Priority");
-        w4.setPriority("High Priority");
-        w5.setPriority("Medium Priority");
-        w6.setPriority("Low Priority");
+        events = EventLog.getInstance();
+        events.clear();
     }
 
     @Test
@@ -73,6 +63,22 @@ public class WantListTest {
     }
 
     @Test
+    void addEventTest() {
+        wants.addItem(w3);
+        wants.addItem(w2);
+        wants.addItem(w1);
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("wanted item 3 added to want list", descriptions.get(1));
+        assertEquals("wanted item 2 added to want list", descriptions.get(2));
+        assertEquals("wanted item 1 added to want list", descriptions.get(3));
+    }
+
+    @Test
     void addNoDuplicationTest() {
         wants.addItem(w1);
         wants.addItem(w1);
@@ -82,6 +88,14 @@ public class WantListTest {
         assertEquals(2, wants.sizeList());
         assertEquals(w2, wants.getItemIndex(0));
         assertEquals(w1, wants.getItemIndex(1));
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+        assertEquals("wanted item 1 added to want list", descriptions.get(1));
+        assertEquals("wanted item 2 added to want list", descriptions.get(2));
+        assertEquals(3, descriptions.size());
     }
 
     @Test
@@ -89,6 +103,14 @@ public class WantListTest {
         wants.addItem(w1);
         wants.removeItem(w1);
         assertEquals(0, wants.sizeList());
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("wanted item 1 added to want list", descriptions.get(1));
+        assertEquals("wanted item 1 removed from want list", descriptions.get(2));
     }
 
     @Test
@@ -105,6 +127,24 @@ public class WantListTest {
         assertFalse(wants.containsItem(w1));
         assertFalse(wants.containsItem(w2));
         assertEquals(0, wants.sizeList());
+    }
+
+    @Test
+    void remove2EventTest() {
+        wants.addItem(w1);
+        wants.addItem(w2);
+        wants.removeItem(w2);
+        wants.removeItem(w1);
+
+        for (Event event : events) {
+            String description = event.getDescription();
+            descriptions.add(description);
+        }
+
+        assertEquals("wanted item 1 added to want list", descriptions.get(1));
+        assertEquals("wanted item 2 added to want list", descriptions.get(2));
+        assertEquals("wanted item 2 removed from want list", descriptions.get(3));
+        assertEquals("wanted item 1 removed from want list", descriptions.get(4));
     }
 
     @Test
