@@ -60,12 +60,19 @@ public class ItemTest {
     @Test
     void equalsTest() {
         Item item4 = new Item("item 1", 1, "low priority");
+        Item item5 = new Item("item 2", 1, "low priority");
+        Item item6 = new Item("item 1", 2, "low priority");
+        Item item7 = new Item("item 1", 1, "high priority");
         String str = "name";
 
         assertEquals(item1, item4);
         assertEquals(item1, item1);
         assertNotEquals(item1, item2);
         assertFalse(item1.equals(str));
+
+        assertNotEquals(item1, item5);
+        assertNotEquals(item1, item6);
+        assertNotEquals(item1, item7);
     }
 
     @Test
