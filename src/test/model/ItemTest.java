@@ -62,10 +62,10 @@ public class ItemTest {
         Item item4 = new Item("item 1", 1, "low priority");
         String str = "name";
 
-        assertTrue(item1.equals(item4));
-        assertTrue(item1.equals(item1));
-        assertFalse(item1.equals(item2));
-        assertFalse(str.equals(item1));
+        assertEquals(item1, item4);
+        assertEquals(item1, item1);
+        assertNotEquals(item1, item2);
+        assertNotEquals(str, item1);
     }
 
     @Test
@@ -73,9 +73,9 @@ public class ItemTest {
         Item item4 = new Item("item 1", 1, "low priority");
         Item item5 = new Item("item 1", 1, "low priority");
 
-        assertEquals(item1, item4);
-        assertEquals(item1, item1);
-        assertEquals(item1, item5);
+        assertEquals(item1.hashCode(), item4.hashCode());
+        assertEquals(item1.hashCode(), item1.hashCode());
+        assertEquals(item1.hashCode(), item5.hashCode());
 
     }
 
