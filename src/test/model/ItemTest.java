@@ -73,6 +73,9 @@ public class ItemTest {
         assertNotEquals(item1, item5);
         assertNotEquals(item1, item6);
         assertNotEquals(item1, item7);
+
+        item1.setPrice(3);
+        assertNotEquals(item1, item4);
     }
 
     @Test
