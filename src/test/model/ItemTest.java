@@ -65,7 +65,7 @@ public class ItemTest {
         assertEquals(item1, item4);
         assertEquals(item1, item1);
         assertNotEquals(item1, item2);
-        assertNotEquals(str, item1);
+        assertFalse(item1.equals(str));
     }
 
     @Test
