@@ -131,7 +131,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     }
 
     //MODIFIES: TableModel Objects, this
-    //EFFECTS: Process user input when adding an item
+    //EFFECTS: Process user input when adding an item, no duplicated name is allowed
     public void addProcessUserInput() {
         String nameInput;
 
@@ -189,7 +189,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     }
 
     //MODIFIES: this
-    //EFFECTS: creates the buttons on
+    //EFFECTS: creates the buttons on JPanel
     public void createButtons(JPanel menu) {
         JButton add = new JButton("Add Item");
         JButton remove = new JButton("Remove Item");
@@ -294,8 +294,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //EFFECTS: return true if the input name does not already exist in the list
-    // throws InvalidNameException if the input name is alreadly used.
+    //EFFECTS: throws InvalidNameException if the input name is alreadly used.
     public void verifyValidName(String inputName, String list) throws InvalidNameException {
         if (list.equals("need")) {
             if (needList.inList(inputName)) {
