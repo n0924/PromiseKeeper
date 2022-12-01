@@ -126,4 +126,24 @@ If an item is added or removed, the console will print out
 
 
 
-## "Phase 4: Task 3"
+## Phase 4: Task 3 
+
+- As shown in the UML diagram, all three classes of 
+NeedList, WantList, and BoughtWantList are a list of 'Item's. 
+Since the three lists have similar functionality, it
+would be better to refactor the 
+NeedList, WantList, and BoughtWantList into a single class instead,
+with an id (integer) or a name (string) that indicates each list. 
+
+
+
+
+
+
+
+
+
+
+
+
+

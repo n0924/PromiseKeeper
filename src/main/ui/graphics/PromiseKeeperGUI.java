@@ -45,6 +45,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         super("Promise Keeper");
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         initLists();
+        initJson();
         splashScreen();
         designLayout();
         displayList();
@@ -253,8 +254,6 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     //EFFECTS: activates the Json writers for each lists
     public void activateJsonWriter() {
         try {
-            initJson();
-
             jsonWriterNeed.open();
             jsonWriterNeed.writeNeed(needList);
             jsonWriterNeed.close();
@@ -278,7 +277,6 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
     //EFFECTS: activates the Json readers for each lists
     public void activateJsonReader() {
         try {
-            initJson();
             needList = jsonReaderNeed.readNeed();
             wantList = jsonReaderWant.readWant();
             boughtWantList = jsonReaderBoughtWant.readBoughtWant();
