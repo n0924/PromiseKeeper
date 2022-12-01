@@ -1,6 +1,5 @@
 package ui.graphics;
 
-import exception.InvalidNameException;
 import model.*;
 import model.Event;
 import persistence.JsonReader;
@@ -148,7 +147,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
                 int budget = Integer.parseInt(budgetInput);
                 addItem(tableInput, nameInput, budget, priorityInput);
             }
-        } catch (InvalidNameException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
                     "Sorry, the name is already taken.", "Error", JOptionPane.WARNING_MESSAGE);
         }
@@ -294,16 +293,16 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //EFFECTS: throws InvalidNameException if the input name is alreadly used.
-    public void verifyValidName(String inputName, String list) throws InvalidNameException {
+    //EFFECTS: throws Exception if the input name is alreadly used.
+    public void verifyValidName(String inputName, String list) throws Exception {
         if (list.equals("need")) {
             if (needList.inList(inputName)) {
-                throw new InvalidNameException();
+                throw new Exception();
             }
         }
         if (list.equals("want")) {
             if (wantList.inList(inputName)) {
-                throw new InvalidNameException();
+                throw new Exception();
             }
         }
     }
