@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +24,8 @@ public class WantListTest {
 
     private EventLog events;
     private List<String> descriptions;
+    private List<Date> dates;
+    private List<Event> eventList;
 
     @BeforeEach
     void setup() {
@@ -36,6 +39,8 @@ public class WantListTest {
         w6 = new Item("wanted item 6", 10901, "Low Priority");
 
         descriptions = new ArrayList<>();
+        dates = new ArrayList<>();
+        eventList = new ArrayList<>();
 
         events = EventLog.getInstance();
         events.clear();
@@ -139,12 +144,30 @@ public class WantListTest {
         for (Event event : events) {
             String description = event.getDescription();
             descriptions.add(description);
+
+            Date date = event.getDate();
+            dates.add(date);
+
+            eventList.add(event);
         }
 
         assertEquals("wanted item 1 added to want list", descriptions.get(1));
         assertEquals("wanted item 2 added to want list", descriptions.get(2));
         assertEquals("wanted item 2 removed from want list", descriptions.get(3));
         assertEquals("wanted item 1 removed from want list", descriptions.get(4));
+
+        assertEquals(5, dates.size());
+
+        assertEquals(dates.get(1) + "\n" + descriptions.get(1), eventList.get(1).toString());
+        assertEquals(dates.get(2) + "\n" + descriptions.get(2), eventList.get(2).toString());
+        assertEquals(dates.get(3) + "\n" + descriptions.get(3), eventList.get(3).toString());
+        assertEquals(dates.get(4) + "\n" + descriptions.get(4), eventList.get(4).toString());
+
+        assertEquals(eventList.get(4), eventList.get(4));
+        assertNotEquals(eventList.get(1), eventList.get(4));
+        assertNotEquals(eventList.get(4), null);
+        assertNotEquals(eventList.get(4), w1);
+        assertEquals(eventList.get(4). hashCode(), eventList.get(4).hashCode());
     }
 
     @Test

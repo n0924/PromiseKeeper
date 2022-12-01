@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +19,8 @@ public class BoughtWantListTest {
 
     private EventLog events;
     private List<String> descriptions;
+    private List<Date> dates;
+    private List<Event> eventList;
 
 
     @BeforeEach
@@ -28,6 +31,8 @@ public class BoughtWantListTest {
         bw3 = new Item("item 3", 1, "low");
 
         descriptions = new ArrayList<>();
+        dates = new ArrayList<>();
+        eventList = new ArrayList<>();
         events = EventLog.getInstance();
         events.clear();
     }
@@ -78,10 +83,27 @@ public class BoughtWantListTest {
         for (Event event : events) {
             String description = event.getDescription();
             descriptions.add(description);
+
+            Date date = event.getDate();
+            dates.add(date);
+
+            eventList.add(event);
         }
 
         assertEquals("item 1 added to bought want list", descriptions.get(1));
         assertEquals("item 2 added to bought want list", descriptions.get(2));
+
+
+        assertEquals(3, dates.size());
+
+        assertEquals(dates.get(1) + "\n" + descriptions.get(1), eventList.get(1).toString());
+        assertEquals(dates.get(2) + "\n" + descriptions.get(2), eventList.get(2).toString());
+
+        assertEquals(eventList.get(2), eventList.get(2));
+        assertNotEquals(eventList.get(2), eventList.get(0));
+        assertNotEquals(eventList.get(2), null);
+        assertNotEquals(eventList.get(2), descriptions.get(1));
+        assertEquals(eventList.get(2). hashCode(), eventList.get(2).hashCode());
     }
 
     @Test
