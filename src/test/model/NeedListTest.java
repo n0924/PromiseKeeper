@@ -101,6 +101,9 @@ public class NeedListTest {
         assertNotEquals(eventList.get(1), null);
         assertNotEquals(eventList.get(1), dates.get(1));
         assertEquals(eventList.get(1). hashCode(), eventList.get(1).hashCode());
+
+        Event event1 = new Event(eventList.get(2).getDescription());
+        assertNotEquals(event1, eventList.get(2));
     }
 
     @Test

@@ -93,9 +93,7 @@ public class BoughtWantListTest {
         assertEquals("item 1 added to bought want list", descriptions.get(1));
         assertEquals("item 2 added to bought want list", descriptions.get(2));
 
-
         assertEquals(3, dates.size());
-
         assertEquals(dates.get(1) + "\n" + descriptions.get(1), eventList.get(1).toString());
         assertEquals(dates.get(2) + "\n" + descriptions.get(2), eventList.get(2).toString());
 
@@ -104,6 +102,9 @@ public class BoughtWantListTest {
         assertNotEquals(eventList.get(2), null);
         assertNotEquals(eventList.get(2), descriptions.get(1));
         assertEquals(eventList.get(2). hashCode(), eventList.get(2).hashCode());
+
+        Event event1 = new Event(eventList.get(1).getDescription());
+        assertNotEquals(event1, eventList.get(1));
     }
 
     @Test

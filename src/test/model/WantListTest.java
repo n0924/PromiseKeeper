@@ -168,6 +168,9 @@ public class WantListTest {
         assertNotEquals(eventList.get(4), null);
         assertNotEquals(eventList.get(4), w1);
         assertEquals(eventList.get(4). hashCode(), eventList.get(4).hashCode());
+
+        Event event1 = new Event(eventList.get(3).getDescription());
+        assertNotEquals(event1, eventList.get(3));
     }
 
     @Test
