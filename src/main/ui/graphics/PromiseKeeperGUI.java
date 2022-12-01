@@ -5,6 +5,7 @@ import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.naming.InvalidNameException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -148,7 +149,7 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
                 int budget = Integer.parseInt(budgetInput);
                 addItem(tableInput, nameInput, budget, priorityInput);
             }
-        } catch (Exception e) {
+        } catch (InvalidNameException e) {
             JOptionPane.showMessageDialog(null,
                     "Sorry, the name is already taken.", "Error", JOptionPane.WARNING_MESSAGE);
         }
@@ -291,16 +292,17 @@ public class PromiseKeeperGUI extends JFrame implements ActionListener {
         }
     }
 
-    //EFFECTS: throws Exception if the input name is alreadly used.
-    public void verifyValidName(String inputName, String list) throws Exception {
+    //EFFECTS: throws InvalidNameException if the input name is alreadly used in the NeedList or WantList
+    //the boughtWantList can have duplicated names since we do not remove item from that list.
+    public void verifyValidName(String inputName, String list) throws InvalidNameException {
         if (list.equals("need")) {
             if (needList.inList(inputName)) {
-                throw new Exception();
+                throw new InvalidNameException();
             }
         }
         if (list.equals("want")) {
             if (wantList.inList(inputName)) {
-                throw new Exception();
+                throw new InvalidNameException();
             }
         }
     }

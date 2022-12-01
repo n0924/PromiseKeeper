@@ -128,14 +128,34 @@ If an item is added or removed, the console will print out
 
 ## Phase 4: Task 3 
 
-- As shown in the UML diagram, all three classes of 
-NeedList, WantList, and BoughtWantList are a list of 'Item's. 
-Since the three lists have similar functionality, it
-would be better to refactor the 
-NeedList, WantList, and BoughtWantList into a single class instead,
-with an id (integer) or a name (string) that indicates each list. 
+- The
+NeedList, WantList are a list of 'Item's, and have nearly identical
+functionality. Thus, it would be better to refactor the two list 
+classes into a single class, instead of having both classes implement 
+the 'PlanList' interface. This can be achieved by setting a field that 
+represent an id (integer) or a name (string) that distinguish
+each list. 
+By doing so, it would be easier to update a feature (method) that is 
+common in both lists.
+
+<br>
+
+- Also, the ToJson class and FromJson class have one method each,
+and are implemented by all three classes. Thus, we can merge 
+the ToJson and FromJson method into a single interface that 
+has all the methods related to preserving data in JSON. 
 
 
+<br>
+
+<br> 
+
+- Furthermore, the program can be made significanly more robust 
+by using Exceptions. The classes, NeedList, WantList,
+BoughtWantList, and the PromiseKeeper(ui), have a lot of methods that
+have a 'REQUIRES' clause. To handle unexpected user input,
+this app can be refactored using Exceptions, rather than using 
+'while' loops for instance. 
 
 
 
