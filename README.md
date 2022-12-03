@@ -113,8 +113,8 @@ want2 removed from want list at Tue Nov 29 22:03:11 PST 2022
 bwant2 added to bought want list at Tue Nov 29 22:03:24 PST 2022
 
 The first four lines correspond to the user loading the data. 
-We are essentially 'adding' items from Json files to the 
-the each list. 
+We are essentially 'adding' items from Json files to 
+each list. 
 Therefore, the previous added items 
 will be logged, but the previously removed items will not 
 be logged in the subsequent run
@@ -129,11 +129,11 @@ If an item is added or removed, the console will print out
 ## Phase 4: Task 3 
 
 - The
-NeedList, WantList are a list of 'Item's, and have nearly identical
+NeedList and the WantList are a list of 'Item's, and have nearly identical
 functionality. Thus, it would be better to refactor the two list 
 classes into a single class, instead of having both classes implement 
 the 'PlanList' interface. This can be achieved by setting a field that 
-represent an id (integer) or a name (string) that distinguish
+represent an id (integer), name (string) or a boolean that distinguish
 each list. 
 By doing so, it would be easier to update a feature (method) that is 
 common in both lists.
@@ -141,8 +141,8 @@ common in both lists.
 <br>
 
 - Also, the ToJson class and FromJson class have one method each,
-and are implemented by all three classes. Thus, we can merge 
-the ToJson and FromJson method into a single interface that 
+and are implemented by all three list classes. Thus, we can merge 
+the ToJson and FromJson interfaces into a single interface that 
 has all the methods related to preserving data in JSON. 
 
 
