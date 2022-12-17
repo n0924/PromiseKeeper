@@ -1,7 +1,7 @@
 # PromiseKeeper
 
 ## Better transparency, better financial management 
-#### *Personal Project: CPSC 210*
+
 <br>
 
 **PromiseKeeper simplifies the process of 
